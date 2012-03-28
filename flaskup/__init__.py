@@ -11,6 +11,7 @@ app = Flask(__name__)
 app.config.from_object(__name__)
 app.config.from_envvar('FLASKUP_CONFIG')
 
-# Load views
+# Load dependencies 
 import flaskup.views
+import flaskup.filters
 

@@ -6,7 +6,7 @@ from werkzeug import secure_filename
 from flask import render_template, url_for, redirect, request, abort
 from flask import send_file
 from flaskup import app
-from flaskup.jsonencoder import FlaskupJSONEncoder
+from flaskup.jsonencoder import datetime_encoder, datetime_decoder
 
 JSON_FILENAME = 'data.json'
 
@@ -25,7 +25,7 @@ def key_to_path(key):
 def gen_key(file):
     count = 0
     while count < 10:
-        key = uuid.uuid4().hex[:4]
+        key = uuid.uuid4().hex
         relative_path = key_to_path(key)
         path = os.path.join(app.config['UPLOAD_FOLDER'], relative_path)
         if not os.path.exists(path):
@@ -50,7 +50,7 @@ def get_file_info(key):
     relative_path = key_to_path(key)
     path = os.path.join(app.config['UPLOAD_FOLDER'], relative_path)
     with open(os.path.join(path, JSON_FILENAME)) as json_file:
-        infos = simplejson.load(json_file)
+        infos = simplejson.load(json_file, object_hook=datetime_decoder)
     return infos
     
 
@@ -60,6 +60,10 @@ def show_upload_form():
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
+    if not 'file' in request.files:
+        error = "You must choose a file."
+        return render_template('show_upload_form.html', error=error)
+
     file = request.files['file']
     if file:
         # save file
@@ -67,7 +71,7 @@ def upload_file():
 
         # number of days to keep the file
         expire_days = app.config['MAX_DAYS']
-        if request.form['days']:
+        if 'days' in request.form:
             expire_days = int(request.form['days'])
             if expire_days > app.config['MAX_DAYS']:
                 expire_days = app.config['MAX_DAYS']
@@ -83,12 +87,15 @@ def upload_file():
         infos['expire_date'] = expire_date
         path = os.path.join(app.config['UPLOAD_FOLDER'], relative_path)
         with open(os.path.join(path, JSON_FILENAME), 'w') as json_file:
-            simplejson.dump(infos, json_file, cls=FlaskupJSONEncoder)
+            simplejson.dump(infos, json_file, cls=datetime_encoder)
 
         # all is successful, redirect the user
         return redirect(url_for('show_uploaded_file', key=key))
+    else:
+        error = "You must choose a file."
+        return render_template('show_upload_form.html', error=error)
 
-@app.route('/uploaded/<key>')
+@app.route('/uploaded/<key>/')
 def show_uploaded_file(key):
     try:
         infos = get_file_info(key)
@@ -96,7 +103,7 @@ def show_uploaded_file(key):
         abort(404)
     return render_template('show_uploaded_file.html', infos=infos)
 
-@app.route('/get/<key>')
+@app.route('/get/<key>/')
 def show_get_file(key):
     try:
         infos = get_file_info(key)
@@ -108,9 +115,10 @@ def show_get_file(key):
 def get_file(key, filename):
     infos = get_file_info(key)
     if infos['filename'] == filename:
-        return send_file(os.path.join(infos['path'], filename),
-                         as_attachment=True,
-                         attachment_filename=infos['filename'])
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], infos['path'],
+                                filename)
+        return send_file(filepath, as_attachment=True,
+                         attachment_filename=filename)
     else:
         abort(404)
 
