@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
 import os, base64, simplejson, uuid
-from datetime import datetime, timedelta
+from datetime import date, timedelta
 from werkzeug import secure_filename
 from flask import render_template, url_for, redirect, request, abort
 from flask import send_file
 from flaskup import app
-from flaskup.jsonencoder import datetime_encoder, datetime_decoder
+from flaskup.jsonencoder import date_encoder, date_decoder
 
 JSON_FILENAME = 'data.json'
 
@@ -50,7 +50,7 @@ def get_file_info(key):
     relative_path = key_to_path(key)
     path = os.path.join(app.config['UPLOAD_FOLDER'], relative_path)
     with open(os.path.join(path, JSON_FILENAME)) as json_file:
-        infos = simplejson.load(json_file, object_hook=datetime_decoder)
+        infos = simplejson.load(json_file, object_hook=date_decoder)
     return infos
     
 
@@ -75,7 +75,7 @@ def upload_file():
             expire_days = int(request.form['days'])
             if expire_days > app.config['MAX_DAYS']:
                 expire_days = app.config['MAX_DAYS']
-        expire_date = datetime.now() + timedelta(expire_days)
+        expire_date = date.today() + timedelta(expire_days)
 
         # store informations to keep with the file
         infos = {}
@@ -83,11 +83,12 @@ def upload_file():
         infos['key'] = key
         infos['path'] = relative_path
         infos['upload_client'] = request.environ['REMOTE_ADDR']
-        infos['upload_date'] = datetime.now()
+        infos['upload_date'] = date.today()
         infos['expire_date'] = expire_date
+        infos['expire_days'] = expire_days
         path = os.path.join(app.config['UPLOAD_FOLDER'], relative_path)
         with open(os.path.join(path, JSON_FILENAME), 'w') as json_file:
-            simplejson.dump(infos, json_file, cls=datetime_encoder)
+            simplejson.dump(infos, json_file, cls=date_encoder)
 
         # all is successful, redirect the user
         return redirect(url_for('show_uploaded_file', key=key))
