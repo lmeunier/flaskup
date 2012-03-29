@@ -1,12 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-Ok pour {{ infos.filename }}!
+<p class="success">
+ <strong>Congratulations!</strong>
+ Your file was successfully uploaded.
+</p>
 
-<a href="{{ url_for('get_file', key=infos.key, filename=infos.filename) }}">
-Récupérer le fichier
-</a>
+<p>The file <strong>{{ infos.filename }}</strong> is now available</p>
 
-{{ infos.upload_date }}
+<p class="downloadlink">
+<a href="{{ url_for('show_get_file', key=infos.key) }}">{{ url_for('show_get_file', key=infos.key, _external=True) }}</a>
+</p>
+
 
 {% endblock %}

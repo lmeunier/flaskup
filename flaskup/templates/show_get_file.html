@@ -1,9 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-Ok pour {{ infos.filename }}!
 
-<a href="{{ url_for('get_file', key=infos.key, filename=infos.filename) }}">
-Récupérer le fichier
-</a>
+<p>Download file <strong>{{ infos.filename }}</strong>.</p>
+
+<p class="downloadlink">
+<a href="{{ url_for('get_file', key=infos.key, filename=infos.filename) }}">{{ infos.filename }}</a>
+</p>
+
 {% endblock %}

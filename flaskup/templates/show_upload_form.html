@@ -2,8 +2,16 @@
 
 {% block content %}
 <form action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data">
-  <input type="file" name="file">
-  <input type="text" name="days" value="2">
-  <button type="submit">Envoyer !</button>
+ <ul>
+  <li>
+   <h3>1. Choose a file on your computer</h3>
+   {% if error %}<p class="error">{{ error }}</p>{% endif %}
+   <input type="file" name="file" class="formfield">
+  </li>
+  <li>
+   <h3>2. Push the send button</h3>
+   <button type="submit" class="formfield">Send!</button>
+  </li>
+ </ul>
 </form>
 {% endblock %}

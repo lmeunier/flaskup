@@ -7,8 +7,14 @@
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+  <div class="container">
+  <div id="header">
+    <a href="{{ url_for('show_upload_form') }}"><h1>Flaskup!</h1></a>
+    <p>Share your files with simplicity.</p>
+  </div>
   <div id="content">
     {% block content %}{% endblock %}
+  </div>
   </div>
   <script src="{{ url_for('static', filename='jquery-1.7.2.min.js') }}"></script>
 </body>
