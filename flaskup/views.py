@@ -4,7 +4,7 @@ import os, base64, simplejson, uuid
 from datetime import date, timedelta
 from werkzeug import secure_filename
 from flask import render_template, url_for, redirect, request, abort
-from flask import send_file
+from flask import send_file, make_response
 from flaskup import app
 from flaskup.jsonencoder import date_encoder, date_decoder
 
@@ -114,12 +114,21 @@ def show_get_file(key):
 
 @app.route('/get/<key>/<filename>')
 def get_file(key, filename):
-    infos = get_file_info(key)
-    if infos['filename'] == filename:
-        filepath = os.path.join(app.config['UPLOAD_FOLDER'], infos['path'],
-                                filename)
-        return send_file(filepath, as_attachment=True,
-                         attachment_filename=filename)
-    else:
+    try:
+        infos = get_file_info(key)
+    except IOError:
         abort(404)
+
+    if not infos['filename'] == filename:
+        abort(404)
+
+    filepath = os.path.join(app.config['UPLOAD_FOLDER'], infos['path'], filename)
+    if not os.path.isfile(filepath):
+        abort(404)
+
+    filesize = str(os.path.getsize(filepath))
+    response = make_response(send_file(filepath, as_attachment=True,
+                             attachment_filename=filename))
+    response.headers['Content-Length'] = filesize
+    return response
 
