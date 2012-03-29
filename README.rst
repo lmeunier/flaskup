@@ -4,7 +4,7 @@ Flaskup! -- A simple Flask application to share files
 Overview
 --------
 Flaskup! is a simple Flask application to share files with your friends. You
-upload files through a form, and you get back a link to download the file.
+upload files through an HTML form, and you get back a link to download the file.
 You can do whatever you want with the link (copy it in an email or in your
 prefered chat app, it's up to you).
 
@@ -25,6 +25,7 @@ Installation
 ------------
 
 - Install Flask! with setup.py (I recommend you to use virtualenv):
+
   ``python setup.py install``
 
 - Use your favorite WSGI server to run Flaskup! (the WSGI application is **flaskup:app**). For example, to use Flaskup! with Gunicorn:
@@ -61,6 +62,17 @@ Flaskup!
 
 - `UPLOAD_FOLDER`: the root folder where you want to store uploaded files (default: /tmp/flaskup).
 - `MAX_DAYS`: the maximim number of days a file will be available, the file will be deleted after MAX_DAYS days (default: 30).
+
+Example configuration file
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+::
+  
+  # -*- coding: utf-8 -*-
+  
+  DEBUG = True
+  UPLOAD_FOLDER = '/srv/flaskup/data'
+  MAX_DAYS = 10
 
 
 Credits
