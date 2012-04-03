@@ -3,3 +3,4 @@ include README.rst
 include TODO
 recursive-include flaskup/templates *
 recursive-include flaskup/static *
+recursive-include flaskup/translations *
