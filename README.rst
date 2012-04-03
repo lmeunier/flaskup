@@ -13,6 +13,7 @@ Requirements
 
 - Python 2.6 (may work with other versions but not tested, feedbacks are welcome)
 - Flask >= 0.8
+- Flask-Babel >= 0.8
 - simplejson
 
 Notes
