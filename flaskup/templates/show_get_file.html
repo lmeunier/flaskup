@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<p>Download file <strong>{{ infos.filename }}</strong>.</p>
+<p>{{ gettext('Download file <strong>%(f)s</strong>.', f=infos.filename) }}</p>
 
 <p class="downloadlink">
 <a href="{{ url_for('get_file', key=infos.key, filename=infos.filename) }}">{{ infos.filename }}</a>

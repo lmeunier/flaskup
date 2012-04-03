@@ -4,13 +4,13 @@
 <form action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data">
  <ul>
   <li>
-   <h3>1. Choose a file on your computer</h3>
+   <h3>{{ gettext('1. Choose a file on your computer') }}</h3>
    {% if error %}<p class="error">{{ error }}</p>{% endif %}
    <input type="file" name="file" class="formfield">
   </li>
   <li>
-   <h3>2. Push the send button</h3>
-   <button type="submit" class="formfield">Send!</button>
+   <h3>{{ gettext('2. Push the send button') }}</h3>
+   <button type="submit" class="formfield">{{ gettext('Send!') }}</button>
   </li>
  </ul>
 </form>

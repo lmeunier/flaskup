@@ -2,11 +2,11 @@
 
 {% block content %}
 <p class="success">
- <strong>Congratulations!</strong>
- Your file was successfully uploaded.
+ <strong>{{ gettext('Congratulations!') }}</strong>
+ {{ gettext('Your file was successfully uploaded.') }}
 </p>
 
-<p>The file <strong>{{ infos.filename }}</strong> is now available</p>
+<p>{{ gettext('The file <strong>%(f)s</strong> is now available.', f=infos.filename) }}</p>
 
 <p class="downloadlink">
 <a href="{{ url_for('show_get_file', key=infos.key) }}">{{ url_for('show_get_file', key=infos.key, _external=True) }}</a>

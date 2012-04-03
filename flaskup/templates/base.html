@@ -10,7 +10,7 @@
   <div class="container">
   <div id="header">
     <a href="{{ url_for('show_upload_form') }}"><h1>Flaskup!</h1></a>
-    <p>Share your files with simplicity.</p>
+    <p>{{ gettext('Share your files with simplicity.') }}</p>
   </div>
   <div id="content">
     {% block content %}{% endblock %}

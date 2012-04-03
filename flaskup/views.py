@@ -5,6 +5,7 @@ from datetime import date, timedelta
 from werkzeug import secure_filename
 from flask import render_template, url_for, redirect, request, abort
 from flask import send_file, make_response
+from flaskext.babel import gettext
 from flaskup import app
 from flaskup.jsonencoder import date_encoder, date_decoder
 
@@ -61,7 +62,7 @@ def show_upload_form():
 @app.route('/upload', methods=['POST'])
 def upload_file():
     if not 'file' in request.files:
-        error = "You must choose a file."
+        error = gettext(u'You must choose a file.')
         return render_template('show_upload_form.html', error=error)
 
     file = request.files['file']
@@ -93,7 +94,7 @@ def upload_file():
         # all is successful, redirect the user
         return redirect(url_for('show_uploaded_file', key=key))
     else:
-        error = "You must choose a file."
+        error = gettext(u'You must choose a file.')
         return render_template('show_upload_form.html', error=error)
 
 @app.route('/uploaded/<key>/')
