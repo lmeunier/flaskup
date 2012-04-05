@@ -1,17 +1,74 @@
 {% extends "base.html" %}
 
 {% block content %}
-<form action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data">
+<form action="{{ url_for('upload_file') }}"
+      method="post"
+      enctype="multipart/form-data"
+      id="form-upload">
  <ul>
   <li>
    <h3>{{ gettext('1. Choose a file on your computer') }}</h3>
    {% if error %}<p class="error">{{ error }}</p>{% endif %}
    <input type="file" name="file" class="formfield">
+   <div id="progress" class="progress" style="visibility: hidden;">
+    <div id="bar" class="bar" style="width: 0%;"></div>
+   </div>
   </li>
   <li>
    <h3>{{ gettext('2. Push the send button') }}</h3>
-   <button type="submit" class="formfield">{{ gettext('Send!') }}</button>
+   <button id="btn-submit" type="submit" class="formfield">
+    {{ gettext('Send!') }}
+   </button>
   </li>
  </ul>
 </form>
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+  var btn = document.getElementById('btn-submit');
+  btn.setAttribute('onclick', 'upload_file()');
+  btn.setAttribute('form', null);
+
+  function upload_file() {
+    var xhr = new XMLHttpRequest();
+    var form = document.getElementById('form-upload');
+    var fd = new FormData(form);
+
+    // show progress bar
+    var progress = document.getElementById('progress');
+    progress.setAttribute('style', 'visibility: visible;');
+
+    // event listners
+    xhr.upload.addEventListener("progress", upload_progress, false);
+    xhr.addEventListener("load", upload_complete, false);
+    xhr.addEventListener("error", upload_failed, false);
+    xhr.addEventListener("abort", upload_canceled, false);
+
+    // POST from
+    xhr.open("POST", "{{ url_for('upload_file_xhr') }}");
+    xhr.send(fd);
+  }
+
+  function upload_progress(evt) {
+    if (evt.lengthComputable) {
+      var percent = Math.round(evt.loaded * 100 / evt.total);
+      var bar = document.getElementById('bar');
+      bar.setAttribute('style', 'width: ' + percent + '%;');
+    }
+  }
+  function upload_complete(evt) {
+    if(evt.target.status != 200) {
+        alert(evt.target.responseText);
+        return;
+    }
+    document.location.href = evt.target.responseText;
+  }
+  function upload_failed(evt) {
+    alert('{{ gettext('There was an error attempting to upload the file.') }}');
+  }
+  function upload_canceled(evt) {
+    alert('{{ gettext('The upload has been canceled by the user or the browser dropped the connection.') }}');
+  }
+</script>
 {% endblock %}

@@ -40,6 +40,8 @@ def save_file(file):
     filename = secure_filename(file.filename)
     if filename == JSON_FILENAME:
         filename = '_' + filename
+    if not filename:
+        raise Exception(gettext(u'You must choose a file.'))
     key = gen_key(file) 
     relative_path = key_to_path(key)
     path = os.path.join(app.config['UPLOAD_FOLDER'], relative_path)
@@ -58,6 +60,49 @@ def get_file_info(key):
 @app.route('/')
 def show_upload_form():
     return render_template('show_upload_form.html')
+
+
+def process_file(request):
+    if not 'file' in request.files:
+        raise Exception(gettext(u'You must choose a file.'))
+
+    f = request.files['file']
+    if not file:
+        raise Exception(gettext(u'You must choose a file.'))
+    else:
+        # save file
+        relative_path, filename, key = save_file(f)
+
+        # number of days to keep the file
+        expire_days = app.config['MAX_DAYS']
+        if 'days' in request.form:
+            expire_days = int(request.form['days'])
+            if expire_days > app.config['MAX_DAYS']:
+                expire_days = app.config['MAX_DAYS']
+        expire_date = date.today() + timedelta(expire_days)
+
+        # store informations to keep with the file
+        infos = {}
+        infos['filename'] = filename
+        infos['key'] = key
+        infos['path'] = relative_path
+        infos['upload_client'] = request.environ['REMOTE_ADDR']
+        infos['upload_date'] = date.today()
+        infos['expire_date'] = expire_date
+        infos['expire_days'] = expire_days
+        path = os.path.join(app.config['UPLOAD_FOLDER'], relative_path)
+        with open(os.path.join(path, JSON_FILENAME), 'w') as json_file:
+            simplejson.dump(infos, json_file, cls=date_encoder)
+
+        return infos
+
+@app.route('/upload-xhr', methods=['POST'])
+def upload_file_xhr():
+    try:
+        infos = process_file(request)
+    except Exception as e:
+        return e, 400
+    return url_for('show_uploaded_file', key=infos['key'])
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
