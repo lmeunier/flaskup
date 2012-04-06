@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-04-03 13:31+0200\n"
-"PO-Revision-Date: 2012-04-03 13:32+0100\n"
+"POT-Creation-Date: 2012-04-06 20:27+0200\n"
+"PO-Revision-Date: 2012-04-06 20:32+0100\n"
 "Last-Translator: Laurent Meunier <laurent@deltalima.net>\n"
 "Language-Team: fr <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -17,41 +17,57 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
 
-#: views.py:65
-#: views.py:97
+#: flaskup/views.py:44
+#: flaskup/views.py:67
+#: flaskup/views.py:71
+#: flaskup/views.py:110
+#: flaskup/views.py:142
 msgid "You must choose a file."
 msgstr "Vous devez choisir un fichier."
 
-#: templates/base.html:13
+#: flaskup/templates/base.html:13
 msgid "Share your files with simplicity."
 msgstr "Partagez vos fichiers en toute simplicité."
 
-#: templates/show_get_file.html:5
+#: flaskup/templates/show_get_file.html:5
 #, python-format
 msgid "Download file <strong>%(f)s</strong>."
 msgstr "Téléchargez le fichier <strong>%(f)s</strong>."
 
-#: templates/show_upload_form.html:7
+#: flaskup/templates/show_upload_form.html:10
 msgid "1. Choose a file on your computer"
 msgstr "1. Choisissez un fichier sur votre ordinateur"
 
-#: templates/show_upload_form.html:12
+#: flaskup/templates/show_upload_form.html:15
 msgid "2. Push the send button"
 msgstr "2. Cliquez sur le bouton envoyer"
 
-#: templates/show_upload_form.html:13
+#: flaskup/templates/show_upload_form.html:17
+#: flaskup/templates/show_upload_form.html:77
 msgid "Send!"
 msgstr "Envoyer !"
 
-#: templates/show_uploaded_file.html:5
+#: flaskup/templates/show_upload_form.html:43
+msgid "Uploading..."
+msgstr "Envoi en cours..."
+
+#: flaskup/templates/show_upload_form.html:84
+msgid "There was an error attempting to upload the file."
+msgstr "Il y a eu une erreur pendant l\\'envoi du fichier."
+
+#: flaskup/templates/show_upload_form.html:87
+msgid "The upload has been canceled by the user or the browser dropped the connection."
+msgstr "L\\'envoi a été annulé ou le navigateur à couper la connexions."
+
+#: flaskup/templates/show_uploaded_file.html:5
 msgid "Congratulations!"
 msgstr "Félicitations !"
 
-#: templates/show_uploaded_file.html:6
+#: flaskup/templates/show_uploaded_file.html:6
 msgid "Your file was successfully uploaded."
 msgstr "Votre fichier a été envoyé avec succès."
 
-#: templates/show_uploaded_file.html:9
+#: flaskup/templates/show_uploaded_file.html:9
 #, python-format
 msgid "The file <strong>%(f)s</strong> is now available."
 msgstr "Le fichier <strong>%(f)s</strong> est maintenant disponible."
