@@ -75,6 +75,14 @@ Example configuration file
   UPLOAD_FOLDER = '/srv/flaskup/data'
   MAX_DAYS = 10
 
+TODO
+----
+
+- delete expired files
+- 'delete my file' link
+- send email with a link to the download page
+- custom error pages
+- unit tests
 
 Credits
 -------
