@@ -59,6 +59,15 @@ button {
 button:hover {
   background-color: #0055CC;
 }
+button[disabled] {
+  background-image: none;
+  box-shadow: none;
+  cursor: default;
+  opacity: 0.65;
+}
+button[disabled]:hover {
+  background-color: #0074CC;
+}
 form ul {
   list-style: none;
 }
@@ -107,15 +116,18 @@ form ul {
   background-color: #FF6600;
 }
 .progress {
-  background-color: #F7F7F7;
+  background-color: #FFFFFF;
   background-repeat: repeat-x;
   border-radius: 4px 4px 4px 4px;
+  border: 1px solid #0E90D2;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
-  height: 18px;
+  height: 24px;
   margin-bottom: 18px;
   margin-left: 50px;
+  margin-right: 18px;
   overflow: hidden;
-  max-width: 250px;
+  width: 250px;
+  float: left;
 }
 .progress .bar {
    -moz-box-sizing: border-box;
@@ -126,8 +138,15 @@ form ul {
     box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.15) inset;
     color: #FFFFFF;
     font-size: 12px;
-    height: 18px;
+    height: 24px;
     text-align: center;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
     width: 0;
+}
+#js-progress p img {
+  vertical-align: middle;
+  margin-right: 5px;
+}
+#percent {
+  font-weight: bold;
 }

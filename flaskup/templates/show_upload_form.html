@@ -10,15 +10,21 @@
    <h3>{{ gettext('1. Choose a file on your computer') }}</h3>
    {% if error %}<p class="error">{{ error }}</p>{% endif %}
    <input type="file" name="file" class="formfield">
-   <div id="progress" class="progress" style="visibility: hidden;">
-    <div id="bar" class="bar" style="width: 0%;"></div>
-   </div>
   </li>
   <li>
    <h3>{{ gettext('2. Push the send button') }}</h3>
    <button id="btn-submit" type="submit" class="formfield">
     {{ gettext('Send!') }}
    </button>
+   <div id="js-progress" style="visibility: hidden;">
+    <div id="progress" class="progress">
+     <div id="bar" class="bar" style="width: 0%;"></div>
+    </div>
+    <p>
+     <img src="{{ url_for('static', filename='uploading.gif') }}">
+     <span id="percent">0%</span>
+    </p>
+   </div>
   </li>
  </ul>
 </form>
@@ -26,17 +32,22 @@
 
 {% block javascript %}
 <script type="text/javascript">
+  var progress = document.getElementById('js-progress');
   var btn = document.getElementById('btn-submit');
   btn.setAttribute('onclick', 'upload_file()');
   btn.setAttribute('form', null);
 
   function upload_file() {
+    // disabled button
+    btn.setAttribute('disabled', true);
+    btn.innerHTML = '{{ gettext('Uploading...') }}';
+
+    // prepare XHR
     var xhr = new XMLHttpRequest();
     var form = document.getElementById('form-upload');
     var fd = new FormData(form);
 
     // show progress bar
-    var progress = document.getElementById('progress');
     progress.setAttribute('style', 'visibility: visible;');
 
     // event listners
@@ -55,11 +66,16 @@
       var percent = Math.round(evt.loaded * 100 / evt.total);
       var bar = document.getElementById('bar');
       bar.setAttribute('style', 'width: ' + percent + '%;');
+      var percent_text = document.getElementById('percent');
+      percent_text.innerHTML = percent + '%';
     }
   }
   function upload_complete(evt) {
     if(evt.target.status != 200) {
         alert(evt.target.responseText);
+        btn.removeAttribute('disabled');
+        btn.innerHTML = '{{ gettext('Send!') }}';
+        progress.setAttribute('style', 'visibility: hidden;');
         return;
     }
     document.location.href = evt.target.responseText;
