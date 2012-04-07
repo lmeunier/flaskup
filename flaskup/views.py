@@ -106,41 +106,11 @@ def upload_file_xhr():
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
-    if not 'file' in request.files:
-        error = gettext(u'You must choose a file.')
-        return render_template('show_upload_form.html', error=error)
-
-    file = request.files['file']
-    if file:
-        # save file
-        relative_path, filename, key = save_file(file)
-
-        # number of days to keep the file
-        expire_days = app.config['MAX_DAYS']
-        if 'days' in request.form:
-            expire_days = int(request.form['days'])
-            if expire_days > app.config['MAX_DAYS']:
-                expire_days = app.config['MAX_DAYS']
-        expire_date = date.today() + timedelta(expire_days)
-
-        # store informations to keep with the file
-        infos = {}
-        infos['filename'] = filename
-        infos['key'] = key
-        infos['path'] = relative_path
-        infos['upload_client'] = request.environ['REMOTE_ADDR']
-        infos['upload_date'] = date.today()
-        infos['expire_date'] = expire_date
-        infos['expire_days'] = expire_days
-        path = os.path.join(app.config['UPLOAD_FOLDER'], relative_path)
-        with open(os.path.join(path, JSON_FILENAME), 'w') as json_file:
-            simplejson.dump(infos, json_file, cls=date_encoder)
-
-        # all is successful, redirect the user
-        return redirect(url_for('show_uploaded_file', key=key))
-    else:
-        error = gettext(u'You must choose a file.')
-        return render_template('show_upload_form.html', error=error)
+    try:
+        infos = process_file(request)
+    except Exception as e:
+        return render_template('show_upload_form.html', error=e)
+    return redirect(url_for('show_uploaded_file', key=infos['key'])) 
 
 @app.route('/uploaded/<key>/')
 def show_uploaded_file(key):
