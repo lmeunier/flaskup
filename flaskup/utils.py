@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
-import os, base64, simplejson, uuid                                             
-from datetime import date, timedelta                                            
+import os, base64, simplejson, uuid, shutil
+from datetime import date, timedelta
 from werkzeug import secure_filename
 from flaskext.babel import gettext
-from flaskup.jsonencoder import date_encoder, date_decoder                      
-from flaskup import app                                                         
+from flaskup.jsonencoder import date_encoder, date_decoder
+from flaskup import app
 
 
 JSON_FILENAME = 'data.json'
@@ -52,6 +52,11 @@ def get_file_info(key):
     with open(os.path.join(path, JSON_FILENAME)) as json_file:
         infos = simplejson.load(json_file, object_hook=date_decoder)
     return infos
+
+def remove_file(key):
+    path = key_to_path(key)
+    upload_folder = app.config['UPLOAD_FOLDER']
+    shutil.rmtree(os.path.join(upload_folder, path))
 
 def process_file(request):
     if not 'file' in request.files:
