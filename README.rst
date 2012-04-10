@@ -25,7 +25,7 @@ Notes
 Installation
 ------------
 
-- Install Flask! with setup.py (I recommend you to use virtualenv):
+- Install Flaskup! with setup.py (I recommend you to use virtualenv):
 
   ``python setup.py install``
 
