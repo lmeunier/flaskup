@@ -75,10 +75,20 @@ Example configuration file
   UPLOAD_FOLDER = '/srv/flaskup/data'
   MAX_DAYS = 10
 
+Delete expired files
+--------------------
+
+Flaskup! comes with the command line tool ``flaskup``. This tool is a generic python script to call actions. Currently the only available action is `clean`.
+
+::
+  
+  $ . /path/to/env/bin/activate
+  $ export FLASKUP_CONFIG=/path/to/my/flaskup_config.py
+  $ flaskup clean 
+
 TODO
 ----
 
-- delete expired files
 - 'delete my file' link
 - send email with a link to the download page
 - custom error pages
