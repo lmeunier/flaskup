@@ -20,7 +20,7 @@ def clean(quiet):
             except Exception as e:
                 print >> sys.stderr, "Error for '{0}': {1}".format(root, e)
 
-    if not quiet:
+    if not quiet and count > 0:
         print 'Files deleted: {0}'.format(count)
 
 def main():
