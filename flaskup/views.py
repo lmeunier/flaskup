@@ -4,7 +4,7 @@ import os
 from flask import render_template, url_for, redirect, request, abort
 from flask import send_file, make_response
 from flaskup import app
-from flaskup.utils import process_file, get_file_info
+from flaskup.utils import process_file, get_file_info, remove_file
 
 @app.route('/')
 def show_upload_form():
@@ -62,3 +62,24 @@ def get_file(key, filename):
     response.headers['Content-Length'] = filesize
     return response
 
+@app.route('/delete/<key>/<secret>/')
+def delete_file(key, secret):
+    try:
+        infos = get_file_info(key)
+    except IOError:
+        abort(404)
+    if secret != infos['delete_key']:
+        abort(404)
+    return render_template('show_delete_file.html', infos=infos)
+
+@app.route('/delete_confirmed/<key>/<secret>/')
+def confirm_delete_file(key, secret):
+    try:
+        infos = get_file_info(key)
+    except IOError:
+        abort(404)
+    if secret != infos['delete_key']:
+        abort(404)
+
+    remove_file(key)
+    return render_template('show_delete_file_done.html', infos=infos)

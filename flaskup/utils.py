@@ -86,6 +86,7 @@ def process_file(request):
         infos['upload_date'] = date.today()
         infos['expire_date'] = expire_date
         infos['expire_days'] = expire_days
+        infos['delete_key' ] = uuid.uuid4().hex[:8]
         path = os.path.join(app.config['UPLOAD_FOLDER'], relative_path)
         with open(os.path.join(path, JSON_FILENAME), 'w') as json_file:
             simplejson.dump(infos, json_file, cls=date_encoder)

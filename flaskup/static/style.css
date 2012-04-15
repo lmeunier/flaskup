@@ -115,6 +115,50 @@ form ul {
 .downloadlink a:hover {
   background-color: #FF6600;
 }
+.deletelink {
+  font-size: 1.2em;
+  background-color: #DA4F49;
+  background-repeat: repeat-x;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  color: #ffffff;
+  border-style: solid;
+  border-width: 1px;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  display: inline-block;
+  margin: 30px 0 0 30px;
+  padding: 12px 28px 12px;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+}
+.deletelink:hover {
+  background-color: #BD362F;
+}
+.cancellink {
+  font-size: 1.2em;
+  background-color: #F5F5F5;
+  background-repeat: repeat-x;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  border-radius: 5px;
+  color: #333333;
+  border-style: solid;
+  border-width: 1px;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  display: inline-block;
+  margin: 30px 0 0 30px;
+  padding: 12px 28px 12px;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+}
+.cancellink:hover {
+  background-color: #E6E6E6;
+}
 .progress {
   background-color: #FFFFFF;
   background-repeat: repeat-x;
