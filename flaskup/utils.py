@@ -3,9 +3,11 @@
 import os, base64, simplejson, uuid, shutil
 from datetime import date, timedelta
 from werkzeug import secure_filename
+from flask import render_template
 from flaskext.babel import gettext
+from flaskext.mail import Message
 from flaskup.jsonencoder import date_encoder, date_decoder
-from flaskup import app
+from flaskup import app, mail
 
 
 JSON_FILENAME = 'data.json'
@@ -58,10 +60,11 @@ def remove_file(key):
     upload_folder = app.config['UPLOAD_FOLDER']
     shutil.rmtree(os.path.join(upload_folder, path))
 
-def process_file(request):
+def process_request(request):
     if not 'myfile' in request.files:
         raise Exception(gettext(u'You must choose a file.'))
 
+    # process file
     f = request.files['myfile']
     if not file:
         raise Exception(gettext(u'You must choose a file.'))
@@ -91,4 +94,48 @@ def process_file(request):
         with open(os.path.join(path, JSON_FILENAME), 'w') as json_file:
             simplejson.dump(infos, json_file, cls=date_encoder)
 
-        return infos
+    # notify the uploader of the file 
+    if 'myemail' in request.form:
+        myemail = request.form['myemail'].strip()
+        if myemail:
+            subject = render_template('emails/notify_me_subject.txt',
+                                      infos=infos,
+                                      recipient=myemail)
+            body = render_template('emails/notify_me_body.txt',
+                                   infos=infos,
+                                   recipient=myemail)
+            send_mail(subject, body, myemail)
+
+    # notify contacts
+    # TODO limit the number of contacts
+    if 'mycontacts' in request.form and myemail:
+        mycontacts = request.form['mycontacts']
+        if mycontacts:
+            for contact in [c.strip() for c in mycontacts.splitlines()]:
+                if contact:
+                    subject = render_template('emails/notify_contact_subject.txt',
+                                              infos=infos,
+                                              sender=myemail,
+                                              recipient=contact)
+                    body = render_template('emails/notify_contact_body.txt',
+                                           infos=infos,
+                                           sender=myemail,
+                                           recipient=contact)
+                    send_mail(subject, body, contact)
+
+    return infos
+
+def send_mail(subject, body, recipient):
+    # remove new lines from subject
+    subject = ' '.join(subject.strip().splitlines())
+    msg = Message(subject, recipients=[recipient])
+    msg.body = body
+
+    try:
+        mail.send(msg)
+    except:
+        # this is likely to be a bad recipient address
+        # ... or a failure in the MTA
+        # in any case, we don't want to bother the user with these errors
+        # so we fail silently
+        pass

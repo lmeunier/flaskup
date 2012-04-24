@@ -7,7 +7,7 @@
 <div class="download-link">
  <p>
   <a class="btn btn-danger btn-large"
-     href="{{ url_for('confirm_delete_file', key=infos.key, secret=infos.delete_key) }}">
+     href="{{ url_for('show_confirm_delete_file', key=infos.key, secret=infos.delete_key) }}">
      {{ gettext('Yes, delete this file.') }}
   </a>
  </p>

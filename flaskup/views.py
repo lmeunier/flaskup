@@ -4,7 +4,7 @@ import os
 from flask import render_template, url_for, redirect, request, abort
 from flask import send_file, make_response
 from flaskup import app
-from flaskup.utils import process_file, get_file_info, remove_file
+from flaskup.utils import process_request, get_file_info, remove_file
 
 @app.route('/')
 def show_upload_form():
@@ -13,7 +13,7 @@ def show_upload_form():
 @app.route('/upload-xhr', methods=['POST'])
 def upload_file_xhr():
     try:
-        infos = process_file(request)
+        infos = process_request(request)
     except Exception as e:
         return e, 400
     return url_for('show_uploaded_file', key=infos['key'])
@@ -21,7 +21,7 @@ def upload_file_xhr():
 @app.route('/upload', methods=['POST'])
 def upload_file():
     try:
-        infos = process_file(request)
+        infos = process_request(request)
     except Exception as e:
         return render_template('show_upload_form.html', error=e)
     return redirect(url_for('show_uploaded_file', key=infos['key'])) 
@@ -63,7 +63,7 @@ def get_file(key, filename):
     return response
 
 @app.route('/delete/<key>/<secret>/')
-def delete_file(key, secret):
+def show_delete_file(key, secret):
     try:
         infos = get_file_info(key)
     except IOError:
@@ -73,7 +73,7 @@ def delete_file(key, secret):
     return render_template('show_delete_file.html', infos=infos)
 
 @app.route('/delete_confirmed/<key>/<secret>/')
-def confirm_delete_file(key, secret):
+def show_confirm_delete_file(key, secret):
     try:
         infos = get_file_info(key)
     except IOError:

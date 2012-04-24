@@ -2,6 +2,7 @@
 
 from flask import Flask
 from flaskext.babel import Babel
+from flaskext.mail import Mail
 
 
 # Flaskup!
@@ -12,9 +13,11 @@ MAX_DAYS = 30
 DEBUG = False
 
 # Babel
-BABEL_DEFAULT_LOCALE='en'
-BABEL_DEFAULT_TIMEZONE='UTC'
+BABEL_DEFAULT_LOCALE = 'en'
+BABEL_DEFAULT_TIMEZONE = 'UTC'
 
+# Mail
+DEFAULT_MAIL_SENDER = 'flaskup@example.com'
 
 # Create our app
 app = Flask(__name__)
@@ -23,6 +26,9 @@ app.config.from_envvar('FLASKUP_CONFIG')
 
 # Babel (i18n)
 babel = Babel(app)
+
+# Mail
+mail = Mail(app)
 
 # Load dependencies 
 import flaskup.views

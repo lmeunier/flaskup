@@ -1,0 +1,13 @@
+{{ _('Hi,') }}
+
+{{ _('%(s)s wants to share the file "%(f)s" with you.',
+      s=sender,
+      f=infos.filename) }}
+
+{{ _('The file is downloadable at the following address:') }}
+{{ url_for('show_get_file', key=infos.key, _external=True) }}
+
+{{ _('The file will be available for %(d)s days.', d=config['MAX_DAYS']) }}
+
+--
+Flaskup! {{ url_for('show_upload_form', _external=True) }}
