@@ -1,16 +1,31 @@
 {% extends "base.html" %}
 
 {% block content %}
-<p class="success">
- <strong>{{ gettext('Congratulations!') }}</strong>
- {{ gettext('Your file was successfully uploaded.') }}
-</p>
+
+<div class="page-header">
+ <h1>Congratulations! <small>Your file was successfully uploaded.</small></h1>
+</div>
 
 <p>{{ gettext('The file <strong>%(f)s</strong> is now available.', f=infos.filename) }}</p>
 
-<p class="downloadlink">
-<a href="{{ url_for('show_get_file', key=infos.key) }}">{{ url_for('show_get_file', key=infos.key, _external=True) }}</a>
-</p>
+<div class="download-link">
+ <p>
+  <a class="btn btn-success btn-large"
+     href="{{ url_for('show_get_file', key=infos.key) }}">
+   {{ url_for('show_get_file', key=infos.key, _external=True) }}
+  </a>
+ </p>
+</div>
 
+{% endblock %}
+
+
+
+{% block sidebar %}
+
+<div class="well">
+ <h3>What's next?</h3>
+ <p>Now, feel free to share the download link, or <a href="{{ url_for('show_upload_form') }}">upload a new file</a>.</p>
+</div>
 
 {% endblock %}

@@ -2,10 +2,30 @@
 
 {% block content %}
 
-<p>{{ gettext('Download file <strong>%(f)s</strong>.', f=infos.filename) }}</p>
+<div class="page-header">
+ <h1>Hi! <small>Someone want to share a file with you.</small></h1>
+</div>
 
-<p class="downloadlink">
-<a href="{{ url_for('get_file', key=infos.key, filename=infos.filename) }}">{{ infos.filename }}</a>
-</p>
+<p>{{ gettext('To Download the file <strong>%(f)s</strong>, please click on the link bellow.', f=infos.filename) }}</p>
+
+<div class="download-link">
+ <p>
+  <a class="btn btn-success btn-large"
+     href="{{ url_for('get_file', key=infos.key, filename=infos.filename) }}">
+   {{ infos.filename }}
+  </a>
+ </p>
+</div>
+
+{% endblock %}
+
+
+
+{% block sidebar %}
+
+<div class="well">
+ <h3>What's next?</h3>
+ <p>Now, feel free to share the download link, or <a href="{{ url_for('show_upload_form') }}">upload a new file</a>.</p>
+</div>
 
 {% endblock %}

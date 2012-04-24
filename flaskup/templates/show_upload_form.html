@@ -4,33 +4,69 @@
 <form action="{{ url_for('upload_file') }}"
       method="post"
       enctype="multipart/form-data"
-      id="form-upload">
- <ul>
-  <li>
-   <h3>{{ gettext('1. Choose a file on your computer') }}</h3>
-   {% if error %}<p class="error">{{ error }}</p>{% endif %}
-   <input type="file" name="file" class="formfield">
-  </li>
-  <li>
-   <h3>{{ gettext('2. Push the send button') }}</h3>
-   <button id="btn-submit" type="submit" class="formfield">
-    {{ gettext('Send!') }}
-   </button>
-   <div id="js-progress" style="visibility: hidden;">
-    <div id="progress" class="progress">
-     <div id="bar" class="bar" style="width: 0%;"></div>
-    </div>
-    <p>
-     <img src="{{ url_for('static', filename='uploading.gif') }}">
-     <span id="percent">0%</span>
-    </p>
-   </div>
-  </li>
- </ul>
+      id="form-upload"
+      class="form-horizontal">
+ <fieldset>
+ <legend>
+  Send a file with Flaskup!
+ </legend>
+
+ {% if error %}<div class="alert alert-error">{{ error }}</div>{% endif %}
+
+<div class="control-group">
+  <label class="control-label" for="myfile">My file</label>
+  <div class="controls">
+   <input type="file" class="input-file" id="myfile" name="myfile">
+  <p class="help-block">Choose a file on your computer.</p>
+  </div>
+</div>
+
+<div class="control-group">
+ <label class="control-label" for="myemail">My email address</label>
+ <div class="controls">
+  <input id="myemail" class="input-xlarge" type="text">
+  <p class="help-block">Send a link to download and delete the file. (we won't send spam to you, we hate spam to!)</p>
+ </div>
+</div>
+
+<div class="control-group">
+ <label class="control-label" for="mycontacts">My contacts</label>
+ <div class="controls">
+  <textarea id="mycontacts" class="input-xlarge" rows="3"></textarea>
+  <p class="help-block">Send the download link to my contacts. (one email address per line)</p>
+ </div>
+</div>
+
+<div class="form-actions">
+ <button class="btn btn-primary btn-large" type="submit">Send!</button>
+</div>
+
+ </fieldset>
 </form>
+
 {% endblock %}
 
+
+
+{% block sidebar %}
+
+<div class="well">
+ <h3>How does it work?</h3>
+ <p>You simply choose a file on your computer an it will by uploaded to Flaskup!. In return, Flaskup! will give you a link to download the file. You can share this link with your family or your friends, it's up to you!</p>
+ <h3>Who can download my file?</h3>
+ <p>Anyone who know the download link will be able to download your file. So be carefull to not share the download link publicly</p>
+ <h3>How many days my file will available?</h3>
+ <p>Your file will be available for {{ config['MAX_DAYS'] }} days.</p>
+ <h3>What will you send spam to me or my contacts?</h3>
+ <p>Definitely, no! We won't send you spam. We hate spam to!</p>
+</div>
+
+{% endblock %}
+
+
+
 {% block javascript %}
+<!--
 <script type="text/javascript">
   var progress = document.getElementById('js-progress');
   var btn = document.getElementById('btn-submit');
@@ -87,4 +123,5 @@
     alert('{{ gettext('The upload has been canceled by the user or the browser dropped the connection.') }}');
   }
 </script>
+-->
 {% endblock %}

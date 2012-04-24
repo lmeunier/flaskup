@@ -82,4 +82,4 @@ def confirm_delete_file(key, secret):
         abort(404)
 
     remove_file(key)
-    return render_template('show_delete_file_done.html', infos=infos)
+    return render_template('show_deleted_file.html', infos=infos)

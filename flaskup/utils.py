@@ -59,10 +59,10 @@ def remove_file(key):
     shutil.rmtree(os.path.join(upload_folder, path))
 
 def process_file(request):
-    if not 'file' in request.files:
+    if not 'myfile' in request.files:
         raise Exception(gettext(u'You must choose a file.'))
 
-    f = request.files['file']
+    f = request.files['myfile']
     if not file:
         raise Exception(gettext(u'You must choose a file.'))
     else:
