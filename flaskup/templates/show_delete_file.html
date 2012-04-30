@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<p>{{ gettext('Are you sure you want to delete <strong>%(f)s</strong>?', f=infos.filename) }}</p>
+
+<div class="download-link">
+ <p>
+  <a class="btn btn-danger btn-large"
+     href="{{ url_for('show_confirm_delete_file', key=infos.key, secret=infos.delete_key) }}">
+     {{ gettext('Yes, delete this file.') }}
+  </a>
+ </p>
+</div>
+
+{% endblock %}

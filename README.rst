@@ -3,6 +3,7 @@ Flaskup! -- A simple Flask application to share files
 
 Overview
 --------
+
 Flaskup! is a simple Flask application to share files with your friends. You
 upload files through an HTML form, and you get back a link to download the file.
 You can do whatever you want with the link (copy it in an email or in your
@@ -13,6 +14,8 @@ Requirements
 
 - Python 2.6 (may work with other versions but not tested, feedbacks are welcome)
 - Flask >= 0.8
+- Flask-Babel >= 0.8
+- Flask-Mail >= 0.6.1
 - simplejson
 
 Notes
@@ -24,7 +27,7 @@ Notes
 Installation
 ------------
 
-- Install Flask! with setup.py (I recommend you to use virtualenv):
+- Install Flaskup! with setup.py (I recommend you to use virtualenv):
 
   ``python setup.py install``
 
@@ -50,18 +53,29 @@ Configuration
 
 You *MUST* set the environment variable FLASKUP_CONFIG that point to a valid
 python file. In this file you will be able to customize the configuration for
-Flaskup! and for Flask.
-
-Flask
-~~~~~
-
-http://flask.pocoo.org/docs/config/#builtin-configuration-values
+Flaskup!, Flask and the Flask extensions.
 
 Flaskup!
 ~~~~~~~~
 
 - `UPLOAD_FOLDER`: the root folder where you want to store uploaded files (default: /tmp/flaskup).
 - `MAX_DAYS`: the maximim number of days a file will be available, the file will be deleted after MAX_DAYS days (default: 30).
+
+Flask
+~~~~~
+
+http://flask.pocoo.org/docs/config/#builtin-configuration-values
+
+I18N (Flask-Babel)
+~~~~~~~~~~~~~~~~~~
+
+http://packages.python.org/Flask-Babel/#configuration
+
+Mail notification (Flask-Mail)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+http://packages.python.org/flask-mail/#configuring-flask-mail
+
 
 Example configuration file
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -73,7 +87,25 @@ Example configuration file
   DEBUG = True
   UPLOAD_FOLDER = '/srv/flaskup/data'
   MAX_DAYS = 10
+  DEFAULT_MAIL_SENDER = 'flaskup@example.com'
 
+Delete expired files
+--------------------
+
+Flaskup! comes with the command line tool ``flaskup``. This tool is a generic python script to call actions. Currently the only available action is `clean`.
+
+::
+  
+  $ . /path/to/env/bin/activate
+  $ export FLASKUP_CONFIG=/path/to/my/flaskup_config.py
+  $ flaskup clean 
+
+TODO
+----
+
+- full i18n
+- fix my engrish
+- custom error pages
 
 Credits
 -------

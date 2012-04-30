@@ -1,21 +1,36 @@
 <!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <title>{% block title %}Flaskup!{% endblock %}</title>
-  <meta name="description" content="flaskup">
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+ <meta charset="utf-8">
+ <title>{% block title %}Flaskup!{% endblock %}</title>
+ <meta name="description" content="flaskup">
+ <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/css/bootstrap.css') }}">
+ <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/css/bootstrap-responsive.css') }}">
+ <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <div class="container">
-  <div id="header">
-    <a href="{{ url_for('show_upload_form') }}"><h1>Flaskup!</h1></a>
-    <p>{{ gettext('Share your files with simplicity.') }}</p>
+
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a href="{{ url_for('show_upload_form') }}" class="brand">Flaskup!</a>
+    </div>
   </div>
-  <div id="content">
-    {% block content %}{% endblock %}
+</div>
+
+{% block container %}
+<div class="container">
+ <div class="row">
+  <div class="span8">
+   {% block content %}{% endblock %}
   </div>
+  <div class="span4">
+   {% block sidebar %}{% endblock %}
   </div>
-  <script src="{{ url_for('static', filename='jquery-1.7.2.min.js') }}"></script>
+ </div>
+</div>
+{% endblock %}
+
+{% block javascript %}{%endblock %}
 </body>
 </html>
