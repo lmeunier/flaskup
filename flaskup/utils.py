@@ -6,7 +6,7 @@ from werkzeug import secure_filename
 from flask import render_template
 from flaskext.babel import gettext
 from flaskext.mail import Message
-from flaskup.jsonencoder import date_encoder, date_decoder
+from flaskup.jsonutils import date_encoder, date_decoder
 from flaskup import app, mail
 
 
@@ -15,7 +15,6 @@ JSON_FILENAME = 'data.json'
 def key_to_path(key):
     """
     Convert a key to a relative path in the filesystem.
-    The path contains UPLOAD_FOLDER.
 
     This is where you can change the way files are saved an retrieved.
     If you change this function, old links will be unusable.
@@ -32,7 +31,7 @@ def gen_key(file):
         if not os.path.exists(path):
             return key
     # TODO    
-    # unable to find a free key after 10 attempts
+    # unable to find an unused key after 10 attempts
     # should log this or email admin
 
 def save_file(file):
@@ -61,6 +60,14 @@ def remove_file(key):
     shutil.rmtree(os.path.join(upload_folder, path))
 
 def process_request(request):
+    """
+    This is the big function where almost all processing is done:
+    - save the uploaded file on disk
+    - create the data.json file (where all metadatas about the uploaded file
+    is stored)
+    - send emails
+    """
+
     if not 'myfile' in request.files:
         raise Exception(gettext(u'You must choose a file.'))
 

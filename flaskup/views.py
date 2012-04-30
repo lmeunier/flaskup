@@ -12,6 +12,10 @@ def show_upload_form():
 
 @app.route('/upload-xhr', methods=['POST'])
 def upload_file_xhr():
+    """
+    This view is dedicated to javascript uploads via XHR.
+    Non-javascript browser will use 'upload_file()'.
+    """
     try:
         infos = process_request(request)
     except Exception as e:
@@ -56,10 +60,13 @@ def get_file(key, filename):
     if not os.path.isfile(filepath):
         abort(404)
 
+    # add the 'Content-Length' header
+    # browsers can show a progress bar
     filesize = str(os.path.getsize(filepath))
     response = make_response(send_file(filepath, as_attachment=True,
                              attachment_filename=filename))
     response.headers['Content-Length'] = filesize
+
     return response
 
 @app.route('/delete/<key>/<secret>/')
@@ -81,5 +88,6 @@ def show_confirm_delete_file(key, secret):
     if secret != infos['delete_key']:
         abort(404)
 
+    # effectively delete the file
     remove_file(key)
     return render_template('show_deleted_file.html', infos=infos)
