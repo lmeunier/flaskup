@@ -8,6 +8,8 @@ from flaskext.mail import Mail
 # Flaskup!
 FLASKUP_UPLOAD_FOLDER = '/tmp/flaskup'
 FLASKUP_MAX_DAYS = 30
+FLASKUP_KEY_LENGTH = 6
+FLASKUP_DELETE_KEY_LENGTH = 4
 
 # Flask
 DEBUG = False

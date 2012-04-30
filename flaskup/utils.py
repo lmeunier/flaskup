@@ -25,7 +25,7 @@ def key_to_path(key):
 def gen_key(file):
     count = 0
     while count < 10:
-        key = uuid.uuid4().hex
+        key = uuid.uuid4().hex[:app.config['FLASKUP_KEY_LENGTH']]
         relative_path = key_to_path(key)
         path = os.path.join(app.config['FLASKUP_UPLOAD_FOLDER'], relative_path)
         if not os.path.exists(path):
@@ -78,6 +78,7 @@ def process_request(request):
     else:
         # save file
         relative_path, filename, key = save_file(f)
+        delete_key = uuid.uuid4().hex[:app.config['FLASKUP_DELETE_KEY_LENGTH']]
 
         # number of days to keep the file
         expire_days = app.config['FLASKUP_MAX_DAYS']
@@ -96,7 +97,7 @@ def process_request(request):
         infos['upload_date'] = date.today()
         infos['expire_date'] = expire_date
         infos['expire_days'] = expire_days
-        infos['delete_key' ] = uuid.uuid4().hex[:8]
+        infos['delete_key' ] = delete_key
         path = os.path.join(app.config['FLASKUP_UPLOAD_FOLDER'], relative_path)
         with open(os.path.join(path, JSON_FILENAME), 'w') as json_file:
             simplejson.dump(infos, json_file, cls=date_encoder)
