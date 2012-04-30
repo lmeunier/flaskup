@@ -10,4 +10,4 @@
 {{ _('The file will be available for %(d)s days.', d=config['FLASKUP_MAX_DAYS']) }}
 
 --
-Flaskup! {{ url_for('show_upload_form', _external=True) }}
+{{ config['FLASKUP_TITLE'] }} - {{ url_for('show_upload_form', _external=True) }}

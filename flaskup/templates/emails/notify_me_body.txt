@@ -12,4 +12,4 @@
 {{ url_for('show_delete_file', key=infos.key, secret=infos.delete_key, _external=True) }}
 
 --
-Flaskup! {{ url_for('show_upload_form', _external=True) }}
+{{ config['FLASKUP_TITLE'] }} - {{ url_for('show_upload_form', _external=True) }}

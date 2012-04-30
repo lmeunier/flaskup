@@ -6,6 +6,7 @@ from flaskext.mail import Mail
 
 
 # Flaskup!
+FLASKUP_TITLE = 'Flaskup!'
 FLASKUP_UPLOAD_FOLDER = '/tmp/flaskup'
 FLASKUP_MAX_DAYS = 30
 FLASKUP_KEY_LENGTH = 6
@@ -32,7 +33,7 @@ babel = Babel(app)
 # Mail
 mail = Mail(app)
 
-# Load dependencies 
+# Load dependencies
 import flaskup.views
 import flaskup.filters
 import flaskup.i18n

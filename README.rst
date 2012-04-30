@@ -58,6 +58,7 @@ Flaskup!, Flask and the Flask extensions.
 Flaskup!
 ~~~~~~~~
 
+- `FLASKUP_TITLE`: personnalize the title of this webapp (default: 'Flaskup!')
 - `FLASKUP_UPLOAD_FOLDER`: the root folder where you want to store uploaded files (default: /tmp/flaskup).
 - `FLASKUP_MAX_DAYS`: the maximum number of days a file will be available, the file will be deleted after FLASKUP_MAX_DAYS days (default: 30).
 - `FLASKUP_KEY_LENGTH`: the lenght of the generated key used to identify a file (default: 6 -- more than 2 billions keys)
