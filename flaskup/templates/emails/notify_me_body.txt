@@ -6,10 +6,10 @@
 {{ url_for('show_get_file', key=infos.key, _external=True) }}
 
 
-{{ _('The file will be available for %(d)s days.', d=config['MAX_DAYS']) }}
+{{ _('The file will be available for %(d)s days.', d=config['FLASKUP_MAX_DAYS']) }}
 
 {{ _('You can delete the file "%(f)s" at any time with the following link:', f=infos.filename) }}
 {{ url_for('show_delete_file', key=infos.key, secret=infos.delete_key, _external=True) }}
 
 --
-Flaskup! {{ url_for('show_upload_form', _external=True) }}
+{{ config['FLASKUP_TITLE'] }} - {{ url_for('show_upload_form', _external=True) }}

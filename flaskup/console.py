@@ -6,7 +6,7 @@ from flaskup import app, utils
 
 def clean(quiet):
     today = date.today()
-    upload_folder = app.config['UPLOAD_FOLDER']
+    upload_folder = app.config['FLASKUP_UPLOAD_FOLDER']
     count = 0
     for root, dirs, files in os.walk(upload_folder):
         if utils.JSON_FILENAME in files:

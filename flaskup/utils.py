@@ -6,7 +6,7 @@ from werkzeug import secure_filename
 from flask import render_template
 from flaskext.babel import gettext
 from flaskext.mail import Message
-from flaskup.jsonencoder import date_encoder, date_decoder
+from flaskup.jsonutils import date_encoder, date_decoder
 from flaskup import app, mail
 
 
@@ -15,7 +15,6 @@ JSON_FILENAME = 'data.json'
 def key_to_path(key):
     """
     Convert a key to a relative path in the filesystem.
-    The path contains UPLOAD_FOLDER.
 
     This is where you can change the way files are saved an retrieved.
     If you change this function, old links will be unusable.
@@ -26,13 +25,13 @@ def key_to_path(key):
 def gen_key(file):
     count = 0
     while count < 10:
-        key = uuid.uuid4().hex
+        key = uuid.uuid4().hex[:app.config['FLASKUP_KEY_LENGTH']]
         relative_path = key_to_path(key)
-        path = os.path.join(app.config['UPLOAD_FOLDER'], relative_path)
+        path = os.path.join(app.config['FLASKUP_UPLOAD_FOLDER'], relative_path)
         if not os.path.exists(path):
             return key
     # TODO    
-    # unable to find a free key after 10 attempts
+    # unable to find an unused key after 10 attempts
     # should log this or email admin
 
 def save_file(file):
@@ -43,24 +42,32 @@ def save_file(file):
         raise Exception(gettext(u'You must choose a file.'))
     key = gen_key(file) 
     relative_path = key_to_path(key)
-    path = os.path.join(app.config['UPLOAD_FOLDER'], relative_path)
+    path = os.path.join(app.config['FLASKUP_UPLOAD_FOLDER'], relative_path)
     os.makedirs(path)
     file.save(os.path.join(path, filename))
     return relative_path, filename, key
 
 def get_file_info(key):
     relative_path = key_to_path(key)
-    path = os.path.join(app.config['UPLOAD_FOLDER'], relative_path)
+    path = os.path.join(app.config['FLASKUP_UPLOAD_FOLDER'], relative_path)
     with open(os.path.join(path, JSON_FILENAME)) as json_file:
         infos = simplejson.load(json_file, object_hook=date_decoder)
     return infos
 
 def remove_file(key):
     path = key_to_path(key)
-    upload_folder = app.config['UPLOAD_FOLDER']
+    upload_folder = app.config['FLASKUP_UPLOAD_FOLDER']
     shutil.rmtree(os.path.join(upload_folder, path))
 
 def process_request(request):
+    """
+    This is the big function where almost all processing is done:
+    - save the uploaded file on disk
+    - create the data.json file (where all metadatas about the uploaded file
+    is stored)
+    - send emails
+    """
+
     if not 'myfile' in request.files:
         raise Exception(gettext(u'You must choose a file.'))
 
@@ -71,13 +78,14 @@ def process_request(request):
     else:
         # save file
         relative_path, filename, key = save_file(f)
+        delete_key = uuid.uuid4().hex[:app.config['FLASKUP_DELETE_KEY_LENGTH']]
 
         # number of days to keep the file
-        expire_days = app.config['MAX_DAYS']
+        expire_days = app.config['FLASKUP_MAX_DAYS']
         if 'days' in request.form:
             expire_days = int(request.form['days'])
-            if expire_days > app.config['MAX_DAYS']:
-                expire_days = app.config['MAX_DAYS']
+            if expire_days > app.config['FLASKUP_MAX_DAYS']:
+                expire_days = app.config['FLASKUP_MAX_DAYS']
         expire_date = date.today() + timedelta(expire_days)
 
         # store informations to keep with the file
@@ -89,8 +97,8 @@ def process_request(request):
         infos['upload_date'] = date.today()
         infos['expire_date'] = expire_date
         infos['expire_days'] = expire_days
-        infos['delete_key' ] = uuid.uuid4().hex[:8]
-        path = os.path.join(app.config['UPLOAD_FOLDER'], relative_path)
+        infos['delete_key' ] = delete_key
+        path = os.path.join(app.config['FLASKUP_UPLOAD_FOLDER'], relative_path)
         with open(os.path.join(path, JSON_FILENAME), 'w') as json_file:
             simplejson.dump(infos, json_file, cls=date_encoder)
 

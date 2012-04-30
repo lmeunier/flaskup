@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
  <meta charset="utf-8">
- <title>{% block title %}Flaskup!{% endblock %}</title>
+ <title>{% block title %}{{ config['FLASKUP_TITLE'] }}{% endblock %}</title>
  <meta name="description" content="flaskup">
  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/css/bootstrap.css') }}">
  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/css/bootstrap-responsive.css') }}">
@@ -13,7 +13,7 @@
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
-      <a href="{{ url_for('show_upload_form') }}" class="brand">Flaskup!</a>
+      <a href="{{ url_for('show_upload_form') }}" class="brand">{{ config['FLASKUP_TITLE'] }}</a>
     </div>
   </div>
 </div>
