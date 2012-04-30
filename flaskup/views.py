@@ -56,7 +56,8 @@ def get_file(key, filename):
     if not infos['filename'] == filename:
         abort(404)
 
-    filepath = os.path.join(app.config['UPLOAD_FOLDER'], infos['path'], filename)
+    filepath = os.path.join(app.config['FLASKUP_UPLOAD_FOLDER'],
+                            infos['path'], filename)
     if not os.path.isfile(filepath):
         abort(404)
 

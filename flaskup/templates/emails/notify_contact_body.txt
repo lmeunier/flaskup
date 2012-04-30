@@ -7,7 +7,7 @@
 {{ _('The file is downloadable at the following address:') }}
 {{ url_for('show_get_file', key=infos.key, _external=True) }}
 
-{{ _('The file will be available for %(d)s days.', d=config['MAX_DAYS']) }}
+{{ _('The file will be available for %(d)s days.', d=config['FLASKUP_MAX_DAYS']) }}
 
 --
 Flaskup! {{ url_for('show_upload_form', _external=True) }}

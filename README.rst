@@ -58,8 +58,8 @@ Flaskup!, Flask and the Flask extensions.
 Flaskup!
 ~~~~~~~~
 
-- `UPLOAD_FOLDER`: the root folder where you want to store uploaded files (default: /tmp/flaskup).
-- `MAX_DAYS`: the maximim number of days a file will be available, the file will be deleted after MAX_DAYS days (default: 30).
+- `FLASKUP_UPLOAD_FOLDER`: the root folder where you want to store uploaded files (default: /tmp/flaskup).
+- `FLASKUP_MAX_DAYS`: the maximim number of days a file will be available, the file will be deleted after MAX_DAYS days (default: 30).
 
 Flask
 ~~~~~
@@ -85,8 +85,8 @@ Example configuration file
   # -*- coding: utf-8 -*-
   
   DEBUG = True
-  UPLOAD_FOLDER = '/srv/flaskup/data'
-  MAX_DAYS = 10
+  FLASKUP_UPLOAD_FOLDER = '/srv/flaskup/data'
+  FLASKUP_MAX_DAYS = 10
   DEFAULT_MAIL_SENDER = 'flaskup@example.com'
 
 Delete expired files
