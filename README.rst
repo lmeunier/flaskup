@@ -18,12 +18,6 @@ Requirements
 - Flask-Mail >= 0.6.1
 - simplejson
 
-Notes
------
-
-- Currently, there is nothing in the code that will delete expired files. They will always be available to download.
-
-
 Installation
 ------------
 
@@ -107,7 +101,6 @@ Flaskup! comes with the command line tool ``flaskup``. This tool is a generic py
 TODO
 ----
 
-- full i18n
 - fix my engrish
 - custom error pages
 
@@ -116,7 +109,10 @@ Credits
 
 Flaskup! is maintained by `Laurent Meunier <http://www.deltalima.net/>`_.
 
-License
--------
+Licenses
+--------
 
 Flaskup! is Copyright (c) 2012 Laurent Meunier. It is free software, and may be redistributed under the terms specified in the LICENSE file (a 3-clause BSD License).
+
+Flaskup! uses `Bootstrap <http://twitter.github.com/bootstrap/>`_ (`Apache License v2.0 <http://www.apache.org/licenses/LICENSE-2.0>`_) and `jQuery <http://jquery.com/>`_ (`MIT or GPLv2 License <http://jquery.org/license/>`_).
+
