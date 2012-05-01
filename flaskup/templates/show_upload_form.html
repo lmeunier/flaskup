@@ -8,7 +8,7 @@
       class="form-horizontal">
  <fieldset>
  <legend>
-  {{ _('Easily share your files') }}
+  {{ _('Easily share files') }}
  </legend>
 
  {% if error %}<div class="alert alert-error">{{ error }}</div>{% endif %}
@@ -25,7 +25,7 @@
  <label class="control-label" for="myemail">{{ _('My email address') }}</label>
  <div class="controls">
   <input id="myemail" class="input-xlarge" type="text" name="myemail">
-  <p class="help-block">{{ _('Send a link to download and delete the file. (we won\'t send spam to you, we hate spam to!)') }}</p>
+  <p class="help-block">{{ _('Send an email with a link to download the file.') }}</p>
  </div>
 </div>
 
@@ -76,13 +76,13 @@
 
 <div class="well">
  <h3>{{ _('How does it work?') }}</h3>
- <p>{{ _('You simply choose a file on your computer an it will by uploaded to Flaskup!. In return, Flaskup! will give you a link to download the file. You can share this link with your family or your friends, it\'s up to you!') }}</p>
+ <p>{{ _('You simply choose a file on your computer an it will by uploaded to %(t)s. In return, you will have a link to download the file. You can share this link with whoever you want.', t=config['FLASKUP_TITLE']) }}</p>
  <h3>{{ _('Who can download my file?') }}</h3>
- <p>{{ _('Anyone who know the download link will be able to download your file. So be carefull to not share the download link publicly') }}</p>
- <h3>{{ _('How many days my file will available?') }}</h3>
+ <p>{{ _('Anyone who know the download link will be able to download your file. So be careful to not share the download link publicly.') }}</p>
+ <h3>{{ _('How many days my file will be available?') }}</h3>
  <p>{{ _('Your file will be available for %(m)s days.', m=config['FLASKUP_MAX_DAYS']) }}</p>
- <h3>{{ _('What will you send spam to me or my contacts?') }}</h3>
- <p>{{ _('Definitely, no! We won\'t send you spam. We hate spam to!') }}</p>
+ <h3>{{ _('Will you send spam to me or my contacts?') }}</h3>
+ <p>{{ _('Definitely, no! We won\'t send you spam. We hate spam too!') }}</p>
 </div>
 
 {% endblock %}
