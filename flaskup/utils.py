@@ -4,7 +4,7 @@ import os, base64, simplejson, uuid, shutil
 from datetime import date, timedelta
 from werkzeug import secure_filename
 from flask import render_template
-from flaskext.babel import gettext
+from flaskext.babel import gettext as _
 from flaskext.mail import Message
 from flaskup.jsonutils import date_encoder, date_decoder
 from flaskup import app, mail
@@ -30,7 +30,7 @@ def gen_key(file):
         path = os.path.join(app.config['FLASKUP_UPLOAD_FOLDER'], relative_path)
         if not os.path.exists(path):
             return key
-    # TODO    
+    # TODO
     # unable to find an unused key after 10 attempts
     # should log this or email admin
 
@@ -39,8 +39,8 @@ def save_file(file):
     if filename == JSON_FILENAME:
         filename = '_' + filename
     if not filename:
-        raise Exception(gettext(u'You must choose a file.'))
-    key = gen_key(file) 
+        raise Exception(_(u'You must choose a file.'))
+    key = gen_key(file)
     relative_path = key_to_path(key)
     path = os.path.join(app.config['FLASKUP_UPLOAD_FOLDER'], relative_path)
     os.makedirs(path)
@@ -69,12 +69,12 @@ def process_request(request):
     """
 
     if not 'myfile' in request.files:
-        raise Exception(gettext(u'You must choose a file.'))
+        raise Exception(_(u'You must choose a file.'))
 
     # process file
     f = request.files['myfile']
     if not file:
-        raise Exception(gettext(u'You must choose a file.'))
+        raise Exception(_(u'You must choose a file.'))
     else:
         # save file
         relative_path, filename, key = save_file(f)

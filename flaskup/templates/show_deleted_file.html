@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<p>Your file <strong>{{ infos.filename }}</strong>  was successfully deleted, and is no more available to download.</p>
+<p>{{ _('Your file <strong>%(f)s</strong>  was successfully deleted, and is no more available to download.', f=infos.filename) }}</p>
 
 {% endblock %}
 

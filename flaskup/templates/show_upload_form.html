@@ -8,46 +8,46 @@
       class="form-horizontal">
  <fieldset>
  <legend>
-  Send a file with Flaskup!
+  {{ _('Easily share your files') }}
  </legend>
 
  {% if error %}<div class="alert alert-error">{{ error }}</div>{% endif %}
 
 <div class="control-group">
-  <label class="control-label" for="myfile">My file</label>
+  <label class="control-label" for="myfile">{{ _('My file') }}</label>
   <div class="controls">
    <input type="file" class="input-file" id="myfile" name="myfile">
-  <p class="help-block">Choose a file on your computer.</p>
+  <p class="help-block">{{ _('Choose a file on your computer.') }}</p>
   </div>
 </div>
 
 <div class="control-group">
- <label class="control-label" for="myemail">My email address</label>
+ <label class="control-label" for="myemail">{{ _('My email address') }}</label>
  <div class="controls">
   <input id="myemail" class="input-xlarge" type="text" name="myemail">
-  <p class="help-block">Send a link to download and delete the file. (we won't send spam to you, we hate spam to!)</p>
+  <p class="help-block">{{ _('Send a link to download and delete the file. (we won\'t send spam to you, we hate spam to!)') }}</p>
  </div>
 </div>
 
 <div class="control-group">
- <label class="control-label" for="mycontacts">My contacts</label>
+ <label class="control-label" for="mycontacts">{{ _('My contacts') }}</label>
  <div class="controls">
   <textarea id="mycontacts" class="input-xlarge" rows="3" name="mycontacts"></textarea>
-  <p class="help-block">Send the download link to my contacts. (one email address per line)</p>
+  <p class="help-block">{{ _('Send the download link to my contacts. (one email address per line)') }}</p>
  </div>
 </div>
 
 <div class="form-actions">
  <button id="btn-submit"
          class="btn btn-primary btn-large"
-         type="submit">Send!</button>
+         type="submit">{{ _('Send!') }}</button>
 
  <div id="upload_modal" class="modal hide fade">
   <div class="modal-header">
-   <h3>Uploading...</h3>
+   <h3>{{ _('Uploading...') }}</h3>
   </div>
   <div class="modal-body">
-   <h4>Your file is uploading, please wait.</h4>
+   <h4>{{ _('Your file is uploading, please wait.') }}</h4>
    <div id="js-progress">
     <div class="progress progress-striped active">
      <div id="bar" class="bar" style="width: 0%;"></div>
@@ -59,7 +59,7 @@
    </div>
   </div>
   <div class="modal-footer">
-   <a href="#" class="btn" data-dismiss="modal" id="btn-cancel" >Cancel</a>
+   <a href="#" class="btn" data-dismiss="modal" id="btn-cancel" >{{ _('Cancel') }}</a>
   </div>
  </div>
 
@@ -75,14 +75,14 @@
 {% block sidebar %}
 
 <div class="well">
- <h3>How does it work?</h3>
- <p>You simply choose a file on your computer an it will by uploaded to Flaskup!. In return, Flaskup! will give you a link to download the file. You can share this link with your family or your friends, it's up to you!</p>
- <h3>Who can download my file?</h3>
- <p>Anyone who know the download link will be able to download your file. So be carefull to not share the download link publicly</p>
- <h3>How many days my file will available?</h3>
- <p>Your file will be available for {{ config['FLASKUP_MAX_DAYS'] }} days.</p>
- <h3>What will you send spam to me or my contacts?</h3>
- <p>Definitely, no! We won't send you spam. We hate spam to!</p>
+ <h3>{{ _('How does it work?') }}</h3>
+ <p>{{ _('You simply choose a file on your computer an it will by uploaded to Flaskup!. In return, Flaskup! will give you a link to download the file. You can share this link with your family or your friends, it\'s up to you!') }}</p>
+ <h3>{{ _('Who can download my file?') }}</h3>
+ <p>{{ _('Anyone who know the download link will be able to download your file. So be carefull to not share the download link publicly') }}</p>
+ <h3>{{ _('How many days my file will available?') }}</h3>
+ <p>{{ _('Your file will be available for %(m)s days.', m=config['FLASKUP_MAX_DAYS']) }}</p>
+ <h3>{{ _('What will you send spam to me or my contacts?') }}</h3>
+ <p>{{ _('Definitely, no! We won\'t send you spam. We hate spam to!') }}</p>
 </div>
 
 {% endblock %}
