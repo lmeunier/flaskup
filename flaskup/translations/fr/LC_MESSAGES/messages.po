@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2012-05-01 19:32+0200\n"
-"PO-Revision-Date: 2012-05-01 19:53+0100\n"
+"PO-Revision-Date: 2012-05-02 22:23+0100\n"
 "Last-Translator: Laurent Meunier <laurent@deltalima.net>\n"
 "Language-Team: fr <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -97,7 +97,7 @@ msgstr "Envoi en cours..."
 
 #: flaskup/templates/show_upload_form.html:50
 msgid "Your file is uploading, please wait."
-msgstr "Votre fichier est en cours d'envoi, veillez patienter."
+msgstr "Votre fichier est en cours d'envoi, veuillez patienter."
 
 #: flaskup/templates/show_upload_form.html:62
 msgid "Cancel"
@@ -110,7 +110,7 @@ msgstr "Comment ça fonctionne ?"
 #: flaskup/templates/show_upload_form.html:79
 #, python-format
 msgid "You simply choose a file on your computer an it will by uploaded to %(t)s. In return, you will have a link to download the file. You can share this link with whoever you want."
-msgstr "Vous sélectionnez un fichier sur votre ordinateur et il sera envoyer vers %(t)s. En retour vous obtenez un lien pour télécharger le fichier. Vous pouvez ensuite partagez ce lien avec qui vous voulez."
+msgstr "Vous sélectionnez un fichier sur votre ordinateur et il sera envoyé vers %(t)s. En retour vous obtenez un lien pour télécharger le fichier. Vous pouvez ensuite partager ce lien avec qui vous voulez."
 
 #: flaskup/templates/show_upload_form.html:80
 msgid "Who can download my file?"
@@ -122,7 +122,7 @@ msgstr "Toutes les personnes connaissant le lien de téléchargement peuvent ré
 
 #: flaskup/templates/show_upload_form.html:82
 msgid "How many days my file will be available?"
-msgstr "Pendant combien de temps mon fichier sera disponible ?"
+msgstr "Pendant combien de temps mon fichier sera-t-il disponible ?"
 
 #: flaskup/templates/show_upload_form.html:83
 #, python-format
