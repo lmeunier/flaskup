@@ -37,3 +37,5 @@ mail = Mail(app)
 import flaskup.views
 import flaskup.filters
 import flaskup.i18n
+import flaskup.errorhandler
+

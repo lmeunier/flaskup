@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="page-header">
+ <h1>{{ _('404: Page not found') }}</h1>
+</div>
+
+<p>{{ _('Sorry, but the page your are looking for has not been found. Try to checking the URL for errors, or go to our <a href="/">Homepage</a>') }}</p>
+
+
+{% endblock %}
+
+
+{% block sidebar %}
+<div class="well">
+ <h3>{{ _('Want to share a file?') }}</h3>
+ <p>{{ _('You too you can share a file, you just have to <a href="%(u)s">upload it with %(t)s</a>.', u=url_for('show_upload_form'), t=config['FLASKUP_TITLE']) }}</p>
+</div>
+{% endblock %}
