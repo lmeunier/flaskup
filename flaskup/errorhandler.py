@@ -9,3 +9,17 @@ def page_not_found(e):
 def internal_server_error(e):
     return render_template('500.html'), 500
 
+"""
+Sends an email to the administrators if an error occurs in Flaskup!
+"""
+if not app.debug and app.config['FLASKUP_ADMINS']:
+    import logging
+    from logging.handlers import SMTPHandler
+    mailhost = (app.config['FLASKUP_MAIL_SERVER'], app.config['FLASKUP_MAIL_PORT'])
+    fromaddr = app.config['FLASKUP_MAIL_SENDER']
+    toaddrs = app.config['FLASKUP_ADMINS']
+    subject = 'Flaskup: error'
+    mail_handler = SMTPHandler(mailhost, fromaddr, toaddrs, subject)
+    mail_handler.setLevel(logging.ERROR)
+    app.logger.addHandler(mail_handler)
+
