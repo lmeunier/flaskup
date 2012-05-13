@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-05-01 19:32+0200\n"
-"PO-Revision-Date: 2012-05-02 22:23+0100\n"
+"POT-Creation-Date: 2012-05-13 08:46+0200\n"
+"PO-Revision-Date: 2012-05-13 08:50+0100\n"
 "Last-Translator: Laurent Meunier <laurent@deltalima.net>\n"
 "Language-Team: fr <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -22,6 +22,35 @@ msgstr ""
 #: flaskup/utils.py:77
 msgid "You must choose a file."
 msgstr "Vous devez choisir un fichier."
+
+#: flaskup/templates/404.html:6
+msgid "404: Page not found"
+msgstr ""
+
+#: flaskup/templates/404.html:9
+msgid "Sorry, but the page your are looking for has not been found. Try to checking the URL for errors, or go to our <a href=\"/\">Homepage</a>"
+msgstr "Désolé, la page que vous souhaitez atteindre n'existe pas. Vérifiez l'adresse dans l'URL, où rendez-vous sur <a href=\"/\">notre page d'accueil</a>."
+
+#: flaskup/templates/404.html:17
+#: flaskup/templates/500.html:16
+#: flaskup/templates/show_get_file.html:25
+msgid "Want to share a file?"
+msgstr "Vous souhaitez partager un fichier ?"
+
+#: flaskup/templates/404.html:18
+#: flaskup/templates/500.html:17
+#: flaskup/templates/show_get_file.html:26
+#, python-format
+msgid "You too you can share a file, you just have to <a href=\"%(u)s\">upload it with %(t)s</a>."
+msgstr "Vous aussi vous pouvez partager un fichier, il suffit <a href=\"%(u)s\">de l'envoyer avec %(t)s</a>."
+
+#: flaskup/templates/500.html:6
+msgid "500: Internal server error"
+msgstr ""
+
+#: flaskup/templates/500.html:9
+msgid "Oops! Something went wrong. We are sorry about that. Administrators have been warning. You can try to refresh the page in a few minutes, or go to our <a href=\"/\">Homepage</a>"
+msgstr "Oups ! Quelque chose a mal tourné. Nous sommes désolé pour celà. Les administrateurs ont été prévenus. Vous pouvez essayer de rafraichir la page dans quelques minutes, ou vous rendre sur <a href=\"/\">notre page d'accueil</a>."
 
 #: flaskup/templates/show_delete_file.html:5
 #, python-format
@@ -49,15 +78,6 @@ msgstr "Une personne souhaite partager un fichier avec vous."
 #, python-format
 msgid "To Download the file <strong>%(f)s</strong>, please click on the link below."
 msgstr "Pour télécharger le fichier <strong>%(f)s</strong>, veuillez cliquer sur le lien suivant."
-
-#: flaskup/templates/show_get_file.html:25
-msgid "Want to share a file?"
-msgstr "Vous souhaitez partager un fichier ?"
-
-#: flaskup/templates/show_get_file.html:26
-#, python-format
-msgid "You too you can share a file, you just have to <a href=\"%(u)s\">upload it with %(t)s</a>."
-msgstr "Vous aussi vous pouvez partager un fichier, il suffit <a href=\"%(u)s\">de l'envoyer avec %(t)s</a>."
 
 #: flaskup/templates/show_upload_form.html:11
 msgid "Easily share files"
@@ -203,34 +223,3 @@ msgstr "Votre fichier est téléchargeable à l'adresse suivante :"
 msgid "You can delete the file \"%(f)s\" at any time with the following link:"
 msgstr "Vous pouvez supprimer le fichier \"%(f)s\" quand vous le souhaitez à l'adresse suivante :"
 
-#~ msgid ""
-#~ "Send a link to download and delete"
-#~ " the file. (we won't send spam "
-#~ "to you, we hate spam to!)"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "You simply choose a file on your"
-#~ " computer an it will by uploaded "
-#~ "to Flaskup!. In return, Flaskup! will"
-#~ " give you a link to download "
-#~ "the file. You can share this link"
-#~ " with your family or your friends,"
-#~ " it's up to you!"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Anyone who know the download link "
-#~ "will be able to download your "
-#~ "file. So be carefull to not share"
-#~ " the download link publicly"
-#~ msgstr ""
-
-#~ msgid "How many days my file will available?"
-#~ msgstr ""
-
-#~ msgid "What will you send spam to me or my contacts?"
-#~ msgstr ""
-
-#~ msgid "Definitely, no! We won't send you spam. We hate spam to!"
-#~ msgstr ""

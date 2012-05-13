@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-05-01 19:32+0200\n"
+"POT-Creation-Date: 2012-05-13 08:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,6 +19,40 @@ msgstr ""
 
 #: flaskup/utils.py:42 flaskup/utils.py:72 flaskup/utils.py:77
 msgid "You must choose a file."
+msgstr ""
+
+#: flaskup/templates/404.html:6
+msgid "404: Page not found"
+msgstr ""
+
+#: flaskup/templates/404.html:9
+msgid ""
+"Sorry, but the page your are looking for has not been found. Try to "
+"checking the URL for errors, or go to our <a href=\"/\">Homepage</a>"
+msgstr ""
+
+#: flaskup/templates/404.html:17 flaskup/templates/500.html:16
+#: flaskup/templates/show_get_file.html:25
+msgid "Want to share a file?"
+msgstr ""
+
+#: flaskup/templates/404.html:18 flaskup/templates/500.html:17
+#: flaskup/templates/show_get_file.html:26
+#, python-format
+msgid ""
+"You too you can share a file, you just have to <a href=\"%(u)s\">upload "
+"it with %(t)s</a>."
+msgstr ""
+
+#: flaskup/templates/500.html:6
+msgid "500: Internal server error"
+msgstr ""
+
+#: flaskup/templates/500.html:9
+msgid ""
+"Oops! Something went wrong. We are sorry about that. Administrators have "
+"been warning. You can try to refresh the page in a few minutes, or go to "
+"our <a href=\"/\">Homepage</a>"
 msgstr ""
 
 #: flaskup/templates/show_delete_file.html:5
@@ -50,17 +84,6 @@ msgstr ""
 msgid ""
 "To Download the file <strong>%(f)s</strong>, please click on the link "
 "below."
-msgstr ""
-
-#: flaskup/templates/show_get_file.html:25
-msgid "Want to share a file?"
-msgstr ""
-
-#: flaskup/templates/show_get_file.html:26
-#, python-format
-msgid ""
-"You too you can share a file, you just have to <a href=\"%(u)s\">upload "
-"it with %(t)s</a>."
 msgstr ""
 
 #: flaskup/templates/show_upload_form.html:11
