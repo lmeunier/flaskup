@@ -15,8 +15,8 @@ Sends an email to the administrators if an error occurs in Flaskup!
 if not app.debug and app.config['FLASKUP_ADMINS']:
     import logging
     from logging.handlers import SMTPHandler
-    mailhost = (app.config['FLASKUP_MAIL_SERVER'], app.config['FLASKUP_MAIL_PORT'])
-    fromaddr = app.config['FLASKUP_MAIL_SENDER']
+    mailhost = (app.config['MAIL_SERVER'], app.config['MAIL_PORT'])
+    fromaddr = app.config['DEFAULT_MAIL_SENDER']
     toaddrs = app.config['FLASKUP_ADMINS']
     subject = 'Flaskup: error'
     mail_handler = SMTPHandler(mailhost, fromaddr, toaddrs, subject)
