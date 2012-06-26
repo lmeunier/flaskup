@@ -8,6 +8,7 @@ def action_clean(quiet):
     today = date.today()
     upload_folder = app.config['FLASKUP_UPLOAD_FOLDER']
     count = 0
+    deleted_files = []
     for root, dirs, files in os.walk(upload_folder):
         if utils.JSON_FILENAME in files:
             try:
@@ -17,11 +18,14 @@ def action_clean(quiet):
                 if expire_date < today:
                     utils.remove_file(infos['key'])
                     count += 1
+                    deleted_files.append(infos)
             except Exception as e:
                 print >> sys.stderr, u"Error for '{0}': {1}".format(root, e)
 
     if not quiet and count > 0:
         print u'Files deleted: {0}'.format(count)
+        for info in deleted_files:
+            print u" - '{0}'".format(os.path.join(info['path'], info['filename']))
 
 def list_actions():
     from flaskup import console
