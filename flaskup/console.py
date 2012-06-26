@@ -4,7 +4,7 @@ import os, sys, argparse
 from datetime import date
 from flaskup import app, utils
 
-def clean(quiet):
+def action_clean(quiet):
     today = date.today()
     upload_folder = app.config['FLASKUP_UPLOAD_FOLDER']
     count = 0
@@ -18,10 +18,20 @@ def clean(quiet):
                     utils.remove_file(infos['key'])
                     count += 1
             except Exception as e:
-                print >> sys.stderr, "Error for '{0}': {1}".format(root, e)
+                print >> sys.stderr, u"Error for '{0}': {1}".format(root, e)
 
     if not quiet and count > 0:
-        print 'Files deleted: {0}'.format(count)
+        print u'Files deleted: {0}'.format(count)
+
+def list_actions():
+    from flaskup import console
+    attributes = dir(console)
+    
+    actions = []
+    for attribute in attributes:
+        if attribute.startswith('action_'):
+            actions.append(attribute[7:])
+    return actions
 
 def main():
     # parse arguments
@@ -29,7 +39,8 @@ def main():
     parser.add_argument('-q', '--quiet',
                         action='store_true',
                         help='quiet, print only errors')
-    parser.add_argument('action', choices=['clean'])
+    choices = list_actions()
+    parser.add_argument('action', choices=choices)
     args = parser.parse_args()
 
     # quiet?
@@ -37,5 +48,5 @@ def main():
 
     # call function
     from flaskup import console
-    action = getattr(console, args.action)
+    action = getattr(console, 'action_' + args.action)
     action(quiet)
