@@ -93,26 +93,44 @@
 <script type="text/javascript" src="{{ url_for('static', filename='jquery-1.7.2.min.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='bootstrap-modal.js') }}"></script>
 <script type="text/javascript">
-  // get some refs to various HTML elements
-  var upload_percent_text = document.getElementById('upload_percent');
-  var upload_sizes_text = document.getElementById('upload_sizes');
-  var upload_speed_text = document.getElementById('upload_speed');
-  var progress = document.getElementById('js-progress');
-  var btn = document.getElementById('btn-submit');
-
-  // bind submit button to our custom uploader
-  btn.setAttribute('onclick', 'upload_file()');
-  btn.setAttribute('form', null);
+  var upload_percent_text,
+      upload_sizes_text,
+      upload_speed_text,
+      progress,
+      btn_submit,
+      btn_cancel;
 
   // variables used to compute upload_speed
   var upload_last_datetime;
   var upload_last_size;
 
-  // bind cancel button to abort the XHR
-  var btn_cancel = document.getElementById('btn-cancel');
-  btn_cancel.setAttribute('onclick', 'cancel_upload()');
-  function cancel_upload() {
-    progress.xhr.abort();
+  // code executed when the page is fully loaded
+  window.onload = function() {
+    // first thing, check browser capabilities
+    try {
+      var fd = new FormData();
+    } catch(e) {
+      return;
+    }
+
+    // get some refs to various HTML elements
+    upload_percent_text = document.getElementById('upload_percent');
+    upload_sizes_text = document.getElementById('upload_sizes');
+    upload_speed_text = document.getElementById('upload_speed');
+    progress = document.getElementById('js-progress');
+    btn_submit = document.getElementById('btn-submit');
+
+    // bind submit button to our custom uploader
+    btn_submit.setAttribute('onclick', 'upload_file()');
+    btn_submit.setAttribute('form', null);
+
+
+    // bind cancel button to abort the XHR
+    btn_cancel = document.getElementById('btn-cancel');
+    btn_cancel.setAttribute('onclick', 'cancel_upload()');
+    function cancel_upload() {
+      progress.xhr.abort();
+    }
   }
 
   function readable_size(size) {
@@ -154,6 +172,7 @@
     upload_last_datetime = new Date();
     upload_last_size = 0;
   }
+
   function upload_progress(evt) {
     if (evt.lengthComputable) {
       // compute the upload speed, only once a second
@@ -181,6 +200,7 @@
       upload_sizes_text.innerHTML = readable_size(evt.loaded) + ' / ' + readable_size(evt.total);
     }
   }
+
   function upload_complete(evt) {
     if(evt.target.status != 200) {
         // display error message
@@ -192,9 +212,11 @@
     // follow the link returned by the server
     document.location.href = evt.target.responseText;
   }
+
   function upload_failed(evt) {
     alert('{{ _('There was an error attempting to upload the file.') }}');
   }
+
   function upload_canceled(evt) {
     // reset progress bar
     var bar = document.getElementById('bar');
