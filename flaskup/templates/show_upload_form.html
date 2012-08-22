@@ -128,9 +128,6 @@
     // bind cancel button to abort the XHR
     btn_cancel = document.getElementById('btn-cancel');
     btn_cancel.setAttribute('onclick', 'cancel_upload()');
-    function cancel_upload() {
-      progress.xhr.abort();
-    }
   }
 
   function readable_size(size) {
@@ -223,6 +220,10 @@
     bar.setAttribute('style', 'width: 0%;');
     // hide modal
     $('#upload_modal').modal('hide');
+  }
+
+  function cancel_upload() {
+    progress.xhr.abort();
   }
 </script>
 {% endblock %}
