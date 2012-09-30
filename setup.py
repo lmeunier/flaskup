@@ -1,9 +1,17 @@
 from setuptools import setup
 
+version='0.1'
+
 setup(
     name='flaskup',
-    version='0.1',
+    version=version,
+    description='A simple Flask application to share files.',
     long_description=__doc__,
+    author='Laurent Meunier',
+    author_email='laurent@deltalima.net',
+    license='BSD',
+    url='http://git.deltalima.net/flaskup/',
+    download_url='http://git.deltalima.net/flaskup/snapshot/flaskup-'+version+'.tar.gz',
     packages=['flaskup'],
     include_package_data=True,
     zip_safe=False,
@@ -14,5 +22,17 @@ setup(
             'flaskup = flaskup.console:main',
         ],
     },
+    classifiers = [
+        'License :: OSI Approved :: BSD License',
+        'Development Status :: 4 - Beta',
+        'Environment :: Web Environment',
+        'Intended Audience :: System Administrators',
+        'License :: OSI Approved :: BSD License',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python',
+        'Topic :: Communications :: File Sharing',
+        'Topic :: Internet',
+        'Topic :: Internet :: WWW/HTTP :: WSGI :: Application',
+    ]
 )
 
