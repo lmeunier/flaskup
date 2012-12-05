@@ -1,6 +1,21 @@
+import re
 from setuptools import setup
 
 version='0.1'
+
+def parse_requirements(file_name):
+    requirements = []
+    for line in open(file_name, 'r').read().split('\n'):
+        if re.match(r'(\s*#)|(\s*$)', line):
+            continue
+        if re.match(r'\s*-e\s+', line):
+            requirements.append(re.sub(r'\s*-e\s+.*#egg=(.*)$', r'\1', line))
+        elif re.match(r'\s*-f\s+', line):
+            pass
+        else:
+            requirements.append(line)
+
+    return requirements
 
 setup(
     name='flaskup',
@@ -15,8 +30,7 @@ setup(
     packages=['flaskup'],
     include_package_data=True,
     zip_safe=False,
-    install_requires=['Flask>=0.8', 'simplejson', 'Flask-Babel>=0.8',
-                      'Flask-Mail==0.7.4'],
+    install_requires=parse_requirements("requirements.txt"),
     entry_points={
         'console_scripts': [
             'flaskup = flaskup.console:main',

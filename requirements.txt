@@ -1,0 +1,4 @@
+Flask==0.9
+Flask-Babel==0.8
+Flask-Mail==0.7.4
+simplejson==2.6.2
