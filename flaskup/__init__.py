@@ -2,7 +2,7 @@
 
 from flask import Flask
 from flaskext.babel import Babel
-from flaskext.mail import Mail
+from flask_mail import Mail
 
 
 # Flaskup!

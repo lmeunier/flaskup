@@ -5,7 +5,7 @@ from datetime import date, timedelta
 from werkzeug import secure_filename
 from flask import render_template
 from flaskext.babel import gettext as _
-from flaskext.mail import Message
+from flask_mail import Message
 from flaskup.jsonutils import date_encoder, date_decoder
 from flaskup import app, mail
 
