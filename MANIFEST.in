@@ -1,5 +1,6 @@
 include LICENSE
 include README.rst
+include requirements.txt
 recursive-include flaskup/templates *
 recursive-include flaskup/static *
 recursive-include flaskup/translations *
