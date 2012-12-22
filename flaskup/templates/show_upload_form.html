@@ -161,7 +161,8 @@
     xhr.addEventListener("abort", upload_canceled, false);
 
     // POST form
-    xhr.open("POST", "{{ url_for('upload_file_xhr') }}");
+    xhr.open("POST", "{{ url_for('upload_file') }}");
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     xhr.send(fd);
 
     // store our xhr, so we can abort it

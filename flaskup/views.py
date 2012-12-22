@@ -10,25 +10,17 @@ from flaskup.utils import process_request, get_file_info, remove_file
 def show_upload_form():
     return render_template('show_upload_form.html')
 
-@app.route('/upload-xhr', methods=['POST'])
-def upload_file_xhr():
-    """
-    This view is dedicated to javascript uploads via XHR.
-    Non-javascript browser will use 'upload_file()'.
-    """
-    try:
-        infos = process_request(request)
-    except Exception as e:
-        return e, 400
-    return url_for('show_uploaded_file', key=infos['key'])
-
 @app.route('/upload', methods=['POST'])
 def upload_file():
     try:
         infos = process_request(request)
     except Exception as e:
         return render_template('show_upload_form.html', error=e)
-    return redirect(url_for('show_uploaded_file', key=infos['key'])) 
+
+    if request.is_xhr:
+        return url_for('show_uploaded_file', key=infos['key'])
+    else:
+        return redirect(url_for('show_uploaded_file', key=infos['key'])) 
 
 @app.route('/uploaded/<key>/')
 def show_uploaded_file(key):
