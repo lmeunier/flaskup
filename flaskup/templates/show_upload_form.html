@@ -54,7 +54,7 @@
     </div>
     <p>
      <img src="{{ url_for('static', filename='uploading.gif') }}">
-     <span id="upload_percent">0%</span> — <span id="upload_sizes"></span> @ <span id="upload_speed"></span>
+     <span id="upload_percent">0%</span> — <span id="upload_info"></span>
     </p>
    </div>
   </div>
@@ -94,41 +94,15 @@
 <script type="text/javascript" src="{{ url_for('static', filename='bootstrap-modal.js') }}"></script>
 <script type="text/javascript">
   var upload_percent_text,
-      upload_sizes_text,
-      upload_speed_text,
+      upload_info_text,
       progress,
       btn_submit,
       btn_cancel;
 
   // variables used to compute upload_speed
-  var upload_last_datetime;
-  var upload_last_size;
-
-  // code executed when the page is fully loaded
-  window.onload = function() {
-    // first thing, check browser capabilities
-    try {
-      var fd = new FormData();
-    } catch(e) {
-      return;
-    }
-
-    // get some refs to various HTML elements
-    upload_percent_text = document.getElementById('upload_percent');
-    upload_sizes_text = document.getElementById('upload_sizes');
-    upload_speed_text = document.getElementById('upload_speed');
-    progress = document.getElementById('js-progress');
-    btn_submit = document.getElementById('btn-submit');
-
-    // bind submit button to our custom uploader
-    btn_submit.setAttribute('onclick', 'upload_file()');
-    btn_submit.setAttribute('form', null);
-
-
-    // bind cancel button to abort the XHR
-    btn_cancel = document.getElementById('btn-cancel');
-    btn_cancel.setAttribute('onclick', 'cancel_upload()');
-  }
+  var upload_last_datetime,
+      upload_last_size,
+      upload_speed;
 
   function readable_size(size) {
     var units = ['', 'Ki', 'Mi', 'Gi', 'Ti', 'Pi', 'Ei', 'Zi', 'Yi'];
@@ -138,6 +112,36 @@
         ++i;
     }
     return size.toFixed(1) + ' ' + units[i] + '{{ _('B') }}';
+  }
+
+  function update_progress_dialog(evt) {
+    // compute the upload speed, only once a second
+    var current_datetime = new Date();
+    if(current_datetime - upload_last_datetime > 1000) {
+      // compute differences between current and last values
+      var diff_datetime = (current_datetime - upload_last_datetime) / 1000;
+      var diff_size = evt.loaded - upload_last_size;
+      upload_speed = diff_size / diff_datetime;
+      // store current values
+      upload_last_datetime = current_datetime;
+      upload_last_size = evt.loaded;
+    }
+
+    // update progress bar (width)
+    var percent = evt.loaded * 100 / evt.total;
+    var bar = document.getElementById('bar');
+    bar.setAttribute('style', 'width: ' + percent + '%;');
+
+    // display informations about the current upload
+    if(percent == 100) {
+      upload_percent_text.innerHTML = '100%';
+      upload_info_text.innerHTML = readable_size(evt.loaded) + ' / '
+        + readable_size(evt.total);
+    } else {
+      upload_percent_text.innerHTML = percent.toFixed(1) + '%';
+      upload_info_text.innerHTML = readable_size(evt.loaded) + ' / '
+        + readable_size(evt.total) + ' @ ' + readable_size(upload_speed) + '/s';
+    }
   }
 
   function upload_file() {
@@ -168,33 +172,13 @@
     // upload begins, initialize some variables
     upload_last_datetime = new Date();
     upload_last_size = 0;
+    upload_speed = 0;
   }
 
   function upload_progress(evt) {
     if (evt.lengthComputable) {
-      // compute the upload speed, only once a second
-      var current_datetime = new Date();
-      if(current_datetime - upload_last_datetime > 1000) {
-        // compute differences between current and last values
-        var diff_datetime = (current_datetime - upload_last_datetime) / 1000;
-        var diff_size = evt.loaded - upload_last_size;
-        var upload_speed = diff_size / diff_datetime;
-        // store current values
-        upload_last_datetime = current_datetime;
-        upload_last_size = evt.loaded;
-        // update HTML
-        upload_speed_text.innerHTML = readable_size(upload_speed) + '/s';
-      }
-
-      // update progress bar (width)
-      var percent = evt.loaded * 100 / evt.total;
-      var bar = document.getElementById('bar');
-      bar.setAttribute('style', 'width: ' + percent + '%;');
-      // update HTML
-      upload_percent_text.innerHTML = percent.toFixed(1) + '%';
-
-      // update HTML : loaded bytes / total bytes
-      upload_sizes_text.innerHTML = readable_size(evt.loaded) + ' / ' + readable_size(evt.total);
+      // update the view
+      update_progress_dialog(evt);
     }
   }
 
@@ -222,8 +206,29 @@
     $('#upload_modal').modal('hide');
   }
 
-  function cancel_upload() {
-    progress.xhr.abort();
-  }
+  // code executed when the page is fully loaded
+  window.onload = function() {
+    // first thing, check browser capabilities
+    try {
+      var fd = new FormData();
+    } catch(e) {
+      return;
+    }
+
+    // get some refs to various HTML elements
+    upload_percent_text = document.getElementById('upload_percent');
+    upload_info_text = document.getElementById('upload_info');
+    progress = document.getElementById('js-progress');
+    btn_submit = document.getElementById('btn-submit');
+    btn_cancel = document.getElementById('btn-cancel');
+
+    // bind submit button to our custom uploader
+    btn_submit.setAttribute('onclick', 'upload_file()');
+    btn_submit.setAttribute('form', null);
+
+    // bind cancel button to abort the XHR
+    btn_cancel.setAttribute('onclick', 'progress.xhr.abort()');
+  };
+
 </script>
 {% endblock %}
