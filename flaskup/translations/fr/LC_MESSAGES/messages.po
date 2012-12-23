@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2012-05-13 08:46+0200\n"
-"PO-Revision-Date: 2012-05-13 08:50+0100\n"
+"PO-Revision-Date: 2012-12-23 18:25+0100\n"
 "Last-Translator: Laurent Meunier <laurent@deltalima.net>\n"
 "Language-Team: fr <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -64,7 +64,7 @@ msgstr "Oui, supprimer ce fichier."
 #: flaskup/templates/show_deleted_file.html:5
 #, python-format
 msgid "Your file <strong>%(f)s</strong>  was successfully deleted, and is no more available to download."
-msgstr "Votre fichier <strong>%(f)s</strong> a été envoyé avec succès, et est maintenant disponible au téléchargement."
+msgstr "Votre fichier <strong>%(f)s</strong> a été supprimé avec succès, et il n'est désormais plus disponible au téléchargement."
 
 #: flaskup/templates/show_get_file.html:6
 msgid "Hi!"
