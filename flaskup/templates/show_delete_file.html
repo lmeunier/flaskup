@@ -2,12 +2,12 @@
 
 {% block content %}
 
-<p>{{ _('Are you sure you want to delete <strong>%(f)s</strong>?', f=infos.filename) }}</p>
+<p>{{ _('Are you sure you want to delete <strong>%(f)s</strong>?', f=f.filename) }}</p>
 
 <div class="download-link">
  <p>
   <a class="btn btn-danger btn-large"
-     href="{{ url_for('show_confirm_delete_file', key=infos.key, secret=infos.delete_key) }}">
+     href="{{ url_for('show_confirm_delete_file', key=f.key, secret=f.delete_key) }}">
      {{ _('Yes, delete this file.') }}
   </a>
  </p>

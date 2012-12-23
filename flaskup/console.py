@@ -1,26 +1,19 @@
 # -*- coding: utf-8 -*-
 
-import os, sys, argparse
+import os, argparse
 from datetime import date
-from flaskup import app, utils
+from flaskup.models import SharedFile
 
 def action_clean(quiet):
     today = date.today()
-    upload_folder = app.config['FLASKUP_UPLOAD_FOLDER']
     count = 0
     deleted_files = []
-    for root, dirs, files in os.walk(upload_folder):
-        if utils.JSON_FILENAME in files:
-            try:
-                path, key = os.path.split(root)
-                infos = utils.get_file_info(key)
-                expire_date = infos['expire_date']
-                if expire_date < today:
-                    utils.remove_file(infos['key'])
-                    count += 1
-                    deleted_files.append(infos)
-            except Exception as e:
-                print >> sys.stderr, u"Error for '{0}': {1}".format(root, e)
+
+    for f in SharedFile.find_all():
+        if f.expire_date < today:
+            f.delete()
+            count += 1
+            deleted_files.append(f)
 
     if not quiet and count > 0:
         print u'Files deleted: {0}'.format(count)
@@ -30,7 +23,7 @@ def action_clean(quiet):
 def list_actions():
     from flaskup import console
     attributes = dir(console)
-    
+
     actions = []
     for attribute in attributes:
         if attribute.startswith('action_'):

@@ -2,10 +2,10 @@
 
 {{ _('%(s)s wants to share the file "%(f)s" with you.',
       s=sender,
-      f=infos.filename) }}
+      f=f.filename) }}
 
 {{ _('The file is downloadable at the following address:') }}
-{{ url_for('show_get_file', key=infos.key, _external=True) }}
+{{ url_for('show_get_file', key=f.key, _external=True) }}
 
 {{ _('The file will be available for %(d)s days.', d=config['FLASKUP_MAX_DAYS']) }}
 

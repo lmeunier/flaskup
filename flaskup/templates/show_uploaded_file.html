@@ -6,13 +6,13 @@
  <h1>{{ _('Congratulations!') }} <small>{{ _('Your file was successfully uploaded.') }}</small></h1>
 </div>
 
-<p>{{ _('The file <strong>%(f)s</strong> is now available.', f=infos.filename) }}</p>
+<p>{{ _('The file <strong>%(f)s</strong> is now available.', f=f.filename) }}</p>
 
 <div class="download-link">
  <p>
   <a class="btn btn-success btn-large"
-     href="{{ url_for('show_get_file', key=infos.key) }}">
-   {{ url_for('show_get_file', key=infos.key, _external=True) }}
+     href="{{ url_for('show_get_file', key=f.key) }}">
+   {{ url_for('show_get_file', key=f.key, _external=True) }}
   </a>
  </p>
 </div>

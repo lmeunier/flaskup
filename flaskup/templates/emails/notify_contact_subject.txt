@@ -1,1 +1,1 @@
-{{ _('Upload notifcation for the file: "%(f)s"', f=infos.filename) }}
+{{ _('Upload notifcation for the file: "%(f)s"', f=f.filename) }}

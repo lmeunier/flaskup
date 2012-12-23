@@ -6,13 +6,13 @@
  <h1>{{ _('Hi!') }} <small>{{ _('Someone wants to share a file with you.') }}</small></h1>
 </div>
 
-<p>{{ _('To Download the file <strong>%(f)s</strong>, please click on the link below.', f=infos.filename) }}</p>
+<p>{{ _('To Download the file <strong>%(f)s</strong>, please click on the link below.', f=f.filename) }}</p>
 
 <div class="download-link">
  <p>
   <a class="btn btn-success btn-large"
-     href="{{ url_for('get_file', key=infos.key, filename=infos.filename) }}">
-   {{ infos.filename }}
+     href="{{ url_for('get_file', key=f.key, filename=f.filename) }}">
+   {{ f.filename }}
   </a>
  </p>
 </div>
