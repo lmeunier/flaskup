@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
 import os
-from flask import render_template, url_for, redirect, request, abort
+from flask import render_template, url_for, redirect, request, abort, flash
 from flask import send_file, make_response
+from flaskext.babel import gettext as _
 from flaskup import app
 from flaskup.utils import send_mail
 from flaskup.models import SharedFile
@@ -90,23 +91,18 @@ def get_file(key, filename):
 
     return response
 
-@app.route('/delete/<key>/<secret>/')
+@app.route('/delete/<key>/<secret>/', methods=['GET', 'POST'])
 def show_delete_file(key, secret):
     shared_file = SharedFile.get_or_404(key)
 
     if secret != shared_file.delete_key:
         abort(404)
 
+    if request.method == 'POST':
+        # delete the file and redirect to the upload form
+        shared_file.delete()
+        flash(_('Your file have been deleted.'))
+        return redirect(url_for('show_upload_form'))
+
     return render_template('show_delete_file.html', f=shared_file)
-
-@app.route('/delete_confirmed/<key>/<secret>/')
-def show_confirm_delete_file(key, secret):
-    shared_file = SharedFile.get_or_404(key)
-
-    if secret != shared_file.delete_key:
-        abort(404)
-
-    # effectively delete the file
-    shared_file.delete()
-    return render_template('show_deleted_file.html', f=shared_file)
 

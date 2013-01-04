@@ -6,7 +6,7 @@
   margin-top: 40px;
   text-align: center;
 }
-.download-link a {
+.download-link .btn {
   padding: 20px;
   font-size: 1.4em;
 }

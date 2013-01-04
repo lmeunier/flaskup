@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-05-13 08:46+0200\n"
-"PO-Revision-Date: 2012-12-23 18:25+0100\n"
+"POT-Creation-Date: 2013-01-04 08:28+0100\n"
+"PO-Revision-Date: 2013-01-04 08:32+0100\n"
 "Last-Translator: Laurent Meunier <laurent@deltalima.net>\n"
 "Language-Team: fr <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -17,209 +17,221 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
 
-#: flaskup/utils.py:42
-#: flaskup/utils.py:72
-#: flaskup/utils.py:77
-msgid "You must choose a file."
-msgstr "Vous devez choisir un fichier."
+#: views.py:104
+msgid "Your file have been deleted."
+msgstr "Le fichier a été supprimé."
 
-#: flaskup/templates/404.html:6
+#: templates/404.html:6
 msgid "404: Page not found"
 msgstr ""
 
-#: flaskup/templates/404.html:9
+#: templates/404.html:9
 msgid "Sorry, but the page your are looking for has not been found. Try to checking the URL for errors, or go to our <a href=\"/\">Homepage</a>"
 msgstr "Désolé, la page que vous souhaitez atteindre n'existe pas. Vérifiez l'adresse dans l'URL, où rendez-vous sur <a href=\"/\">notre page d'accueil</a>."
 
-#: flaskup/templates/404.html:17
-#: flaskup/templates/500.html:16
-#: flaskup/templates/show_get_file.html:25
+#: templates/404.html:17
+#: templates/500.html:16
+#: templates/show_get_file.html:25
 msgid "Want to share a file?"
 msgstr "Vous souhaitez partager un fichier ?"
 
-#: flaskup/templates/404.html:18
-#: flaskup/templates/500.html:17
-#: flaskup/templates/show_get_file.html:26
+#: templates/404.html:18
+#: templates/500.html:17
+#: templates/show_get_file.html:26
 #, python-format
 msgid "You too you can share a file, you just have to <a href=\"%(u)s\">upload it with %(t)s</a>."
 msgstr "Vous aussi vous pouvez partager un fichier, il suffit <a href=\"%(u)s\">de l'envoyer avec %(t)s</a>."
 
-#: flaskup/templates/500.html:6
+#: templates/500.html:6
 msgid "500: Internal server error"
 msgstr ""
 
-#: flaskup/templates/500.html:9
+#: templates/500.html:9
 msgid "Oops! Something went wrong. We are sorry about that. Administrators have been warning. You can try to refresh the page in a few minutes, or go to our <a href=\"/\">Homepage</a>"
 msgstr "Oups ! Quelque chose a mal tourné. Nous sommes désolé pour celà. Les administrateurs ont été prévenus. Vous pouvez essayer de rafraichir la page dans quelques minutes, ou vous rendre sur <a href=\"/\">notre page d'accueil</a>."
 
-#: flaskup/templates/show_delete_file.html:5
+#: templates/show_delete_file.html:5
 #, python-format
 msgid "Are you sure you want to delete <strong>%(f)s</strong>?"
 msgstr "Êtes-vous sûr de vouloir supprimer <strong>%(f)s</strong> ?"
 
-#: flaskup/templates/show_delete_file.html:11
-msgid "Yes, delete this file."
-msgstr "Oui, supprimer ce fichier."
+#: templates/show_delete_file.html:10
+msgid "Yes, delete this file"
+msgstr "Oui, supprimer ce fichier"
 
-#: flaskup/templates/show_deleted_file.html:5
-#, python-format
-msgid "Your file <strong>%(f)s</strong>  was successfully deleted, and is no more available to download."
-msgstr "Votre fichier <strong>%(f)s</strong> a été supprimé avec succès, et il n'est désormais plus disponible au téléchargement."
+#: templates/show_delete_file.html:11
+msgid "Not now"
+msgstr "Non"
 
-#: flaskup/templates/show_get_file.html:6
+#: templates/show_get_file.html:6
 msgid "Hi!"
 msgstr "Bonjour !"
 
-#: flaskup/templates/show_get_file.html:6
+#: templates/show_get_file.html:6
 msgid "Someone wants to share a file with you."
 msgstr "Une personne souhaite partager un fichier avec vous."
 
-#: flaskup/templates/show_get_file.html:9
+#: templates/show_get_file.html:9
 #, python-format
 msgid "To Download the file <strong>%(f)s</strong>, please click on the link below."
 msgstr "Pour télécharger le fichier <strong>%(f)s</strong>, veuillez cliquer sur le lien suivant."
 
-#: flaskup/templates/show_upload_form.html:11
+#: templates/show_upload_form.html:11
 msgid "Easily share files"
 msgstr "Partagez facilement vos fichiers"
 
-#: flaskup/templates/show_upload_form.html:17
+#: templates/show_upload_form.html:17
 msgid "My file"
 msgstr "Mon fichier"
 
-#: flaskup/templates/show_upload_form.html:20
+#: templates/show_upload_form.html:20
 msgid "Choose a file on your computer."
 msgstr "Choisissez un fichier sur votre ordinateur."
 
-#: flaskup/templates/show_upload_form.html:25
+#: templates/show_upload_form.html:25
 msgid "My email address"
 msgstr "Mon adresse email"
 
-#: flaskup/templates/show_upload_form.html:28
+#: templates/show_upload_form.html:28
 msgid "Send an email with a link to download the file."
 msgstr "Envoie un email contenant un lien pour télécharger le fichier."
 
-#: flaskup/templates/show_upload_form.html:33
+#: templates/show_upload_form.html:33
 msgid "My contacts"
 msgstr "Mes contacts"
 
-#: flaskup/templates/show_upload_form.html:36
+#: templates/show_upload_form.html:36
 msgid "Send the download link to my contacts. (one email address per line)"
 msgstr "Envoie un lien de téléchargement à mes contacts. (une adresse email par ligne)"
 
-#: flaskup/templates/show_upload_form.html:43
+#: templates/show_upload_form.html:43
 msgid "Send!"
 msgstr "Envoyer !"
 
-#: flaskup/templates/show_upload_form.html:47
+#: templates/show_upload_form.html:47
 msgid "Uploading..."
 msgstr "Envoi en cours..."
 
-#: flaskup/templates/show_upload_form.html:50
+#: templates/show_upload_form.html:50
 msgid "Your file is uploading, please wait."
 msgstr "Votre fichier est en cours d'envoi, veuillez patienter."
 
-#: flaskup/templates/show_upload_form.html:62
+#: templates/show_upload_form.html:62
 msgid "Cancel"
 msgstr "Annuler"
 
-#: flaskup/templates/show_upload_form.html:78
+#: templates/show_upload_form.html:78
 msgid "How does it work?"
 msgstr "Comment ça fonctionne ?"
 
-#: flaskup/templates/show_upload_form.html:79
+#: templates/show_upload_form.html:79
 #, python-format
 msgid "You simply choose a file on your computer an it will by uploaded to %(t)s. In return, you will have a link to download the file. You can share this link with whoever you want."
 msgstr "Vous sélectionnez un fichier sur votre ordinateur et il sera envoyé vers %(t)s. En retour vous obtenez un lien pour télécharger le fichier. Vous pouvez ensuite partager ce lien avec qui vous voulez."
 
-#: flaskup/templates/show_upload_form.html:80
+#: templates/show_upload_form.html:80
 msgid "Who can download my file?"
 msgstr "Qui peut télécharger mon fichier ?"
 
-#: flaskup/templates/show_upload_form.html:81
+#: templates/show_upload_form.html:81
 msgid "Anyone who know the download link will be able to download your file. So be careful to not share the download link publicly."
 msgstr "Toutes les personnes connaissant le lien de téléchargement peuvent récupérer votre fichier. Faites attention à ne pas partager le lien publiquement."
 
-#: flaskup/templates/show_upload_form.html:82
+#: templates/show_upload_form.html:82
 msgid "How many days my file will be available?"
 msgstr "Pendant combien de temps mon fichier sera-t-il disponible ?"
 
-#: flaskup/templates/show_upload_form.html:83
+#: templates/show_upload_form.html:83
 #, python-format
 msgid "Your file will be available for %(m)s days."
 msgstr "Votre fichier sera téléchargeable pendant %(m)s jours."
 
-#: flaskup/templates/show_upload_form.html:84
+#: templates/show_upload_form.html:84
 msgid "Will you send spam to me or my contacts?"
 msgstr "Allez-vous m'envoyer du spam ?"
 
-#: flaskup/templates/show_upload_form.html:85
+#: templates/show_upload_form.html:85
 msgid "Definitely, no! We won't send you spam. We hate spam too!"
 msgstr "Certainement pas ! Nous n'enverrons pas de spam, ni à vous ni à vos contacts. Nous détestons le spam autant que vous !"
 
-#: flaskup/templates/show_upload_form.html:152
+#: templates/show_upload_form.html:114
+msgid "B"
+msgstr "o"
+
+#: templates/show_upload_form.html:199
 msgid "There was an error attempting to upload the file."
 msgstr "Il y a eu une erreur pendant l\\'envoi du fichier."
 
-#: flaskup/templates/show_uploaded_file.html:6
+#: templates/show_uploaded_file.html:6
 msgid "Congratulations!"
 msgstr "Félicitations !"
 
-#: flaskup/templates/show_uploaded_file.html:6
+#: templates/show_uploaded_file.html:6
 msgid "Your file was successfully uploaded."
 msgstr "Votre fichier a été envoyé avec succès."
 
-#: flaskup/templates/show_uploaded_file.html:9
+#: templates/show_uploaded_file.html:9
 #, python-format
 msgid "The file <strong>%(f)s</strong> is now available."
 msgstr "Le fichier <strong>%(f)s</strong> est maintenant disponible."
 
-#: flaskup/templates/show_uploaded_file.html:27
+#: templates/show_uploaded_file.html:27
 msgid "What's next?"
 msgstr "Et ensuite ?"
 
-#: flaskup/templates/show_uploaded_file.html:28
+#: templates/show_uploaded_file.html:28
 #, python-format
 msgid "Now, feel free to share the download link, or <a href=\"%(u)s\">upload a new file</a>."
 msgstr "Vous pouvez maintenant partager le lien de téléchargement, ou <a href=\"%(u)s\">envoyer un nouveau fichier</a>."
 
-#: flaskup/templates/emails/notify_contact_body.txt:1
-#: flaskup/templates/emails/notify_me_body.txt:1
+#: templates/emails/notify_contact_body.txt:1
+#: templates/emails/notify_me_body.txt:1
 msgid "Hi,"
 msgstr "Bonjour,"
 
-#: flaskup/templates/emails/notify_contact_body.txt:3
+#: templates/emails/notify_contact_body.txt:3
 #, python-format
 msgid "%(s)s wants to share the file \"%(f)s\" with you."
 msgstr "%(s)s souhaite partager le fichier \"%(f)s\" avec vous."
 
-#: flaskup/templates/emails/notify_contact_body.txt:7
+#: templates/emails/notify_contact_body.txt:7
 msgid "The file is downloadable at the following address:"
 msgstr "Le fichier est téléchargeable à l'adresse suivante :"
 
-#: flaskup/templates/emails/notify_contact_body.txt:10
-#: flaskup/templates/emails/notify_me_body.txt:9
+#: templates/emails/notify_contact_body.txt:10
+#: templates/emails/notify_me_body.txt:9
 #, python-format
 msgid "The file will be available for %(d)s days."
 msgstr "Le fichier sera disponible pendant %(d)s jours."
 
-#: flaskup/templates/emails/notify_contact_subject.txt:1
-#: flaskup/templates/emails/notify_me_subject.txt:1
+#: templates/emails/notify_contact_subject.txt:1
+#: templates/emails/notify_me_subject.txt:1
 #, python-format
 msgid "Upload notifcation for the file: \"%(f)s\""
 msgstr "Notification d'envoi du fichier : \"%(f)s\""
 
-#: flaskup/templates/emails/notify_me_body.txt:3
+#: templates/emails/notify_me_body.txt:3
 #, python-format
 msgid "The file \"%(f)s\" was successfully uploaded."
 msgstr "Le fichier \"%(f)s\" a été envoyé avec succès."
 
-#: flaskup/templates/emails/notify_me_body.txt:5
+#: templates/emails/notify_me_body.txt:5
 msgid "Your file is downloadable at the following address:"
 msgstr "Votre fichier est téléchargeable à l'adresse suivante :"
 
-#: flaskup/templates/emails/notify_me_body.txt:11
+#: templates/emails/notify_me_body.txt:11
 #, python-format
 msgid "You can delete the file \"%(f)s\" at any time with the following link:"
 msgstr "Vous pouvez supprimer le fichier \"%(f)s\" quand vous le souhaitez à l'adresse suivante :"
 
+#~ msgid "You must choose a file."
+#~ msgstr "Vous devez choisir un fichier."
+
+#~ msgid ""
+#~ "Your file <strong>%(f)s</strong>  was "
+#~ "successfully deleted, and is no more "
+#~ "available to download."
+#~ msgstr ""
+#~ "Votre fichier <strong>%(f)s</strong> a été "
+#~ "supprimé avec succès, et il n'est "
+#~ "désormais plus disponible au téléchargement."

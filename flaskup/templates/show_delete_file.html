@@ -4,13 +4,13 @@
 
 <p>{{ _('Are you sure you want to delete <strong>%(f)s</strong>?', f=f.filename) }}</p>
 
-<div class="download-link">
- <p>
-  <a class="btn btn-danger btn-large"
-     href="{{ url_for('show_confirm_delete_file', key=f.key, secret=f.delete_key) }}">
-     {{ _('Yes, delete this file.') }}
-  </a>
- </p>
-</div>
+<form action="{{ url_for('show_delete_file', key=f.key, secret=f.delete_key) }}" method="post">
+  <div class="download-link">
+  <p>
+    <button class="btn btn-danger btn-large" type="submit">{{ _('Yes, delete this file') }}</button>
+    <a href="{{ url_for('show_upload_form') }}" class="btn btn-small">{{ _('Not now') }}</a>
+  </p>
+  </div>
+</form>
 
 {% endblock %}
