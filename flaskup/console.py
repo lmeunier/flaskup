@@ -11,14 +11,14 @@ def action_clean(quiet):
 
     for f in SharedFile.find_all():
         if f.expire_date < today:
-            f.delete()
+            f.delete(notify=False)
             count += 1
             deleted_files.append(f)
 
     if not quiet and count > 0:
         print u'Files deleted: {0}'.format(count)
         for info in deleted_files:
-            print u" - '{0}'".format(os.path.join(info['path'], info['filename']))
+            print u" - '{0}'".format(os.path.join(info.path, info.filename))
 
 def list_actions():
     from flaskup import console
