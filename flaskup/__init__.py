@@ -15,6 +15,7 @@ FLASKUP_ADMINS = []
 
 # Flask
 DEBUG = False
+SECRET_KEY = 'change_asap'
 
 # Babel
 BABEL_DEFAULT_LOCALE = 'en'

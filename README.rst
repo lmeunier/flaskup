@@ -64,6 +64,15 @@ Flask
 
 http://flask.pocoo.org/docs/config/#builtin-configuration-values
 
+You must at least define the SECRET_KEY. To generate a good secret key, you can use a cryptographic random generator:
+
+::
+
+  >>> import os
+  >>> os.urandom(24)
+  '_\x12\xab\x90D\xc4\xfd{\xd9\xe2\xf3-\xa8\xd3\x1d\x1ej\x8b\x13x\x8ce\xc5\xe0'
+
+
 I18N (Flask-Babel)
 ~~~~~~~~~~~~~~~~~~
 
@@ -83,6 +92,7 @@ Example configuration file
   # -*- coding: utf-8 -*-
   
   DEBUG = True
+  SECRET_KEY = '_\x12\xab\x90D\xc4\xfd{\xd9\xe2\xf3-\xa8\xd3\x1d\x1ej\x8b\x13x\x8ce\xc5\xe0'
   FLASKUP_UPLOAD_FOLDER = '/srv/flaskup/data'
   FLASKUP_MAX_DAYS = 10
   FLASKUP_KEY_LENGTH = 4

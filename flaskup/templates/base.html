@@ -18,10 +18,20 @@
   </div>
 </div>
 
+
 {% block container %}
 <div class="container">
  <div class="row">
   <div class="span8">
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class="alert alert-info">
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
    {% block content %}{% endblock %}
   </div>
   <div class="span4">

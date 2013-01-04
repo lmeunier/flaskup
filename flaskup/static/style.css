@@ -13,3 +13,6 @@
 .progress {
   margin-top: 18px;
 }
+ul.alert li {
+  margin-left: 10px;
+}
