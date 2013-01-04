@@ -18,7 +18,7 @@ def upload_file():
     remote_ip = request.environ.get('REMOTE_ADDR', None)
 
     try:
-        shared_file = SharedFile(**request.form)
+        shared_file = SharedFile()
         shared_file.upload_file = request.files['myfile']
         shared_file.remote_ip = remote_ip
         shared_file.save()

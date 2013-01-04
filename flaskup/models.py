@@ -84,23 +84,17 @@ class SharedFile():
         """
         Create a new instance of a SharedFile object.
 
-        This function does not store the uploaded file on disk.
-
-        All parameters passed in kwargs are stored on the newly created object
-        as attributes.
+        This function does not store the uploaded file on disk. You must
+        call the save() method to store the file.
         """
         # default values for instance attributes
-        self.filename = None
-        self.key = None
-        self.path = None
-        self.upload_date = date.today()
-        self.expire_date = date.today()
-        self.delete_key = None
-        self.remote_ip = None
-
-        # load all args in **kwargs as instance attributes
-        for key in kwargs:
-            setattr(self, key, kwargs.get(key))
+        self.filename = kwargs.get('filename', None)
+        self.key = kwargs.get('key', None)
+        self.path = kwargs.get('path', None)
+        self.upload_date = kwargs.get('upload_date', date.today())
+        self.expire_date = kwargs.get('expire_date', date.today())
+        self.delete_key = kwargs.get('delete_key', None)
+        self.remote_ip = kwargs.get('remote_ip', None)
 
     def save(self):
         """
