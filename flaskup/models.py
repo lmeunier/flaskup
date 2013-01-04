@@ -96,6 +96,7 @@ class SharedFile():
         self.expire_date = kwargs.get('expire_date', date.today())
         self.delete_key = kwargs.get('delete_key', None)
         self.remote_ip = kwargs.get('remote_ip', None)
+        self.size = kwargs.get('size', 0)
 
     def save(self, notify=True):
         """
@@ -108,6 +109,7 @@ class SharedFile():
         path = os.path.join(app.config['FLASKUP_UPLOAD_FOLDER'], self.relative_path)
         os.makedirs(path)
         self.upload_file.save(os.path.join(path, self.filename))
+        self.size = os.path.getsize(os.path.join(path, self.filename))
 
         # generate a unique key needed to delete the file
         self.delete_key = uuid.uuid4().hex[:app.config['FLASKUP_DELETE_KEY_LENGTH']]
@@ -122,8 +124,9 @@ class SharedFile():
         infos['path'] = self.relative_path
         infos['upload_date'] = date.today()
         infos['expire_date'] = self.expire_date
-        infos['delete_key' ] = self.delete_key
-        infos['remote_ip' ] = self.remote_ip
+        infos['delete_key'] = self.delete_key
+        infos['remote_ip'] = self.remote_ip
+        infos['size'] = self.size
         path = os.path.join(app.config['FLASKUP_UPLOAD_FOLDER'], self.relative_path)
         with open(os.path.join(path, self.key + self._JSON_FILENAME), 'w') as json_file:
             simplejson.dump(infos, json_file, cls=date_encoder)

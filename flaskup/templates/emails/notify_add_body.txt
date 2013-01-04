@@ -5,6 +5,7 @@ This is the Flaskup! application running at:
 
 A new file has been added:
 - filename : {{ f.filename }}
+- size     : {{ f.size|filesizeformat(True) }}
 - remote ip: {{ f.remote_ip }}
 - download : {{ url_for('show_get_file', key=f.key, _external=True) }}
 - delete   : {{ url_for('show_delete_file', key=f.key, secret=f.delete_key, _external=True) }}

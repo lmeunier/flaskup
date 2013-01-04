@@ -3,6 +3,7 @@
 import os, argparse
 from datetime import date
 from flaskup.models import SharedFile
+from flaskup.filters import filesizeformat
 
 def action_clean(quiet):
     today = date.today()
@@ -18,7 +19,8 @@ def action_clean(quiet):
     if not quiet and count > 0:
         print u'Files deleted: {0}'.format(count)
         for info in deleted_files:
-            print u" - '{0}'".format(os.path.join(info.path, info.filename))
+            print u" - '{0}' - {1}".format(os.path.join(info.path, info.filename),
+                filesizeformat(info.size, True))
 
 def list_actions():
     from flaskup import console

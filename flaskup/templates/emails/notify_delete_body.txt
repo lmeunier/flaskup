@@ -5,6 +5,7 @@ This is the Flaskup! application running at:
 
 A file has been deleted:
 - filename: {{ f.filename }}
+- size    : {{ f.size|filesizeformat(True) }}
 - key     : {{ f.key }}
 
 --

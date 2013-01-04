@@ -84,7 +84,7 @@ def get_file(key, filename):
 
     # add the 'Content-Length' header
     # browsers can show a progress bar
-    filesize = str(os.path.getsize(filepath))
+    filesize = str(shared_file.size)
     response = make_response(send_file(filepath, as_attachment=True,
                              attachment_filename=filename))
     response.headers['Content-Length'] = filesize
