@@ -134,9 +134,15 @@ class SharedFile():
             body = render_template('emails/notify_add_body.txt', f=self)
             send_mail(subject, body, app.config['FLASKUP_ADMINS'])
 
-    def delete(self):
+    def delete(self, notify=True):
         """
         Remove the folder where the shared file is stored.
         """
         shutil.rmtree(os.path.join(app.config['FLASKUP_UPLOAD_FOLDER'], self.path))
+
+        # notify admins
+        if 'delete' in app.config['FLASKUP_NOTIFY'] and notify:
+            subject = render_template('emails/notify_delete_subject.txt', f=self)
+            body = render_template('emails/notify_delete_body.txt', f=self)
+            send_mail(subject, body, app.config['FLASKUP_ADMINS'])
 

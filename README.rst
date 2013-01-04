@@ -61,6 +61,7 @@ Flaskup!
 - `FLASKUP_NOTIFY`: list all actions that should send an email notification to the admins (default: [], no notification)
 
   - `add`: a new file has been uploaded
+  - `delete`: a file has been deleted
 
 Flask
 ~~~~~
