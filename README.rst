@@ -13,21 +13,34 @@ Requirements
 ------------
 
 - Python 2.6 (may work with other versions but not tested, feedbacks are welcome)
-- Flask >= 0.8
-- Flask-Babel >= 0.8
-- Flask-Mail >= 0.6.1
+- Flask
+- Flask-Babel
+- Flask-Mail
 - simplejson
 
 Installation
 ------------
 
-- Install Flaskup! with setup.py (I recommend you to use virtualenv):
+- Download and install Flaskup!:
 
-  ``python setup.py install``
+  ::
+
+    wget http://git.deltalima.net/flaskup/snapshot/flaskup-VERSION.tar.gz
+    tar xzf flaskup-VERSION.tar.gz
+    cd flaskup-VERSION
+    python setup.py install
+
+- or install from PyPI:
+
+  ::
+
+    pip install flaskup
 
 - Use your favorite WSGI server to run Flaskup! (the WSGI application is **flaskup:app**). For example, to use Flaskup! with Gunicorn:
 
-  ``gunicorn --bind=127.0.0.1:8001 flaskup:app``
+  ::
+
+    gunicorn --bind=127.0.0.1:8001 flaskup:app
 
 - Alternatively, you can start Flaskup! with the builtin Flask webserver (for testing or developpement only).
 
@@ -37,10 +50,12 @@ Installation
 
     from flaskup import app
     app.run()
-  
+
   run it:
 
-  ``python run-server.py``
+  ::
+
+    python run-server.py
 
 Configuration
 -------------
@@ -92,9 +107,9 @@ Example configuration file
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ::
-  
+
   # -*- coding: utf-8 -*-
-  
+
   DEBUG = True
   SECRET_KEY = '_\x12\xab\x90D\xc4\xfd{\xd9\xe2\xf3-\xa8\xd3\x1d\x1ej\x8b\x13x\x8ce\xc5\xe0'
   FLASKUP_UPLOAD_FOLDER = '/srv/flaskup/data'
@@ -110,16 +125,10 @@ Delete expired files
 Flaskup! comes with the command line tool ``flaskup``. This tool is a generic python script to call actions. Currently the only available action is `clean`.
 
 ::
-  
-  $ . /path/to/env/bin/activate
-  $ export FLASKUP_CONFIG=/path/to/my/flaskup_config.py
-  $ flaskup clean 
 
-TODO
-----
-
-- fix my engrish
-- custom error pages
+  . /path/to/env/bin/activate
+  export FLASKUP_CONFIG=/path/to/my/flaskup_config.py
+  flaskup clean 
 
 Credits
 -------
