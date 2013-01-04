@@ -8,9 +8,6 @@ def send_mail(subject, body, recipients):
     # remove new lines from subject
     subject = ' '.join(subject.strip().splitlines())
 
-    if isinstance(recipients, str):
-        recipients = [recipients]
-
     msg = Message(subject, recipients=recipients)
     msg.body = body
 

@@ -37,7 +37,7 @@ def upload_file():
         body = render_template('emails/notify_me_body.txt',
                                f=shared_file,
                                recipient=myemail)
-        send_mail(subject, body, myemail)
+        send_mail(subject, body, [myemail])
 
     # notify contacts
     # TODO limit the number of contacts
@@ -53,7 +53,7 @@ def upload_file():
                                         f=shared_file,
                                         sender=myemail,
                                         recipient=contact)
-                send_mail(subject, body, contact)
+                send_mail(subject, body, [contact])
 
     if request.is_xhr:
         return url_for('show_uploaded_file', key=shared_file.key)
