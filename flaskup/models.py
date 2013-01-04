@@ -4,8 +4,9 @@ import simplejson
 import shutil
 from datetime import date, timedelta
 from werkzeug import secure_filename
-from flask import abort
+from flask import abort, render_template
 from flaskup import app
+from flaskup.utils import send_mail
 from flaskup.jsonutils import date_encoder, date_decoder
 
 
@@ -96,7 +97,7 @@ class SharedFile():
         self.delete_key = kwargs.get('delete_key', None)
         self.remote_ip = kwargs.get('remote_ip', None)
 
-    def save(self):
+    def save(self, notify=True):
         """
         Save the uploaded file on disk.
         """
@@ -126,6 +127,12 @@ class SharedFile():
         path = os.path.join(app.config['FLASKUP_UPLOAD_FOLDER'], self.relative_path)
         with open(os.path.join(path, self.key + self._JSON_FILENAME), 'w') as json_file:
             simplejson.dump(infos, json_file, cls=date_encoder)
+
+        # notify admins
+        if 'add' in app.config['FLASKUP_NOTIFY'] and notify:
+            subject = render_template('emails/notify_add_subject.txt', f=self)
+            body = render_template('emails/notify_add_body.txt', f=self)
+            send_mail(subject, body, app.config['FLASKUP_ADMINS'])
 
     def delete(self):
         """

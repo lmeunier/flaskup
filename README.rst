@@ -57,7 +57,10 @@ Flaskup!
 - `FLASKUP_MAX_DAYS`: the maximum number of days a file will be available, the file will be deleted after FLASKUP_MAX_DAYS days (default: 30).
 - `FLASKUP_KEY_LENGTH`: the lenght of the generated key used to identify a file (default: 6 -- more than 2 billions keys)
 - `FLASKUP_DELETE_KEY_LENGTH`: the length of the generated key used to authenticate the owner of a file before deleting it (default: 4 -- more than 1 million keys)
-- `FLASKUP_ADMINS`: array with email address of the administrators of Flaskup!, this is currently used only to send mails when an error occurs (default: [], empty array)
+- `FLASKUP_ADMINS`: list with email address of the administrators of Flaskup!, this is currently used only to send mails when an error occurs (default: [], empty list)
+- `FLASKUP_NOTIFY`: list all actions that should send an email notification to the admins (default: [], no notification)
+
+  - `add`: a new file has been uploaded
 
 Flask
 ~~~~~
@@ -98,6 +101,7 @@ Example configuration file
   FLASKUP_KEY_LENGTH = 4
   DEFAULT_MAIL_SENDER = 'flaskup@example.com'
   FLASKUP_ADMINS = ['admin@example.com', 'admin@example.org']
+  FLASKUP_NOTIFY = ['add']
 
 Delete expired files
 --------------------

@@ -4,10 +4,14 @@ from flask_mail import Message
 from flaskup import mail
 
 
-def send_mail(subject, body, recipient):
+def send_mail(subject, body, recipients):
     # remove new lines from subject
     subject = ' '.join(subject.strip().splitlines())
-    msg = Message(subject, recipients=[recipient])
+
+    if isinstance(recipients, str):
+        recipients = [recipients]
+
+    msg = Message(subject, recipients=recipients)
     msg.body = body
 
     try:
