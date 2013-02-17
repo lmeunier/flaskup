@@ -184,15 +184,21 @@
   }
 
   function upload_complete(evt) {
+    // upload is done (100%)
+    update_progress_dialog(evt);
+
+    // parse response from the server
+    var response = JSON.parse(evt.target.responseText);
+
+    // something goes wrong, display the error message
     if(evt.target.status != 200) {
-        // display error message
-        alert(evt.target.responseText);
-        // hide modal
-        $('#upload_modal').modal('hide');
-        return;
+      $('#upload_modal').modal('hide');
+      alert(response.message);
+      return;
     }
+
     // follow the link returned by the server
-    document.location.href = evt.target.responseText;
+    document.location.href = response.url;
   }
 
   function upload_failed(evt) {

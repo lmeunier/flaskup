@@ -2,7 +2,7 @@
 
 import os
 from flask import render_template, url_for, redirect, request, abort, flash
-from flask import send_file, make_response
+from flask import send_file, make_response, jsonify
 from flaskext.babel import gettext as _
 from flaskup import app
 from flaskup.utils import send_mail
@@ -17,16 +17,17 @@ def show_upload_form():
 def upload_file():
     remote_ip = request.environ.get('REMOTE_ADDR', None)
 
-    try:
-        shared_file = SharedFile()
-        shared_file.upload_file = request.files['myfile']
-        shared_file.remote_ip = remote_ip
-        shared_file.save()
-    except Exception as e:
+    if not request.files['myfile']:
+        message = _("The file is required.")
         if request.is_xhr:
-            return e
+            return jsonify(message=message), 400
         else:
-            return render_template('show_upload_form.html', error=e)
+            return render_template('show_upload_form.html', error=message)
+
+    shared_file = SharedFile()
+    shared_file.upload_file = request.files['myfile']
+    shared_file.remote_ip = remote_ip
+    shared_file.save()
 
     # notify the user
     myemail = request.form.get('myemail', '').strip()
@@ -56,7 +57,7 @@ def upload_file():
                 send_mail(subject, body, [contact])
 
     if request.is_xhr:
-        return url_for('show_uploaded_file', key=shared_file.key)
+        return jsonify(url=url_for('show_uploaded_file', key=shared_file.key))
     else:
         return redirect(url_for('show_uploaded_file', key=shared_file.key))
 
