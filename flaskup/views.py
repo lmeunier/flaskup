@@ -57,13 +57,17 @@ def upload_file():
                 send_mail(subject, body, [contact])
 
     if request.is_xhr:
-        return jsonify(url=url_for('show_uploaded_file', key=shared_file.key))
+        return jsonify(url=url_for('show_uploaded_file', key=shared_file.key, secret=shared_file.delete_key))
     else:
-        return redirect(url_for('show_uploaded_file', key=shared_file.key))
+        return redirect(url_for('show_uploaded_file', key=shared_file.key, secret=shared_file.delete_key))
 
-@app.route('/uploaded/<key>/')
-def show_uploaded_file(key):
+@app.route('/uploaded/<key>/<secret>/')
+def show_uploaded_file(key, secret):
     shared_file = SharedFile.get_or_404(key)
+
+    if secret != shared_file.delete_key:
+        abort(404)
+
     return render_template('show_uploaded_file.html', f=shared_file)
 
 @app.route('/get/<key>/')

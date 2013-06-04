@@ -17,8 +17,15 @@
  </p>
 </div>
 
-{% endblock %}
+<p>
+  {{ _('Not the right file?') }}
+  <a class="btn btn-danger"
+     href="{{ url_for('show_delete_file', key=f.key, secret=f.delete_key) }}">
+   {{ _('delete it') }}
+  </a>
+</p>
 
+{% endblock %}
 
 
 {% block sidebar %}
