@@ -1,6 +1,7 @@
 from datetime import date, datetime
 import simplejson
 
+
 class date_encoder(simplejson.JSONEncoder):
     """
     Encode a datetime.date object in ISO 8601 format.
@@ -13,6 +14,7 @@ class date_encoder(simplejson.JSONEncoder):
         else:
             return super(self, obj)
 
+
 def date_decoder(d):
     """
     Decode a date in ISO 8601 format to a datetime.date object.
@@ -24,7 +26,7 @@ def date_decoder(d):
     elif isinstance(d, dict):
         pairs = d.items()
     result = []
-    for k,v in pairs:
+    for k, v in pairs:
         if isinstance(v, basestring):
             try:
                 v = datetime.strptime(v, '%Y-%m-%d').date()
@@ -37,4 +39,3 @@ def date_decoder(d):
         return [x[1] for x in result]
     elif isinstance(d, dict):
         return dict(result)
-

@@ -1,7 +1,8 @@
 import re
 from setuptools import setup
 
-version='0.1.1'
+version = '0.1.1'
+
 
 def parse_requirements(file_name):
     requirements = []
@@ -36,7 +37,7 @@ setup(
             'flaskup = flaskup.console:main',
         ],
     },
-    classifiers = [
+    classifiers=[
         'License :: OSI Approved :: BSD License',
         'Development Status :: 4 - Beta',
         'Environment :: Web Environment',
@@ -49,4 +50,3 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: WSGI :: Application',
     ]
 )
-

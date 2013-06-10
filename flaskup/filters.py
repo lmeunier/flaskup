@@ -1,8 +1,10 @@
 from flaskup import app
 
+
 @app.template_filter()
 def dateformat(value, format='%H:%M / %d-%m-%Y'):
     return value.strftime(format)
+
 
 @app.template_filter()
 def filesizeformat(value, binary=False):
@@ -33,4 +35,3 @@ def filesizeformat(value, binary=False):
             if bytes < unit:
                 return "%.1f %s" % ((base * bytes / unit), prefix)
         return "%.1f %s" % ((base * bytes / unit), prefix)
-

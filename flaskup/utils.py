@@ -19,4 +19,3 @@ def send_mail(subject, body, recipients):
         # in any case, we don't want to bother the user with these errors
         # so we fail silently
         pass
-

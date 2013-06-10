@@ -13,6 +13,7 @@ from flaskup.models import SharedFile
 def show_upload_form():
     return render_template('show_upload_form.html')
 
+
 @app.route('/upload', methods=['POST'])
 def upload_file():
     remote_ip = request.environ.get('REMOTE_ADDR', None)
@@ -47,19 +48,22 @@ def upload_file():
         for contact in [c.strip() for c in mycontacts.splitlines()]:
             if contact:
                 subject = render_template('emails/notify_contact_subject.txt',
-                                            f=shared_file,
-                                            sender=myemail,
-                                            recipient=contact)
+                                          f=shared_file,
+                                          sender=myemail,
+                                          recipient=contact)
                 body = render_template('emails/notify_contact_body.txt',
-                                        f=shared_file,
-                                        sender=myemail,
-                                        recipient=contact)
+                                       f=shared_file,
+                                       sender=myemail,
+                                       recipient=contact)
                 send_mail(subject, body, [contact])
 
     if request.is_xhr:
-        return jsonify(url=url_for('show_uploaded_file', key=shared_file.key, secret=shared_file.delete_key))
+        return jsonify(url=url_for('show_uploaded_file', key=shared_file.key,
+                       secret=shared_file.delete_key))
     else:
-        return redirect(url_for('show_uploaded_file', key=shared_file.key, secret=shared_file.delete_key))
+        return redirect(url_for('show_uploaded_file', key=shared_file.key,
+                        secret=shared_file.delete_key))
+
 
 @app.route('/uploaded/<key>/<secret>/')
 def show_uploaded_file(key, secret):
@@ -70,10 +74,12 @@ def show_uploaded_file(key, secret):
 
     return render_template('show_uploaded_file.html', f=shared_file)
 
+
 @app.route('/get/<key>/')
 def show_get_file(key):
     shared_file = SharedFile.get_or_404(key)
     return render_template('show_get_file.html', f=shared_file)
+
 
 @app.route('/get/<key>/<filename>')
 def get_file(key, filename):
@@ -96,6 +102,7 @@ def get_file(key, filename):
 
     return response
 
+
 @app.route('/delete/<key>/<secret>/', methods=['GET', 'POST'])
 def show_delete_file(key, secret):
     shared_file = SharedFile.get_or_404(key)
@@ -110,4 +117,3 @@ def show_delete_file(key, secret):
         return redirect(url_for('show_upload_form'))
 
     return render_template('show_delete_file.html', f=shared_file)
-

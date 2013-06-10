@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 
-import os, argparse
+import os
+import argparse
 from datetime import date
 from flaskup.models import SharedFile
 from flaskup.filters import filesizeformat
+
 
 def action_clean(quiet):
     today = date.today()
@@ -20,7 +22,8 @@ def action_clean(quiet):
         print u'Files deleted: {0}'.format(count)
         for info in deleted_files:
             print u" - '{0}' - {1}".format(os.path.join(info.path, info.filename),
-                filesizeformat(info.size, True))
+                                           filesizeformat(info.size, True))
+
 
 def list_actions():
     from flaskup import console
@@ -31,6 +34,7 @@ def list_actions():
         if attribute.startswith('action_'):
             actions.append(attribute[7:])
     return actions
+
 
 def main():
     # parse arguments
