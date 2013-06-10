@@ -7,17 +7,22 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-01-04 08:28+0100\n"
-"PO-Revision-Date: 2013-01-04 08:32+0100\n"
+"POT-Creation-Date: 2013-06-04 21:26+0200\n"
+"PO-Revision-Date: 2013-06-10 19:37+0100\n"
 "Last-Translator: Laurent Meunier <laurent@deltalima.net>\n"
 "Language-Team: fr <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
+"X-Generator: Poedit 1.5.4\n"
 
-#: views.py:104
+#: views.py:21
+msgid "The file is required."
+msgstr "Le fichier est obligatoire."
+
+#: views.py:109
 msgid "Your file have been deleted."
 msgstr "Le fichier a été supprimé."
 
@@ -26,29 +31,41 @@ msgid "404: Page not found"
 msgstr ""
 
 #: templates/404.html:9
-msgid "Sorry, but the page your are looking for has not been found. Try to checking the URL for errors, or go to our <a href=\"/\">Homepage</a>"
-msgstr "Désolé, la page que vous souhaitez atteindre n'existe pas. Vérifiez l'adresse dans l'URL, où rendez-vous sur <a href=\"/\">notre page d'accueil</a>."
+msgid ""
+"Sorry, but the page your are looking for has not been found. Try to checking "
+"the URL for errors, or go to our <a href=\"/\">Homepage</a>"
+msgstr ""
+"Désolé, la page que vous souhaitez atteindre n'existe pas. Vérifiez "
+"l'adresse dans l'URL, où rendez-vous sur <a href=\"/\">notre page d'accueil</"
+"a>."
 
-#: templates/404.html:17
-#: templates/500.html:16
-#: templates/show_get_file.html:25
+#: templates/404.html:17 templates/500.html:16 templates/show_get_file.html:25
 msgid "Want to share a file?"
 msgstr "Vous souhaitez partager un fichier ?"
 
-#: templates/404.html:18
-#: templates/500.html:17
-#: templates/show_get_file.html:26
+#: templates/404.html:18 templates/500.html:17 templates/show_get_file.html:26
 #, python-format
-msgid "You too you can share a file, you just have to <a href=\"%(u)s\">upload it with %(t)s</a>."
-msgstr "Vous aussi vous pouvez partager un fichier, il suffit <a href=\"%(u)s\">de l'envoyer avec %(t)s</a>."
+msgid ""
+"You too you can share a file, you just have to <a href=\"%(u)s\">upload it "
+"with %(t)s</a>."
+msgstr ""
+"Vous aussi vous pouvez partager un fichier, il suffit <a href=\"%(u)s\">de "
+"l'envoyer avec %(t)s</a>."
 
 #: templates/500.html:6
 msgid "500: Internal server error"
 msgstr ""
 
 #: templates/500.html:9
-msgid "Oops! Something went wrong. We are sorry about that. Administrators have been warning. You can try to refresh the page in a few minutes, or go to our <a href=\"/\">Homepage</a>"
-msgstr "Oups ! Quelque chose a mal tourné. Nous sommes désolé pour celà. Les administrateurs ont été prévenus. Vous pouvez essayer de rafraichir la page dans quelques minutes, ou vous rendre sur <a href=\"/\">notre page d'accueil</a>."
+msgid ""
+"Oops! Something went wrong. We are sorry about that. Administrators have "
+"been warning. You can try to refresh the page in a few minutes, or go to our "
+"<a href=\"/\">Homepage</a>"
+msgstr ""
+"Oups ! Quelque chose a mal tourné. Nous sommes désolé pour celà. Les "
+"administrateurs ont été prévenus. Vous pouvez essayer de rafraichir la page "
+"dans quelques minutes, ou vous rendre sur <a href=\"/\">notre page "
+"d'accueil</a>."
 
 #: templates/show_delete_file.html:5
 #, python-format
@@ -73,8 +90,11 @@ msgstr "Une personne souhaite partager un fichier avec vous."
 
 #: templates/show_get_file.html:9
 #, python-format
-msgid "To Download the file <strong>%(f)s</strong>, please click on the link below."
-msgstr "Pour télécharger le fichier <strong>%(f)s</strong>, veuillez cliquer sur le lien suivant."
+msgid ""
+"To Download the file <strong>%(f)s</strong>, please click on the link below."
+msgstr ""
+"Pour télécharger le fichier <strong>%(f)s</strong>, veuillez cliquer sur le "
+"lien suivant."
 
 #: templates/show_upload_form.html:11
 msgid "Easily share files"
@@ -102,7 +122,9 @@ msgstr "Mes contacts"
 
 #: templates/show_upload_form.html:36
 msgid "Send the download link to my contacts. (one email address per line)"
-msgstr "Envoie un lien de téléchargement à mes contacts. (une adresse email par ligne)"
+msgstr ""
+"Envoie un lien de téléchargement à mes contacts. (une adresse email par "
+"ligne)"
 
 #: templates/show_upload_form.html:43
 msgid "Send!"
@@ -126,16 +148,26 @@ msgstr "Comment ça fonctionne ?"
 
 #: templates/show_upload_form.html:79
 #, python-format
-msgid "You simply choose a file on your computer an it will by uploaded to %(t)s. In return, you will have a link to download the file. You can share this link with whoever you want."
-msgstr "Vous sélectionnez un fichier sur votre ordinateur et il sera envoyé vers %(t)s. En retour vous obtenez un lien pour télécharger le fichier. Vous pouvez ensuite partager ce lien avec qui vous voulez."
+msgid ""
+"You simply choose a file on your computer an it will by uploaded to %(t)s. "
+"In return, you will have a link to download the file. You can share this "
+"link with whoever you want."
+msgstr ""
+"Vous sélectionnez un fichier sur votre ordinateur et il sera envoyé vers "
+"%(t)s. En retour vous obtenez un lien pour télécharger le fichier. Vous "
+"pouvez ensuite partager ce lien avec qui vous voulez."
 
 #: templates/show_upload_form.html:80
 msgid "Who can download my file?"
 msgstr "Qui peut télécharger mon fichier ?"
 
 #: templates/show_upload_form.html:81
-msgid "Anyone who know the download link will be able to download your file. So be careful to not share the download link publicly."
-msgstr "Toutes les personnes connaissant le lien de téléchargement peuvent récupérer votre fichier. Faites attention à ne pas partager le lien publiquement."
+msgid ""
+"Anyone who know the download link will be able to download your file. So be "
+"careful to not share the download link publicly."
+msgstr ""
+"Toutes les personnes connaissant le lien de téléchargement peuvent récupérer "
+"votre fichier. Faites attention à ne pas partager le lien publiquement."
 
 #: templates/show_upload_form.html:82
 msgid "How many days my file will be available?"
@@ -152,13 +184,15 @@ msgstr "Allez-vous m'envoyer du spam ?"
 
 #: templates/show_upload_form.html:85
 msgid "Definitely, no! We won't send you spam. We hate spam too!"
-msgstr "Certainement pas ! Nous n'enverrons pas de spam, ni à vous ni à vos contacts. Nous détestons le spam autant que vous !"
+msgstr ""
+"Certainement pas ! Nous n'enverrons pas de spam, ni à vous ni à vos "
+"contacts. Nous détestons le spam autant que vous !"
 
 #: templates/show_upload_form.html:114
 msgid "B"
 msgstr "o"
 
-#: templates/show_upload_form.html:199
+#: templates/show_upload_form.html:205
 msgid "There was an error attempting to upload the file."
 msgstr "Il y a eu une erreur pendant l\\'envoi du fichier."
 
@@ -175,14 +209,26 @@ msgstr "Votre fichier a été envoyé avec succès."
 msgid "The file <strong>%(f)s</strong> is now available."
 msgstr "Le fichier <strong>%(f)s</strong> est maintenant disponible."
 
-#: templates/show_uploaded_file.html:27
+#: templates/show_uploaded_file.html:21
+msgid "Not the right file?"
+msgstr "Pas le bon fichier ?"
+
+#: templates/show_uploaded_file.html:24
+msgid "delete it"
+msgstr "Supprimez le"
+
+#: templates/show_uploaded_file.html:34
 msgid "What's next?"
 msgstr "Et ensuite ?"
 
-#: templates/show_uploaded_file.html:28
+#: templates/show_uploaded_file.html:35
 #, python-format
-msgid "Now, feel free to share the download link, or <a href=\"%(u)s\">upload a new file</a>."
-msgstr "Vous pouvez maintenant partager le lien de téléchargement, ou <a href=\"%(u)s\">envoyer un nouveau fichier</a>."
+msgid ""
+"Now, feel free to share the download link, or <a href=\"%(u)s\">upload a new "
+"file</a>."
+msgstr ""
+"Vous pouvez maintenant partager le lien de téléchargement, ou <a href=\"%(u)s"
+"\">envoyer un nouveau fichier</a>."
 
 #: templates/emails/notify_contact_body.txt:1
 #: templates/emails/notify_me_body.txt:1
@@ -222,16 +268,6 @@ msgstr "Votre fichier est téléchargeable à l'adresse suivante :"
 #: templates/emails/notify_me_body.txt:11
 #, python-format
 msgid "You can delete the file \"%(f)s\" at any time with the following link:"
-msgstr "Vous pouvez supprimer le fichier \"%(f)s\" quand vous le souhaitez à l'adresse suivante :"
-
-#~ msgid "You must choose a file."
-#~ msgstr "Vous devez choisir un fichier."
-
-#~ msgid ""
-#~ "Your file <strong>%(f)s</strong>  was "
-#~ "successfully deleted, and is no more "
-#~ "available to download."
-#~ msgstr ""
-#~ "Votre fichier <strong>%(f)s</strong> a été "
-#~ "supprimé avec succès, et il n'est "
-#~ "désormais plus disponible au téléchargement."
+msgstr ""
+"Vous pouvez supprimer le fichier \"%(f)s\" quand vous le souhaitez à "
+"l'adresse suivante :"

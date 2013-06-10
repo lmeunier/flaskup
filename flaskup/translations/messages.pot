@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-01-04 08:28+0100\n"
+"POT-Creation-Date: 2013-06-04 21:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
 
-#: views.py:104
+#: views.py:21
+msgid "The file is required."
+msgstr ""
+
+#: views.py:109
 msgid "Your file have been deleted."
 msgstr ""
 
@@ -168,7 +172,7 @@ msgstr ""
 msgid "B"
 msgstr ""
 
-#: templates/show_upload_form.html:199
+#: templates/show_upload_form.html:205
 msgid "There was an error attempting to upload the file."
 msgstr ""
 
@@ -185,11 +189,19 @@ msgstr ""
 msgid "The file <strong>%(f)s</strong> is now available."
 msgstr ""
 
-#: templates/show_uploaded_file.html:27
+#: templates/show_uploaded_file.html:21
+msgid "Not the right file?"
+msgstr ""
+
+#: templates/show_uploaded_file.html:24
+msgid "delete it"
+msgstr ""
+
+#: templates/show_uploaded_file.html:34
 msgid "What's next?"
 msgstr ""
 
-#: templates/show_uploaded_file.html:28
+#: templates/show_uploaded_file.html:35
 #, python-format
 msgid ""
 "Now, feel free to share the download link, or <a href=\"%(u)s\">upload a "
