@@ -11,7 +11,7 @@
   {{ _('Easily share files') }}
  </legend>
 
- {% if error %}<div class="alert alert-error">{{ error }}</div>{% endif %}
+<div class="alert alert-error" id="error-message" style="{% if not error %}display: none;{% endif %}">{{ error }}</div>
 
 <div class="control-group">
   <label class="control-label" for="myfile">{{ _('My file') }}</label>
@@ -104,6 +104,18 @@
       upload_last_size,
       upload_speed;
 
+  function display_error(msg) {
+    var error_div = document.getElementById('error-message');
+
+    if(msg == undefined || msg == '') {
+      error_div.innerHTML = '';
+      error_div.style.display = 'none';
+    } else {
+      error_div.innerHTML = msg;
+      error_div.style.display = 'block';
+    }
+  }
+
   function readable_size(size) {
     var units = ['', 'Ki', 'Mi', 'Gi', 'Ti', 'Pi', 'Ei', 'Zi', 'Yi'];
     var i = 0;
@@ -145,6 +157,9 @@
   }
 
   function upload_file() {
+    // hide error messages
+    display_error();
+
     // display modal
     $('#upload_modal').modal();
 
@@ -188,12 +203,19 @@
     update_progress_dialog(evt);
 
     // parse response from the server
-    var response = JSON.parse(evt.target.responseText);
+    var response;
+    try {
+      response = JSON.parse(evt.target.responseText);
+    } catch(e) {
+      response = {
+        message: '{{ _('There was an error attempting to upload the file.') }}',
+      };
+    }
 
     // something goes wrong, display the error message
     if(evt.target.status != 200) {
       $('#upload_modal').modal('hide');
-      alert(response.message);
+      display_error(response.message);
       return;
     }
 
@@ -202,7 +224,7 @@
   }
 
   function upload_failed(evt) {
-    alert('{{ _('There was an error attempting to upload the file.') }}');
+    display_error('{{ _('There was an error attempting to upload the file.') }}');
   }
 
   function upload_canceled(evt) {
@@ -236,6 +258,5 @@
     // bind cancel button to abort the XHR
     btn_cancel.setAttribute('onclick', 'progress.xhr.abort()');
   };
-
 </script>
 {% endblock %}
