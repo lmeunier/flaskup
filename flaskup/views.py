@@ -18,7 +18,7 @@ def show_upload_form():
 def upload_file():
     remote_ip = request.environ.get('REMOTE_ADDR', None)
 
-    if 'myfile' in request.files:
+    if 'myfile' in request.files and request.files['myfile']:
         # Werkzeug `FileStorage` (normal HTTP Post)
         upload_file = request.files['myfile']
     elif 'myfile.name' in request.form and 'myfile.path' in request.form:
