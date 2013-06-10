@@ -1,9 +1,12 @@
 Flaskup! 0.2 (XXXX-XX-XX)
 -------------------------
-* Show the deletion link for every uploaded file (contributed by Joachim Francke)
+* Only display the modal window if the upload starts
+* Errors are displayed in a specific div
 * Handle files uploaded with the Nginx upload-module
+* Show the deletion link for every uploaded file (contributed by Joachim Francke)
 * Notify admins when a file is uploaded or deleted
 * Display file size in notification mails
+* The name for sidecar JSON files has changed (previously uploaded files won't be deleted with the 'flaskup clean' command)
 
 Flaskup! 0.1.1 (2012-12-22)
 ---------------------------
