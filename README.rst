@@ -36,13 +36,15 @@ Installation
 
     pip install flaskup
 
-- Use your favorite WSGI server to run Flaskup! (the WSGI application is **flaskup:app**). For example, to use Flaskup! with Gunicorn:
+- Use your favorite WSGI server to run Flaskup! (the WSGI application is
+  **flaskup:app**). For example, to use Flaskup! with Gunicorn:
 
   ::
 
     gunicorn --bind=127.0.0.1:8001 flaskup:app
 
-- Alternatively, you can start Flaskup! with the builtin Flask webserver (for testing or developpement only).
+- Alternatively, you can start Flaskup! with the builtin Flask webserver (for
+  testing or developpement only).
 
   create a file `run-server.py`:
 
@@ -68,12 +70,20 @@ Flaskup!
 ~~~~~~~~
 
 - `FLASKUP_TITLE`: personnalize the title of this webapp (default: 'Flaskup!')
-- `FLASKUP_UPLOAD_FOLDER`: the root folder where you want to store uploaded files (default: /tmp/flaskup).
-- `FLASKUP_MAX_DAYS`: the maximum number of days a file will be available, the file will be deleted after FLASKUP_MAX_DAYS days (default: 30).
-- `FLASKUP_KEY_LENGTH`: the lenght of the generated key used to identify a file (default: 6 -- more than 2 billions keys)
-- `FLASKUP_DELETE_KEY_LENGTH`: the length of the generated key used to authenticate the owner of a file before deleting it (default: 4 -- more than 1 million keys)
-- `FLASKUP_ADMINS`: list with email address of the administrators of Flaskup!, this is currently used only to send mails when an error occurs (default: [], empty list)
-- `FLASKUP_NOTIFY`: list all actions that should send an email notification to the admins (default: [], no notification)
+- `FLASKUP_UPLOAD_FOLDER`: the root folder where you want to store uploaded
+  files (default: /tmp/flaskup).
+- `FLASKUP_MAX_DAYS`: the maximum number of days a file will be available, the
+  file will be deleted after FLASKUP_MAX_DAYS days (default: 30).
+- `FLASKUP_KEY_LENGTH`: the lenght of the generated key used to identify a file
+  (default: 6 -- more than 2 billions keys)
+- `FLASKUP_DELETE_KEY_LENGTH`: the length of the generated key used to
+  authenticate the owner of a file before deleting it (default: 4 -- more than
+  1 million keys)
+- `FLASKUP_ADMINS`: list with email address of the administrators of Flaskup!,
+  this is currently used only to send mails when an error occurs (default: [],
+  empty list)
+- `FLASKUP_NOTIFY`: list all actions that should send an email notification to
+  the admins (default: [], no notification)
 
   - `add`: a new file has been uploaded
   - `delete`: a file has been deleted
@@ -83,7 +93,8 @@ Flask
 
 http://flask.pocoo.org/docs/config/#builtin-configuration-values
 
-You must at least define the SECRET_KEY. To generate a good secret key, you can use a cryptographic random generator:
+You must at least define the SECRET_KEY. To generate a good secret key, you can
+use a cryptographic random generator:
 
 ::
 
@@ -117,18 +128,68 @@ Example configuration file
   FLASKUP_KEY_LENGTH = 4
   DEFAULT_MAIL_SENDER = 'flaskup@example.com'
   FLASKUP_ADMINS = ['admin@example.com', 'admin@example.org']
-  FLASKUP_NOTIFY = ['add']
+  FLASKUP_NOTIFY = ['add', 'delete']
 
 Delete expired files
 --------------------
 
-Flaskup! comes with the command line tool ``flaskup``. This tool is a generic python script to call actions. Currently the only available action is `clean`.
+Flaskup! comes with the command line tool ``flaskup``. This tool is a generic
+python script to call actions. Currently the only available action is `clean`.
 
 ::
 
   . /path/to/env/bin/activate
   export FLASKUP_CONFIG=/path/to/my/flaskup_config.py
-  flaskup clean 
+  flaskup clean
+
+Nginx Upload Module
+-------------------
+
+If you are using `Nginx <http://nginx.org/>`_ with the `upload-module
+<http://wiki.nginx.org/HttpUploadModule>`_, you can configure it to efficiently
+upload files to Flaskup!. Using this module is recommended when you need to
+deal with large files: the whole POST is not decoded in Python and the uploaded
+file is moved just one time (with the normal file upload mechanism the file is
+re-sent from Nginx to your WSGI server, and then it is copied to the final
+destination).
+
+Configure Flaskup!
+~~~~~~~~~~~~~~~~~~
+
+Nothing to do. Flaskup! will automatically detect if the upload-module is used
+to upload files.
+
+Configure Nginx
+~~~~~~~~~~~~~~~
+
+- be sure that you compiled Nginx with the upload-module
+- create a folder where uploaded files will be stored, preferably on the same
+  disk or partition as `FLASKUP_UPLOAD_FOLDER` to avoid unnecessary I/O
+  operations (this folder is named `upload_store` in your Nginx config)
+- check permissions on the `upload_store` folder: users running Nginx and
+  Flaskup! must have read/write permissions
+- edit your configuration file
+
+::
+
+    server {
+        ...
+        location = /upload {
+                upload_pass     @srvup;
+                upload_store    /tmp/nginx_upload_module;
+                upload_store_access     user:rw;
+
+                upload_set_form_field   $upload_field_name.name "$upload_file_name";
+                upload_set_form_field   $upload_field_name.path "$upload_tmp_path";
+
+                upload_pass_form_field "^.*$";
+                upload_cleanup 400-599;
+        }
+        location @srvup {
+            proxy_pass      http://127.0.0.1:8000;
+        }
+    }
+
 
 Credits
 -------
@@ -138,7 +199,10 @@ Flaskup! is maintained by `Laurent Meunier <http://www.deltalima.net/>`_.
 Licenses
 --------
 
-Flaskup! is Copyright (c) 2012 Laurent Meunier. It is free software, and may be redistributed under the terms specified in the LICENSE file (a 3-clause BSD License).
+Flaskup! is Copyright (c) 2012 Laurent Meunier. It is free software, and may be
+redistributed under the terms specified in the LICENSE file (a 3-clause BSD
+License).
 
-Flaskup! uses `Bootstrap <http://twitter.github.com/bootstrap/>`_ (`Apache License v2.0 <http://www.apache.org/licenses/LICENSE-2.0>`_) and `jQuery <http://jquery.com/>`_ (`MIT or GPLv2 License <http://jquery.org/license/>`_).
-
+Flaskup! uses `Bootstrap <http://twitter.github.com/bootstrap/>`_ (`Apache
+License v2.0 <http://www.apache.org/licenses/LICENSE-2.0>`_) and `jQuery
+<http://jquery.com/>`_ (`MIT or GPLv2 License <http://jquery.org/license/>`_).
