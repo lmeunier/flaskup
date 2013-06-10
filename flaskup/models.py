@@ -147,3 +147,14 @@ class SharedFile():
             subject = render_template('emails/notify_delete_subject.txt', f=self)
             body = render_template('emails/notify_delete_body.txt', f=self)
             send_mail(subject, body, app.config['FLASKUP_ADMINS'])
+
+
+class NginxUploadFile(object):
+    def __init__(self, filename, path, content_type=None, size=None):
+        self.filename = filename
+        self.path = path
+        self.content_type = content_type
+        self.size = size
+
+    def save(self, dst):
+        shutil.move(self.path, dst)

@@ -6,7 +6,7 @@ from flask import send_file, make_response, jsonify
 from flaskext.babel import gettext as _
 from flaskup import app
 from flaskup.utils import send_mail
-from flaskup.models import SharedFile
+from flaskup.models import SharedFile, NginxUploadFile
 
 
 @app.route('/')
@@ -18,7 +18,17 @@ def show_upload_form():
 def upload_file():
     remote_ip = request.environ.get('REMOTE_ADDR', None)
 
-    if not request.files['myfile']:
+    if 'myfile' in request.files:
+        # Werkzeug `FileStorage` (normal HTTP Post)
+        upload_file = request.files['myfile']
+    elif 'myfile.name' in request.form and 'myfile.path' in request.form:
+        # Nginx Upload Module
+        upload_file = NginxUploadFile(
+            filename=request.form['myfile.name'],
+            path=request.form['myfile.path']
+        )
+    else:
+        # no upload file
         message = _("The file is required.")
         if request.is_xhr:
             return jsonify(message=message), 400
@@ -26,7 +36,7 @@ def upload_file():
             return render_template('show_upload_form.html', error=message)
 
     shared_file = SharedFile()
-    shared_file.upload_file = request.files['myfile']
+    shared_file.upload_file = upload_file
     shared_file.remote_ip = remote_ip
     shared_file.save()
 
