@@ -9,55 +9,34 @@ upload files through an HTML form, and you get back a link to download the file.
 You can do whatever you want with the link (copy it in an email or in your
 prefered chat app, it's up to you).
 
+
 Requirements
 ------------
 
-- Python 2.6 (may work with other versions but not tested, feedbacks are welcome)
+- Python 2.7 (may work with other versions but not tested, feedbacks are welcome)
 - Flask
 - Flask-Babel
 - Flask-Mail
 - simplejson
 
+
 Installation
 ------------
 
-- Download and install Flaskup!:
-
-  ::
-
-    wget http://git.deltalima.net/flaskup/snapshot/flaskup-VERSION.tar.gz
-    tar xzf flaskup-VERSION.tar.gz
-    cd flaskup-VERSION
-    python setup.py install
-
-- or install from PyPI:
+- Install from PyPI:
 
   ::
 
     pip install flaskup
 
-- Use your favorite WSGI server to run Flaskup! (the WSGI application is
-  **flaskup:app**). For example, to use Flaskup! with Gunicorn:
+- or directly from the Git repository (to have latest features):
 
   ::
 
-    gunicorn --bind=127.0.0.1:8001 flaskup:app
+    git clone https://github.com/lmeunier/flaskup.git
+    cd flaskup
+    python setup.py install
 
-- Alternatively, you can start Flaskup! with the builtin Flask webserver (for
-  testing or developpement only).
-
-  create a file `run-server.py`:
-
-  ::
-
-    from flaskup import app
-    app.run()
-
-  run it:
-
-  ::
-
-    python run-server.py
 
 Configuration
 -------------
@@ -130,6 +109,34 @@ Example configuration file
   FLASKUP_ADMINS = ['admin@example.com', 'admin@example.org']
   FLASKUP_NOTIFY = ['add', 'delete']
 
+
+Run Flaskup!
+------------
+
+- Use your favorite WSGI server to run Flaskup! (the WSGI application is
+  **flaskup:app**). For example, to use Flaskup! with Gunicorn:
+
+  ::
+
+    gunicorn --bind=127.0.0.1:8001 flaskup:app
+
+- Alternatively, you can start Flaskup! with the builtin Flask webserver (for
+  testing or developpement only).
+
+  create a file `run-server.py`:
+
+  ::
+
+    from flaskup import app
+    app.run()
+
+  run it:
+
+  ::
+
+    python run-server.py
+
+
 Delete expired files
 --------------------
 
@@ -141,6 +148,7 @@ python script to call actions. Currently the only available action is `clean`.
   . /path/to/env/bin/activate
   export FLASKUP_CONFIG=/path/to/my/flaskup_config.py
   flaskup clean
+
 
 Nginx Upload Module
 -------------------
@@ -195,6 +203,7 @@ Credits
 -------
 
 Flaskup! is maintained by `Laurent Meunier <http://www.deltalima.net/>`_.
+
 
 Licenses
 --------
