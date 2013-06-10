@@ -160,9 +160,6 @@
     // hide error messages
     display_error();
 
-    // display modal
-    $('#upload_modal').modal();
-
     // prepare XHR
     var xhr = new XMLHttpRequest();
     var form = document.getElementById('form-upload');
@@ -192,6 +189,9 @@
   }
 
   function upload_progress(evt) {
+    // display modal
+    $('#upload_modal').modal();
+
     if (evt.lengthComputable) {
       // update the view
       update_progress_dialog(evt);
