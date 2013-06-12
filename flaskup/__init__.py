@@ -15,6 +15,8 @@ FLASKUP_KEY_LENGTH = 6
 FLASKUP_DELETE_KEY_LENGTH = 4
 FLASKUP_ADMINS = []
 FLASKUP_NOTIFY = []
+FLASKUP_NGINX_UPLOAD_MODULE_ENABLED = False
+FLASKUP_NGINX_UPLOAD_MODULE_STORE = None
 
 # Flask
 DEBUG = False
@@ -42,6 +44,11 @@ assert app.config['FLASKUP_DELETE_KEY_LENGTH'] >= 1 \
     and app.config['FLASKUP_DELETE_KEY_LENGTH'] <= 32
 assert os.access(app.config['FLASKUP_UPLOAD_FOLDER'], os.W_OK), \
     "No write access to '%s'" % app.config['FLASKUP_UPLOAD_FOLDER']
+if app.config['FLASKUP_NGINX_UPLOAD_MODULE_ENABLED']:
+    assert app.config['FLASKUP_NGINX_UPLOAD_MODULE_STORE'] is not None, \
+        "You must define FLASKUP_NGINX_UPLOAD_MODULE_STORE"
+    assert not app.config['FLASKUP_NGINX_UPLOAD_MODULE_STORE'] == '', \
+        "You must define FLASKUP_NGINX_UPLOAD_MODULE_STORE"
 
 
 # Babel (i18n)

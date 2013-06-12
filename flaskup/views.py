@@ -17,17 +17,33 @@ def show_upload_form():
 @app.route('/upload', methods=['POST'])
 def upload_file():
     remote_ip = request.environ.get('REMOTE_ADDR', None)
+    upload_file = None
 
-    if 'myfile' in request.files and request.files['myfile']:
-        # Werkzeug `FileStorage` (normal HTTP Post)
-        upload_file = request.files['myfile']
-    elif 'myfile.name' in request.form and 'myfile.path' in request.form:
+    if app.config['FLASKUP_NGINX_UPLOAD_MODULE_ENABLED']:
         # Nginx Upload Module
-        upload_file = NginxUploadFile(
-            filename=request.form['myfile.name'],
-            path=request.form['myfile.path']
-        )
+        if 'myfile.name' in request.form and 'myfile.path' in request.form:
+            realpath = os.path.realpath(request.form['myfile.path'])
+            storepath = app.config['FLASKUP_NGINX_UPLOAD_MODULE_STORE']
+            storepath = os.path.realpath(storepath)
+
+            if realpath.startswith(storepath):
+                upload_file = NginxUploadFile(
+                    filename=request.form['myfile.name'],
+                    path=request.form['myfile.path']
+                )
+            else:
+                # the path given in `myfile.path` is outside the store path
+                # this should not happen
+                message = "'{0}' not in the Nginx upload-module store".format(
+                    request.form['myfile.path']
+                )
+                return jsonify(message=message), 400
     else:
+        # Werkzeug `FileStorage` (normal HTTP Post)
+        if 'myfile' in request.files and request.files['myfile']:
+            upload_file = request.files['myfile']
+
+    if upload_file is None:
         # no upload file
         message = _("The file is required.")
         if request.is_xhr:
