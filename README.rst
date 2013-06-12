@@ -67,6 +67,11 @@ Flaskup!
   - `add`: a new file has been uploaded
   - `delete`: a file has been deleted
 
+- `FLASKUP_NGINX_UPLOAD_MODULE_ENABLED`: indicate whether you want to enable
+  support for the Nginx upload-module (default: `False`)
+- `FLASKUP_NGINX_UPLOAD_MODULE_STORE`: must be set to the `upload_store` of the
+  Nginx upload-module (default: `None`)
+
 Flask
 ~~~~~
 
@@ -164,8 +169,17 @@ destination).
 Configure Flaskup!
 ~~~~~~~~~~~~~~~~~~
 
-Nothing to do. Flaskup! will automatically detect if the upload-module is used
-to upload files.
+You must define the two following configuration values:
+
+- `FLASKUP_NGINX_UPLOAD_MODULE_ENABLED`: must be set to `True`
+- `FLASKUP_NGINX_UPLOAD_MODULE_STORE`: must be set to the `upload_store` of the
+  upload-module
+
+Example configuration::
+
+  FLASKUP_NGINX_UPLOAD_MODULE_ENABLED = True
+  FLASKUP_NGINX_UPLOAD_MODULE_STORE = /tmp/nginx_upload_module
+
 
 Configure Nginx
 ~~~~~~~~~~~~~~~
@@ -176,27 +190,43 @@ Configure Nginx
   operations (this folder is named `upload_store` in your Nginx config)
 - check permissions on the `upload_store` folder: users running Nginx and
   Flaskup! must have read/write permissions
-- edit your configuration file
+- edit your configuration file (add the `/upload` location)
 
-::
+Example configuration::
 
-    server {
-        ...
-        location = /upload {
-                upload_pass     @srvup;
-                upload_store    /tmp/nginx_upload_module;
-                upload_store_access     user:rw;
+  server {
+      listen [::]:80;
+      server_name "flaskup.example.com";
+      client_max_body_size 2g;
 
-                upload_set_form_field   $upload_field_name.name "$upload_file_name";
-                upload_set_form_field   $upload_field_name.path "$upload_tmp_path";
+      access_log /var/log/nginx/flaskup_access.log combined;
+      error_log  /var/log/nginx/flaskup_error.log;
 
-                upload_pass_form_field "^.*$";
-                upload_cleanup 400-599;
-        }
-        location @srvup {
-            proxy_pass      http://127.0.0.1:8000;
-        }
-    }
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header Host $http_host;
+
+      location /static/ {
+              alias   /path/to/env/lib/python2.7/site-packages/flaskup/static/;
+      }
+      location = /upload {
+              upload_pass             @upstream;
+              upload_store            /tmp/nginx_upload_module;
+              upload_store_access     user:rw;
+
+              upload_set_form_field   $upload_field_name.name "$upload_file_name";
+              upload_set_form_field   $upload_field_name.path "$upload_tmp_path";
+
+              upload_pass_form_field  "^myemail$|^mycontacts$";
+              upload_cleanup          400-599;
+      }
+      location / {
+          proxy_pass http://127.0.0.1:8000;
+      }
+      location @upstream {
+          proxy_pass http://127.0.0.1:8000;
+      }
+  }
 
 
 Credits
