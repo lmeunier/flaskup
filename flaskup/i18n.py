@@ -1,7 +1,7 @@
 from flask import request
 from flaskup import babel
 
-AVAILABLE_LOCALES = ['fr', 'en']
+AVAILABLE_LOCALES = ['fr', 'en', 'de']
 
 
 @babel.localeselector
