@@ -24,10 +24,7 @@ def upload_file():
     if passwords:
         # check if user provided a valid password
         mypassword = request.form.get('mypassword')
-
-        check_password = app.config.get('FLASKUP_UPLOAD_PASSWORDS_CHECK',
-                                        lambda a, b: a == b)
-
+        check_password = app.config.get('FLASKUP_UPLOAD_PASSWORDS_CHECK')
         valid_password = False
         for hashed_password, info in passwords:
             if check_password(mypassword, hashed_password):
