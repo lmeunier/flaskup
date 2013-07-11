@@ -19,15 +19,21 @@ def upload_file():
     remote_ip = request.environ.get('REMOTE_ADDR', None)
     upload_file = None
 
-    if app.config['FLASKUP_UPLOAD_PASSWORDS']:
+    passwords = app.config['FLASKUP_UPLOAD_PASSWORDS']
+    if passwords:
         # check if user provided a valid password
-        incorrect_password = True
-        if 'mypassword' in request.form:
-            mypassword = request.form['mypassword']
-            incorrect_password = mypassword not in \
-                app.config['FLASKUP_UPLOAD_PASSWORDS']
+        mypassword = request.form.get('mypassword')
 
-        if incorrect_password:
+        check_password = app.config.get('FLASKUP_UPLOAD_PASSWORDS_CHECK',
+                                        lambda a, b: a == b)
+
+        valid_password = False
+        for hashed_password in passwords:
+            if check_password(mypassword, hashed_password):
+                valid_password = True
+                continue
+
+        if not valid_password:
             message = _("Incorrect password")
             return jsonify(message=message), 400
 
