@@ -19,6 +19,7 @@ def upload_file():
     remote_ip = request.environ.get('REMOTE_ADDR', None)
     upload_file = None
 
+    password_identifier = None
     passwords = app.config['FLASKUP_UPLOAD_PASSWORDS']
     if passwords:
         # check if user provided a valid password
@@ -28,8 +29,9 @@ def upload_file():
                                         lambda a, b: a == b)
 
         valid_password = False
-        for hashed_password in passwords:
+        for hashed_password, info in passwords:
             if check_password(mypassword, hashed_password):
+                password_identifier = info
                 valid_password = True
                 continue
 
@@ -72,6 +74,7 @@ def upload_file():
     shared_file = SharedFile()
     shared_file.upload_file = upload_file
     shared_file.remote_ip = remote_ip
+    shared_file.password_identifier = password_identifier
     shared_file.save()
 
     # notify the user

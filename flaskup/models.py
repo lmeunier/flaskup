@@ -88,14 +88,15 @@ class SharedFile():
         call the save() method to store the file.
         """
         # default values for instance attributes
-        self.filename = kwargs.get('filename', None)
-        self.key = kwargs.get('key', None)
-        self.path = kwargs.get('path', None)
+        self.filename = kwargs.get('filename')
+        self.key = kwargs.get('key')
+        self.path = kwargs.get('path')
         self.upload_date = kwargs.get('upload_date', date.today())
         self.expire_date = kwargs.get('expire_date', date.today())
-        self.delete_key = kwargs.get('delete_key', None)
-        self.remote_ip = kwargs.get('remote_ip', None)
+        self.delete_key = kwargs.get('delete_key')
+        self.remote_ip = kwargs.get('remote_ip')
         self.size = kwargs.get('size', 0)
+        self.password_identifier = kwargs.get('password_identifier')
 
     def save(self, notify=True):
         """
@@ -126,6 +127,7 @@ class SharedFile():
         infos['delete_key'] = self.delete_key
         infos['remote_ip'] = self.remote_ip
         infos['size'] = self.size
+        infos['password_identifier'] = self.password_identifier
         path = os.path.join(app.config['FLASKUP_UPLOAD_FOLDER'], self.relative_path)
         with open(os.path.join(path, self.key + self._JSON_FILENAME), 'w') as json_file:
             simplejson.dump(infos, json_file, cls=date_encoder)
