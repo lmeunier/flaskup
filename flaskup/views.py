@@ -27,10 +27,16 @@ def upload_file():
         check_password = app.config.get('FLASKUP_UPLOAD_PASSWORDS_CHECK')
         valid_password = False
         for hashed_password, info in passwords:
-            if check_password(mypassword, hashed_password):
-                password_identifier = info
-                valid_password = True
-                continue
+            try:
+                if check_password(mypassword, hashed_password):
+                    password_identifier = info
+                    valid_password = True
+                    continue
+            except:
+                # An exception was raised when cheking the password.
+                # Treat this as a password check failure, so do nothing
+                # more.
+                pass
 
         if not valid_password:
             message = _("Incorrect password")
