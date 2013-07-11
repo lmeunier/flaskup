@@ -19,6 +19,18 @@ def upload_file():
     remote_ip = request.environ.get('REMOTE_ADDR', None)
     upload_file = None
 
+    if app.config['FLASKUP_UPLOAD_PASSWORDS']:
+        # check if user provided a valid password
+        incorrect_password = True
+        if 'mypassword' in request.form:
+            mypassword = request.form['mypassword']
+            incorrect_password = mypassword not in \
+                app.config['FLASKUP_UPLOAD_PASSWORDS']
+
+        if incorrect_password:
+            message = _("Incorrect password")
+            return jsonify(message=message), 400
+
     if app.config['FLASKUP_NGINX_UPLOAD_MODULE_ENABLED']:
         # Nginx Upload Module
         if 'myfile.name' in request.form and 'myfile.path' in request.form:

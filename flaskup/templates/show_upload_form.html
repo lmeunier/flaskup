@@ -21,6 +21,16 @@
   </div>
 </div>
 
+{% if config.FLASKUP_UPLOAD_PASSWORDS %}
+<div class="control-group">
+  <label class="control-label" for="mypassword">{{ _('My password') }}</label>
+  <div class="controls">
+   <input type="password" class="input-xlarge" id="mypassword" name="mypassword">
+  <p class="help-block">{{ _('You must provide a known password to upload a file.') }}</p>
+  </div>
+</div>
+{% endif %}
+
 <div class="control-group">
  <label class="control-label" for="myemail">{{ _('My email address') }}</label>
  <div class="controls">
