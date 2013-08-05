@@ -29,13 +29,15 @@
  </div>
 </div>
 
-<div class="control-group">
- <label class="control-label" for="mycontacts">{{ _('My contacts') }}</label>
- <div class="controls">
-  <textarea id="mycontacts" class="input-xlarge" rows="3" name="mycontacts"></textarea>
-  <p class="help-block">{{ _('Send the download link to my contacts. (one email address per line)') }}</p>
- </div>
-</div>
+{% if config.FLASKUP_MAX_CONTACTS > 0 %}
+  <div class="control-group">
+    <label class="control-label" for="mycontacts">{{ _('My contacts') }}<br>{{ _('(%(max)i max.)', max=config.FLASKUP_MAX_CONTACTS) }}</label>
+    <div class="controls">
+      <textarea id="mycontacts" class="input-xlarge" rows="3" name="mycontacts"></textarea>
+      <p class="help-block">{{ _('Send the download link to my contacts. (one email address per line)') }}</p>
+    </div>
+  </div>
+{% endif %}
 
 <div class="form-actions">
  <button id="btn-submit"

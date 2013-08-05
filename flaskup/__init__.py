@@ -17,6 +17,7 @@ FLASKUP_ADMINS = []
 FLASKUP_NOTIFY = []
 FLASKUP_NGINX_UPLOAD_MODULE_ENABLED = False
 FLASKUP_NGINX_UPLOAD_MODULE_STORE = None
+FLASKUP_MAX_CONTACTS = 10
 
 # Flask
 DEBUG = False
@@ -49,6 +50,9 @@ if app.config['FLASKUP_NGINX_UPLOAD_MODULE_ENABLED']:
         "You must define FLASKUP_NGINX_UPLOAD_MODULE_STORE"
     assert not app.config['FLASKUP_NGINX_UPLOAD_MODULE_STORE'] == '', \
         "You must define FLASKUP_NGINX_UPLOAD_MODULE_STORE"
+assert isinstance(app.config['FLASKUP_MAX_CONTACTS'], int) and \
+    app.config['FLASKUP_MAX_CONTACTS'] >= 0, \
+    "FLASKUP_MAX_CONTACTS must be an integer, greater than or equal to 0"
 
 
 # Babel (i18n)

@@ -68,10 +68,11 @@ def upload_file():
         send_mail(subject, body, [myemail])
 
     # notify contacts
-    # TODO limit the number of contacts
+    max_contacts = app.config['FLASKUP_MAX_CONTACTS']
     if 'mycontacts' in request.form and myemail:
         mycontacts = request.form['mycontacts']
-        for contact in [c.strip() for c in mycontacts.splitlines()]:
+        all_contacts = [c.strip() for c in mycontacts.splitlines()]
+        for contact in all_contacts[:max_contacts]:
             if contact:
                 subject = render_template('emails/notify_contact_subject.txt',
                                           f=shared_file,
