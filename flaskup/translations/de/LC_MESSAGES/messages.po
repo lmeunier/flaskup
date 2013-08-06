@@ -1,4 +1,4 @@
-# Translations template for PROJECT.
+# German translations for PROJECT.
 # Copyright (C) 2013 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
 #
@@ -6,22 +6,23 @@
 # Joachim Francke <>, 2013.
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2013-06-04 21:26+0200\n"
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2013-08-05 14:24+0200\n"
 "PO-Revision-Date: 2013-06-12 20:08+0200\n"
 "Last-Translator: Joachim Francke\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
-"Language: de\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 1.4\n"
 
-#: views.py:21
+#: views.py:48
 msgid "The file is required."
 msgstr "Die Datei ist erforderlich."
 
-#: views.py:109
+#: views.py:143
 msgid "Your file have been deleted."
 msgstr "Ihre Datei wurde gelöscht. "
 
@@ -35,8 +36,8 @@ msgid ""
 "checking the URL for errors, or go to our <a href=\"/\">Homepage</a>"
 msgstr ""
 "Entschuldigen Sie, die Seite die Sie suchen wurde nicht gefunden. "
-"Überprüfen Sie die URL auf Fehler, oder gehen sie zu unserer "
-"<a href=\"/\">Homepage</a>."
+"Überprüfen Sie die URL auf Fehler, oder gehen sie zu unserer <a "
+"href=\"/\">Homepage</a>."
 
 #: templates/404.html:17 templates/500.html:16 templates/show_get_file.html:25
 msgid "Want to share a file?"
@@ -48,8 +49,8 @@ msgid ""
 "You too you can share a file, you just have to <a href=\"%(u)s\">upload "
 "it with %(t)s</a>."
 msgstr ""
-"Auch Sie können eine Datei teilen, Sie müssen sie nur <a href=\"%(u)s\">mit %"
-"(t)s hochladen</a>."
+"Auch Sie können eine Datei teilen, Sie müssen sie nur <a "
+"href=\"%(u)s\">mit %(t)s hochladen</a>."
 
 #: templates/500.html:6
 msgid "500: Internal server error"
@@ -62,8 +63,8 @@ msgid ""
 "our <a href=\"/\">Homepage</a>"
 msgstr ""
 "Autsch! Etwas ging daneben. Das tut uns leid. Die Administratoren wurden "
-"gewarnt. Versuchen Sie die Seite in einigen Minuten erneut zu laden, oder "
-"gehen sie zu unserer <a href=\"/\">Homepage</a>."
+"gewarnt. Versuchen Sie die Seite in einigen Minuten erneut zu laden, oder"
+" gehen sie zu unserer <a href=\"/\">Homepage</a>."
 
 #: templates/show_delete_file.html:5
 #, python-format
@@ -115,36 +116,40 @@ msgstr "Meine E-Mail-Adresse"
 msgid "Send an email with a link to download the file."
 msgstr "Sende eine Email mit einem link um diese Datei herunterzuladen."
 
-#: templates/show_upload_form.html:33
+#: templates/show_upload_form.html:34
 msgid "My contacts"
 msgstr "Meine Kontakte"
 
-#: templates/show_upload_form.html:36
-msgid "Send the download link to my contacts. (one email address per line)"
+#: templates/show_upload_form.html:34
+#, python-format
+msgid "(%(max)i max.)"
 msgstr ""
-"Sende den Downloadlink an meine Kontakte. (Eine E-Mail-Adresse je Zeile)"
 
-#: templates/show_upload_form.html:43
+#: templates/show_upload_form.html:37
+msgid "Send the download link to my contacts. (one email address per line)"
+msgstr "Sende den Downloadlink an meine Kontakte. (Eine E-Mail-Adresse je Zeile)"
+
+#: templates/show_upload_form.html:45
 msgid "Send!"
 msgstr "Senden!"
 
-#: templates/show_upload_form.html:47
+#: templates/show_upload_form.html:49
 msgid "Uploading..."
 msgstr "hochladen..."
 
-#: templates/show_upload_form.html:50
+#: templates/show_upload_form.html:52
 msgid "Your file is uploading, please wait."
 msgstr "Bitte warten, Ihre Datei wird übertragen."
 
-#: templates/show_upload_form.html:62
+#: templates/show_upload_form.html:64
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: templates/show_upload_form.html:78
+#: templates/show_upload_form.html:80
 msgid "How does it work?"
 msgstr "Wie funktioniert es?"
 
-#: templates/show_upload_form.html:79
+#: templates/show_upload_form.html:81
 #, python-format
 msgid ""
 "You simply choose a file on your computer an it will by uploaded to "
@@ -152,39 +157,40 @@ msgid ""
 "share this link with whoever you want."
 msgstr ""
 
-#: templates/show_upload_form.html:80
+#: templates/show_upload_form.html:82
 msgid "Who can download my file?"
 msgstr "Wer kann meine Datei herunterladen?"
 
-#: templates/show_upload_form.html:81
+#: templates/show_upload_form.html:83
 msgid ""
 "Anyone who know the download link will be able to download your file. So "
 "be careful to not share the download link publicly."
 msgstr ""
 
-#: templates/show_upload_form.html:82
+#: templates/show_upload_form.html:84
 msgid "How many days my file will be available?"
 msgstr "Wie viele Tage ist meine Datei verfügbar?"
 
-#: templates/show_upload_form.html:83
+#: templates/show_upload_form.html:85
 #, python-format
 msgid "Your file will be available for %(m)s days."
 msgstr "Ihre Datei ist für %(m)s Tage verfügbar."
 
-#: templates/show_upload_form.html:84
+#: templates/show_upload_form.html:86
 msgid "Will you send spam to me or my contacts?"
 msgstr "Werden Sie Spam an mich oder meine Kontakte senden?"
 
-#: templates/show_upload_form.html:85
+#: templates/show_upload_form.html:87
 msgid "Definitely, no! We won't send you spam. We hate spam too!"
 msgstr ""
-"Natürlich nicht! Wir werden Ihnen keinen Spam senden. Wir hassen Spam auch!"
+"Natürlich nicht! Wir werden Ihnen keinen Spam senden. Wir hassen Spam "
+"auch!"
 
-#: templates/show_upload_form.html:114
+#: templates/show_upload_form.html:128
 msgid "B"
 msgstr ""
 
-#: templates/show_upload_form.html:205
+#: templates/show_upload_form.html:213 templates/show_upload_form.html:229
 msgid "There was an error attempting to upload the file."
 msgstr ""
 
@@ -259,5 +265,4 @@ msgstr "Ihre Datei kann unter der folgenden Adresse heruntergeladen werden:"
 #, python-format
 msgid "You can delete the file \"%(f)s\" at any time with the following link:"
 msgstr "Sie können die Datei \"%(f)s\" jederzeit mit folgendem Link löschen:"
-
 

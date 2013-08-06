@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-06-04 21:26+0200\n"
-"PO-Revision-Date: 2013-06-10 19:37+0100\n"
+"POT-Creation-Date: 2013-08-05 14:24+0200\n"
+"PO-Revision-Date: 2013-08-05 14:25+0100\n"
 "Last-Translator: Laurent Meunier <laurent@deltalima.net>\n"
 "Language-Team: fr <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Generated-By: Babel 0.9.6\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: views.py:21
+#: views.py:48
 msgid "The file is required."
 msgstr "Le fichier est obligatoire."
 
-#: views.py:109
+#: views.py:143
 msgid "Your file have been deleted."
 msgstr "Le fichier a été supprimé."
 
@@ -116,37 +116,42 @@ msgstr "Mon adresse email"
 msgid "Send an email with a link to download the file."
 msgstr "Envoie un email contenant un lien pour télécharger le fichier."
 
-#: templates/show_upload_form.html:33
+#: templates/show_upload_form.html:34
 msgid "My contacts"
 msgstr "Mes contacts"
 
-#: templates/show_upload_form.html:36
+#: templates/show_upload_form.html:34
+#, python-format
+msgid "(%(max)i max.)"
+msgstr "(max. %(max)i)"
+
+#: templates/show_upload_form.html:37
 msgid "Send the download link to my contacts. (one email address per line)"
 msgstr ""
 "Envoie un lien de téléchargement à mes contacts. (une adresse email par "
 "ligne)"
 
-#: templates/show_upload_form.html:43
+#: templates/show_upload_form.html:45
 msgid "Send!"
 msgstr "Envoyer !"
 
-#: templates/show_upload_form.html:47
+#: templates/show_upload_form.html:49
 msgid "Uploading..."
 msgstr "Envoi en cours..."
 
-#: templates/show_upload_form.html:50
+#: templates/show_upload_form.html:52
 msgid "Your file is uploading, please wait."
 msgstr "Votre fichier est en cours d'envoi, veuillez patienter."
 
-#: templates/show_upload_form.html:62
+#: templates/show_upload_form.html:64
 msgid "Cancel"
 msgstr "Annuler"
 
-#: templates/show_upload_form.html:78
+#: templates/show_upload_form.html:80
 msgid "How does it work?"
 msgstr "Comment ça fonctionne ?"
 
-#: templates/show_upload_form.html:79
+#: templates/show_upload_form.html:81
 #, python-format
 msgid ""
 "You simply choose a file on your computer an it will by uploaded to %(t)s. "
@@ -157,11 +162,11 @@ msgstr ""
 "%(t)s. En retour vous obtenez un lien pour télécharger le fichier. Vous "
 "pouvez ensuite partager ce lien avec qui vous voulez."
 
-#: templates/show_upload_form.html:80
+#: templates/show_upload_form.html:82
 msgid "Who can download my file?"
 msgstr "Qui peut télécharger mon fichier ?"
 
-#: templates/show_upload_form.html:81
+#: templates/show_upload_form.html:83
 msgid ""
 "Anyone who know the download link will be able to download your file. So be "
 "careful to not share the download link publicly."
@@ -169,30 +174,30 @@ msgstr ""
 "Toutes les personnes connaissant le lien de téléchargement peuvent récupérer "
 "votre fichier. Faites attention à ne pas partager le lien publiquement."
 
-#: templates/show_upload_form.html:82
+#: templates/show_upload_form.html:84
 msgid "How many days my file will be available?"
 msgstr "Pendant combien de temps mon fichier sera-t-il disponible ?"
 
-#: templates/show_upload_form.html:83
+#: templates/show_upload_form.html:85
 #, python-format
 msgid "Your file will be available for %(m)s days."
 msgstr "Votre fichier sera téléchargeable pendant %(m)s jours."
 
-#: templates/show_upload_form.html:84
+#: templates/show_upload_form.html:86
 msgid "Will you send spam to me or my contacts?"
 msgstr "Allez-vous m'envoyer du spam ?"
 
-#: templates/show_upload_form.html:85
+#: templates/show_upload_form.html:87
 msgid "Definitely, no! We won't send you spam. We hate spam too!"
 msgstr ""
 "Certainement pas ! Nous n'enverrons pas de spam, ni à vous ni à vos "
 "contacts. Nous détestons le spam autant que vous !"
 
-#: templates/show_upload_form.html:114
+#: templates/show_upload_form.html:128
 msgid "B"
 msgstr "o"
 
-#: templates/show_upload_form.html:205
+#: templates/show_upload_form.html:213 templates/show_upload_form.html:229
 msgid "There was an error attempting to upload the file."
 msgstr "Il y a eu une erreur pendant l\\'envoi du fichier."
 
