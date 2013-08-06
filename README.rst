@@ -74,6 +74,10 @@ Flaskup!
   support for the Nginx upload-module (default: `False`)
 - `FLASKUP_NGINX_UPLOAD_MODULE_STORE`: must be set to the `upload_store` of the
   Nginx upload-module (default: `None`)
+- `FLASKUP_UPLOAD_PASSWORDS`: a list of tuples, each tuple contains a password
+  and an identifier (default: [], no password required)
+- `FLASKUP_UPLOAD_PASSWORDS_CHECK`: method to check a submitted password against
+  passwords in `FLASKUP_UPLOAD_PASSWORDS` (default: use cleartext passwords)
 
 Flask
 ~~~~~
@@ -108,6 +112,8 @@ Example configuration file
 
   # -*- coding: utf-8 -*-
 
+  from passlib.hash import bcrypt
+
   DEBUG = True
   SECRET_KEY = '_\x12\xab\x90D\xc4\xfd{\xd9\xe2\xf3-\xa8\xd3\x1d\x1ej\x8b\x13x\x8ce\xc5\xe0'
   FLASKUP_UPLOAD_FOLDER = '/srv/flaskup/data'
@@ -116,7 +122,11 @@ Example configuration file
   DEFAULT_MAIL_SENDER = 'flaskup@example.com'
   FLASKUP_ADMINS = ['admin@example.com', 'admin@example.org']
   FLASKUP_NOTIFY = ['add', 'delete']
-
+  FLASKUP_UPLOAD_PASSWORDS = [
+    ('$2a$12$oIWeziyq4wjF08gntfU4w.AQZfYbbQoK7y13ParN83G7ta.qtN2.e', 'pw1'),
+    ('$2a$12$zQ/hzog/iYr49fbo0mitS.y9f.uHP.7IyqWgk5/S1Ict50HRl4XxW', 'pw2'),
+  ]
+  FLASKUP_UPLOAD_PASSWORDS_CHECK = bcrypt.verify
 
 Run Flaskup!
 ------------
@@ -157,6 +167,54 @@ python script to call actions. Currently the only available action is `clean`.
   export FLASKUP_CONFIG=/path/to/my/flaskup_config.py
   flaskup clean
 
+Password protection
+-------------------
+
+The password protection in Flaskup! is a very simple mechanism to force users
+to submit a valid password when they upload a file.
+
+List of valid passwords
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Valid passwords are stored in a tuple (with a password identifier), those
+tuples are stored as a list in `FLASKUP_UPLOAD_PASSWORDS`. If
+`FLASKUP_UPLOAD_PASSWORDS` is empty, then no valid password are required and
+anybody can upload a file.
+
+::
+
+  FLASKUP_UPLOAD_PASSWORDS = [
+    ('password1', 'identifier for password 1'),
+    ('secretpassword2', 'identifier for password 2'),
+  ]
+
+The password identifier is stored in the `*.data.json` file next to the
+uploaded file. This permits to identify which password was used to upload the
+file.
+
+A password is never required to download files, only to upload them.
+
+Use hashed passwords
+~~~~~~~~~~~~~~~~~~~~
+
+By default, Flaskup! will treat passwords from `FLASKUP_UPLOAD_PASSWORDS` as
+cleartext (not hashed). If you want to put hashed passwords in
+`FLASKUP_UPLOAD_PASSWORDS`, you must define `FLASKUP_UPLOAD_PASSWORDS_CHECK`.
+
+`FLASKUP_UPLOAD_PASSWORDS_CHECK` must be a reference to a method that accepts
+two arguments: the user submitted password and the hashed password (from
+`FLASKUP_UPLOAD_PASSWORDS`), and then returns `True` if passwords match, else
+`False`.
+
+::
+
+  from passlib.hash import bcrypt
+
+  FLASKUP_UPLOAD_PASSWORDS = [
+    ('$2a$12$oIWeziyq4wjF08gntfU4w.AQZfYbbQoK7y13ParN83G7ta.qtN2.e', 'pw1'),
+    ('$2a$12$zQ/hzog/iYr49fbo0mitS.y9f.uHP.7IyqWgk5/S1Ict50HRl4XxW', 'pw2'),
+  ]
+  FLASKUP_UPLOAD_PASSWORDS_CHECK = bcrypt.verify
 
 Nginx Upload Module
 -------------------
@@ -168,6 +226,7 @@ deal with large files: the whole POST is not decoded in Python and the uploaded
 file is moved just one time (with the normal file upload mechanism the file is
 re-sent from Nginx to your WSGI server, and then it is copied to the final
 destination).
+
 
 Configure Flaskup!
 ~~~~~~~~~~~~~~~~~~

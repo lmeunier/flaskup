@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-08-05 14:24+0200\n"
+"POT-Creation-Date: 2013-08-06 14:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
 
-#: views.py:48
+#: views.py:42
+msgid "Incorrect password"
+msgstr ""
+
+#: views.py:71
 msgid "The file is required."
 msgstr ""
 
-#: views.py:143
+#: views.py:167
 msgid "Your file have been deleted."
 msgstr ""
 
@@ -97,48 +101,56 @@ msgstr ""
 msgid "Choose a file on your computer."
 msgstr ""
 
-#: templates/show_upload_form.html:25
+#: templates/show_upload_form.html:26
+msgid "My password"
+msgstr ""
+
+#: templates/show_upload_form.html:29
+msgid "You must provide a known password to upload a file."
+msgstr ""
+
+#: templates/show_upload_form.html:35
 msgid "My email address"
 msgstr ""
 
-#: templates/show_upload_form.html:28
+#: templates/show_upload_form.html:38
 msgid "Send an email with a link to download the file."
 msgstr ""
 
-#: templates/show_upload_form.html:34
+#: templates/show_upload_form.html:44
 msgid "My contacts"
 msgstr ""
 
-#: templates/show_upload_form.html:34
+#: templates/show_upload_form.html:44
 #, python-format
 msgid "(%(max)i max.)"
 msgstr ""
 
-#: templates/show_upload_form.html:37
+#: templates/show_upload_form.html:47
 msgid "Send the download link to my contacts. (one email address per line)"
 msgstr ""
 
-#: templates/show_upload_form.html:45
+#: templates/show_upload_form.html:55
 msgid "Send!"
 msgstr ""
 
-#: templates/show_upload_form.html:49
+#: templates/show_upload_form.html:59
 msgid "Uploading..."
 msgstr ""
 
-#: templates/show_upload_form.html:52
+#: templates/show_upload_form.html:62
 msgid "Your file is uploading, please wait."
 msgstr ""
 
-#: templates/show_upload_form.html:64
+#: templates/show_upload_form.html:74
 msgid "Cancel"
 msgstr ""
 
-#: templates/show_upload_form.html:80
+#: templates/show_upload_form.html:90
 msgid "How does it work?"
 msgstr ""
 
-#: templates/show_upload_form.html:81
+#: templates/show_upload_form.html:91
 #, python-format
 msgid ""
 "You simply choose a file on your computer an it will by uploaded to "
@@ -146,38 +158,38 @@ msgid ""
 "share this link with whoever you want."
 msgstr ""
 
-#: templates/show_upload_form.html:82
+#: templates/show_upload_form.html:92
 msgid "Who can download my file?"
 msgstr ""
 
-#: templates/show_upload_form.html:83
+#: templates/show_upload_form.html:93
 msgid ""
 "Anyone who know the download link will be able to download your file. So "
 "be careful to not share the download link publicly."
 msgstr ""
 
-#: templates/show_upload_form.html:84
+#: templates/show_upload_form.html:94
 msgid "How many days my file will be available?"
 msgstr ""
 
-#: templates/show_upload_form.html:85
+#: templates/show_upload_form.html:95
 #, python-format
 msgid "Your file will be available for %(m)s days."
 msgstr ""
 
-#: templates/show_upload_form.html:86
+#: templates/show_upload_form.html:96
 msgid "Will you send spam to me or my contacts?"
 msgstr ""
 
-#: templates/show_upload_form.html:87
+#: templates/show_upload_form.html:97
 msgid "Definitely, no! We won't send you spam. We hate spam too!"
 msgstr ""
 
-#: templates/show_upload_form.html:128
+#: templates/show_upload_form.html:138
 msgid "B"
 msgstr ""
 
-#: templates/show_upload_form.html:213 templates/show_upload_form.html:229
+#: templates/show_upload_form.html:223 templates/show_upload_form.html:239
 msgid "There was an error attempting to upload the file."
 msgstr ""
 
