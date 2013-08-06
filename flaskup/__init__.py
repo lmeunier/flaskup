@@ -23,7 +23,7 @@ FLASKUP_UPLOAD_PASSWORDS_CHECK = lambda a, b: a == b
 
 # Flask
 DEBUG = False
-SECRET_KEY = 'change_asap'
+SECRET_KEY = None
 
 # Babel
 BABEL_DEFAULT_LOCALE = 'en'
@@ -40,6 +40,8 @@ app.config.from_object(__name__)
 app.config.from_envvar('FLASKUP_CONFIG')
 
 
+assert app.config['SECRET_KEY'] is not None, \
+    "You must define SECRET_KEY"
 assert app.config['FLASKUP_MAX_DAYS'] > 0
 assert app.config['FLASKUP_KEY_LENGTH'] >= 1 \
     and app.config['FLASKUP_KEY_LENGTH'] <= 32
