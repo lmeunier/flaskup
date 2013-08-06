@@ -1,4 +1,11 @@
-Flaskup! 0.2 (XXXX-XX-XX)
+Flaskup! 0.3 (2013-08-06)
+-------------------------
+
+* Add a configurable limit for contacts number
+* Add password protecttion for uploads
+* Add german translation
+
+Flaskup! 0.2 (2013-06-12)
 -------------------------
 * Only display the modal window if the upload starts
 * Errors are displayed in a specific div
