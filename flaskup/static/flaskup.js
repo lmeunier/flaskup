@@ -1,3 +1,16 @@
+function readable_size(size) {
+    if(size === undefined) {
+        return;
+    }
+    var units = ['', 'Ki', 'Mi', 'Gi', 'Ti', 'Pi', 'Ei', 'Zi', 'Yi'];
+    var i = 0;
+    while(size >= 1024) {
+        size /= 1024;
+        ++i;
+    }
+    return size.toFixed(1) + ' ' + units[i] + 'B'; // TODO
+}
+
 var ErrorMessage = Backbone.Model.extend({
     initialize: function() {
         this.set({message: undefined});
