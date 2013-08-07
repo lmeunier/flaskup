@@ -1,6 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div id="flaskup-app">
+
+<div class="alert alert-important" id="crappy-browser-warning">
+  <strong>{{ _('Did you know that your browser lacks support for some basic functionalities?') }}</strong>
+  {{ _('To get the best possible experience using %(t)s we recommand that you use an alternate browser (like Firefox or Chrome).', t=config['FLASKUP_TITLE']) }}
+</div>
+
 <form action="{{ url_for('upload_file') }}"
       method="post"
       enctype="multipart/form-data"
@@ -16,8 +23,10 @@
 <div class="control-group">
   <label class="control-label" for="myfile">{{ _('My file') }}</label>
   <div class="controls">
-   <input type="file" class="input-file" id="myfile" name="myfile">
-  <p class="help-block">{{ _('Choose a file on your computer.') }}</p>
+    <div id="myfile-view">
+      <input type="file" class="input-file" id="myfile" name="myfile">
+      <p class="help-block">{{ _('Choose a file on your computer.') }}</p>
+    </div>
   </div>
 </div>
 
@@ -80,8 +89,8 @@
  </fieldset>
 </form>
 
+</div>
 {% endblock %}
-
 
 
 {% block sidebar %}
@@ -100,10 +109,34 @@
 {% endblock %}
 
 
-
 {% block javascript %}
 <script type="text/javascript" src="{{ url_for('static', filename='jquery-1.7.2.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='underscore-min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='backbone-min.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='bootstrap-modal.js') }}"></script>
+
+<script type="text/template" id="myfile-template">
+  <% if(myfile == null) { %>
+    <div id="myfile-drop" class="well">
+        <p><img src="{{ url_for('static', filename='drop-file.png') }}" style="vertical-align: middle;">
+        <big><strong>{{ _('Drop file to upload') }}</strong></big></p>
+        <p><mall>{{ _('(or click)') }}</mall></p>
+    </div>
+    <input type="file" class="input-file" id="myfile" name="myfile" style="display: none";>
+  <% } else { %>
+    <div id="myfile-info">
+      <button type="button" id="myfile-trash" class="btn pull-right"><i class="icon-trash"></i></button>
+      <h3><%= myfile.name %></h3>
+      <dl class="dl-horizontal">
+        <dt>{{ _('Size') }}</dt>
+        <dd><%= readable_size(myfile.size) %></dd>
+        <dt>{{ _('Type') }}</dt>
+        <dd><%= myfile.type %></dd>
+      </dl>
+    </div>
+  <% } %>
+</script>
+
 <script type="text/javascript">
   var upload_percent_text,
       upload_info_text,
@@ -115,6 +148,9 @@
   var upload_last_datetime,
       upload_last_size,
       upload_speed;
+
+  // Backbone application
+  var App;
 
   function display_error(msg) {
     var error_div = document.getElementById('error-message');
@@ -176,6 +212,9 @@
     var xhr = new XMLHttpRequest();
     var form = document.getElementById('form-upload');
     var fd = new FormData(form);
+
+    // add 'myfile'
+    fd.append('myfile', App.myfileview.myfile);
 
     // event listners
     xhr.upload.addEventListener("loadstart", upload_loadstart, false);
@@ -248,13 +287,14 @@
   }
 
   // code executed when the page is fully loaded
-  window.onload = function() {
-    // first thing, check browser capabilities
-    try {
-      var fd = new FormData();
-    } catch(e) {
+  $(function() {
+    // check browser capabilities
+    if(window.FormData === undefined || window.FileReader === undefined) {
       return;
     }
+
+    // hide browser warning
+    document.getElementById('crappy-browser-warning').style.display = 'none';
 
     // get some refs to various HTML elements
     upload_percent_text = document.getElementById('upload_percent');
@@ -269,6 +309,10 @@
 
     // bind cancel button to abort the XHR
     btn_cancel.setAttribute('onclick', 'progress.xhr.abort()');
-  };
+
+    // initialize Backbone app
+    App = new FlaskupView;
+  });
 </script>
+<script type="text/javascript" src="{{ url_for('static', filename='flaskup.js') }}"></script>
 {% endblock %}

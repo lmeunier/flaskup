@@ -17,3 +17,15 @@
 ul.alert li {
   margin-left: 10px;
 }
+#myfile-view {
+    min-height: 100px;
+}
+#myfile-drop {
+    text-align: center;
+}
+#myfile-drop:hover {
+    cursor: pointer;
+}
+#myfile-drop.dragover {
+    opacity: 0.3;
+}
