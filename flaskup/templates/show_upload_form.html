@@ -18,7 +18,11 @@
   {{ _('Easily share files') }}
  </legend>
 
-<div class="alert alert-error" id="error-message" style="{% if not error %}display: none;{% endif %}">{{ error }}</div>
+{% if error %}
+  <div class="alert alert-error">{{ error }}</div>
+{% endif %}
+
+<div id="error-message"></div>
 
 <div class="control-group">
   <label class="control-label" for="myfile">{{ _('My file') }}</label>
@@ -70,13 +74,6 @@
   <div class="modal-body">
    <h4>{{ _('Your file is uploading, please wait.') }}</h4>
    <div id="js-progress">
-    <div class="progress progress-striped active">
-     <div id="bar" class="bar" style="width: 0%;"></div>
-    </div>
-    <p>
-     <img src="{{ url_for('static', filename='uploading.gif') }}">
-     <span id="upload_percent">0%</span> — <span id="upload_info"></span>
-    </p>
    </div>
   </div>
   <div class="modal-footer">
@@ -116,7 +113,7 @@
 <script type="text/javascript" src="{{ url_for('static', filename='bootstrap-modal.js') }}"></script>
 
 <script type="text/template" id="myfile-template">
-  <% if(myfile == null) { %>
+  <% if(myfile == undefined) { %>
     <div id="myfile-drop" class="well">
         <p><img src="{{ url_for('static', filename='drop-file.png') }}" style="vertical-align: middle;">
         <big><strong>{{ _('Drop file to upload') }}</strong></big></p>
@@ -137,34 +134,33 @@
   <% } %>
 </script>
 
+<script type="text/template" id="progress-template">
+  <div class="progress progress-striped active">
+    <div id="bar" class="bar" style="width: <%= progress.percent() %>%;"></div>
+  </div>
+  <p>
+    <img src="{{ url_for('static', filename='uploading.gif') }}">
+    <span id="upload_percent"><%= progress.percent().toFixed(1) %>%</span>
+    <% if(progress.percent() != 100) { %>
+      — <span id="upload_info"><%= readable_size(progress.get('last_size')) %> / <%= readable_size(progress.get('total')) %> @ <%= readable_size(progress.get('speed')) %></span>
+    <% } %>
+  </p>
+</script>
+
+<script type="text/template" id="error-message-template">
+  <% if(message != undefined && message != '') { %>
+    <div class="alert alert-error">Error: <%= message %></div>
+  <% } %>
+</script>
+
 <script type="text/javascript">
-  var upload_percent_text,
-      upload_info_text,
-      progress,
-      btn_submit,
-      btn_cancel;
-
-  // variables used to compute upload_speed
-  var upload_last_datetime,
-      upload_last_size,
-      upload_speed;
-
   // Backbone application
   var App;
 
-  function display_error(msg) {
-    var error_div = document.getElementById('error-message');
-
-    if(msg == undefined || msg == '') {
-      error_div.innerHTML = '';
-      error_div.style.display = 'none';
-    } else {
-      error_div.innerHTML = msg;
-      error_div.style.display = 'block';
-    }
-  }
-
   function readable_size(size) {
+    if(size === undefined) {
+      return;
+    }
     var units = ['', 'Ki', 'Mi', 'Gi', 'Ti', 'Pi', 'Ei', 'Zi', 'Yi'];
     var i = 0;
     while(size >= 1024) {
@@ -174,141 +170,12 @@
     return size.toFixed(1) + ' ' + units[i] + '{{ _('B') }}';
   }
 
-  function update_progress_dialog(evt) {
-    // compute the upload speed, only once a second
-    var current_datetime = new Date();
-    if(current_datetime - upload_last_datetime > 1000) {
-      // compute differences between current and last values
-      var diff_datetime = (current_datetime - upload_last_datetime) / 1000;
-      var diff_size = evt.loaded - upload_last_size;
-      upload_speed = diff_size / diff_datetime;
-      // store current values
-      upload_last_datetime = current_datetime;
-      upload_last_size = evt.loaded;
-    }
-
-    // update progress bar (width)
-    var percent = evt.loaded * 100 / evt.total;
-    var bar = document.getElementById('bar');
-    bar.setAttribute('style', 'width: ' + percent + '%;');
-
-    // display informations about the current upload
-    if(percent == 100) {
-      upload_percent_text.innerHTML = '100%';
-      upload_info_text.innerHTML = readable_size(evt.loaded) + ' / '
-        + readable_size(evt.total);
-    } else {
-      upload_percent_text.innerHTML = percent.toFixed(1) + '%';
-      upload_info_text.innerHTML = readable_size(evt.loaded) + ' / '
-        + readable_size(evt.total) + ' @ ' + readable_size(upload_speed) + '/s';
-    }
-  }
-
-  function upload_file() {
-    // hide error messages
-    display_error();
-
-    // prepare XHR
-    var xhr = new XMLHttpRequest();
-    var form = document.getElementById('form-upload');
-    var fd = new FormData(form);
-
-    // add 'myfile'
-    fd.append('myfile', App.myfileview.myfile);
-
-    // event listners
-    xhr.upload.addEventListener("loadstart", upload_loadstart, false);
-    xhr.upload.addEventListener("progress", upload_progress, false);
-    xhr.addEventListener("load", upload_complete, false);
-    xhr.addEventListener("error", upload_failed, false);
-    xhr.addEventListener("abort", upload_canceled, false);
-
-    // POST form
-    xhr.open("POST", "{{ url_for('upload_file') }}");
-    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-    xhr.send(fd);
-
-    // store our xhr, so we can abort it
-    progress.xhr = xhr;
-  }
-
-  function upload_loadstart(evt) {
-    // upload begins, initialize some variables
-    upload_last_datetime = new Date();
-    upload_last_size = 0;
-    upload_speed = 0;
-  }
-
-  function upload_progress(evt) {
-    // display modal
-    $('#upload_modal').modal();
-
-    if (evt.lengthComputable) {
-      // update the view
-      update_progress_dialog(evt);
-    }
-  }
-
-  function upload_complete(evt) {
-    // upload is done (100%)
-    update_progress_dialog(evt);
-
-    // parse response from the server
-    var response;
-    try {
-      response = JSON.parse(evt.target.responseText);
-    } catch(e) {
-      response = {
-        message: '{{ _('There was an error attempting to upload the file.') }}',
-      };
-    }
-
-    // something goes wrong, display the error message
-    if(evt.target.status != 200) {
-      $('#upload_modal').modal('hide');
-      display_error(response.message);
-      return;
-    }
-
-    // follow the link returned by the server
-    document.location.href = response.url;
-  }
-
-  function upload_failed(evt) {
-    display_error('{{ _('There was an error attempting to upload the file.') }}');
-  }
-
-  function upload_canceled(evt) {
-    // reset progress bar
-    var bar = document.getElementById('bar');
-    bar.setAttribute('style', 'width: 0%;');
-    // hide modal
-    $('#upload_modal').modal('hide');
-  }
-
   // code executed when the page is fully loaded
   $(function() {
     // check browser capabilities
     if(window.FormData === undefined || window.FileReader === undefined) {
       return;
     }
-
-    // hide browser warning
-    document.getElementById('crappy-browser-warning').style.display = 'none';
-
-    // get some refs to various HTML elements
-    upload_percent_text = document.getElementById('upload_percent');
-    upload_info_text = document.getElementById('upload_info');
-    progress = document.getElementById('js-progress');
-    btn_submit = document.getElementById('btn-submit');
-    btn_cancel = document.getElementById('btn-cancel');
-
-    // bind submit button to our custom uploader
-    btn_submit.setAttribute('onclick', 'upload_file()');
-    btn_submit.setAttribute('form', null);
-
-    // bind cancel button to abort the XHR
-    btn_cancel.setAttribute('onclick', 'progress.xhr.abort()');
 
     // initialize Backbone app
     App = new FlaskupView;
