@@ -165,7 +165,9 @@
     }
 
     // initialize Backbone app
-    App = new FlaskupView;
+    App = new FlaskupView({
+      post_url: '{{ url_for('upload_file') }}',
+    });
   });
 </script>
 <script type="text/javascript" src="{{ url_for('static', filename='flaskup.js') }}"></script>

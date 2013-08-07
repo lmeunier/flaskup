@@ -197,7 +197,7 @@ var FlaskupView = Backbone.View.extend({
 
         // create XHR
         this.xhr = new XMLHttpRequest();
-        this.xhr.open('POST', '/upload');  // TODO
+        this.xhr.open('POST', this.options.post_url);
         this.xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
         // create references to various Backbone.Model instances
