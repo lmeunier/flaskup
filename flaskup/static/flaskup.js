@@ -8,7 +8,7 @@ function readable_size(size) {
         size /= 1024;
         ++i;
     }
-    return size.toFixed(1) + ' ' + units[i] + 'B'; // TODO
+    return size.toFixed(1) + ' ' + units[i] + window.i18n.gettext('B');
 }
 
 var ErrorMessage = Backbone.Model.extend({
@@ -226,7 +226,7 @@ var FlaskupView = Backbone.View.extend({
                 response = JSON.parse(evt.target.responseText);
             } catch(e) {
                 response = {
-                    message: 'There was an error attempting to upload the file.', // TODO
+                    message: window.i18n.gettext('There was an error attempting to upload the file.'),
                 };
             }
 
@@ -246,7 +246,9 @@ var FlaskupView = Backbone.View.extend({
             progress.reset();
             $('#upload_modal').modal('hide');
 
-            errormessage.set({message: 'There was an error attempting to upload the file.'}); // TODO
+            errormessage.set({
+                message: window.i18n.gettext('There was an error attempting to upload the file.')
+            });
         }, false);
 
         // Event: upload canceled

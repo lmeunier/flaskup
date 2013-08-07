@@ -152,6 +152,7 @@
 <script type="text/javascript" src="{{ url_for('static', filename='underscore-min.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='backbone-min.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='bootstrap-modal.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='jed.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='flaskup.js') }}"></script>
 <script type="text/javascript">
   $(function() {
@@ -159,6 +160,28 @@
     if(window.FormData === undefined || window.FileReader === undefined) {
       return;
     }
+
+    // initialize i18n
+    $.ajax({
+      url: "{{ url_for('static', filename='translations/'+babel_get_local()+'.json') }}",
+      success: function(data, msg, xhr) {
+        xhr.data = data;
+      },
+      error: function(xhr) {
+        xhr.data = {
+          '': {},
+        };
+      },
+      complete: function(xhr) {
+        window.i18n = new Jed({
+          locale_data: {
+            messages: xhr.data,
+          },
+          domain: "messages",
+        });
+      },
+      async: false,
+    });
 
     // initialize Backbone app
     var App = new FlaskupView({
