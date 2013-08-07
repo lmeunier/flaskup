@@ -2,3 +2,4 @@
 dist/
 build/
 flaskup.egg-info/
+flaskup/translations/*/LC_MESSAGES/*.mo
