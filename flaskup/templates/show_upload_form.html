@@ -107,11 +107,6 @@
 
 
 {% block javascript %}
-<script type="text/javascript" src="{{ url_for('static', filename='jquery-1.7.2.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='underscore-min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='backbone-min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='bootstrap-modal.js') }}"></script>
-
 <script type="text/template" id="myfile-template">
   <% if(myfile == undefined) { %>
     <div id="myfile-drop" class="well">
@@ -153,11 +148,12 @@
   <% } %>
 </script>
 
+<script type="text/javascript" src="{{ url_for('static', filename='jquery-1.7.2.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='underscore-min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='backbone-min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='bootstrap-modal.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='flaskup.js') }}"></script>
 <script type="text/javascript">
-  // Backbone application
-  var App;
-
-  // code executed when the page is fully loaded
   $(function() {
     // check browser capabilities
     if(window.FormData === undefined || window.FileReader === undefined) {
@@ -165,10 +161,9 @@
     }
 
     // initialize Backbone app
-    App = new FlaskupView({
+    var App = new FlaskupView({
       post_url: '{{ url_for('upload_file') }}',
     });
   });
 </script>
-<script type="text/javascript" src="{{ url_for('static', filename='flaskup.js') }}"></script>
 {% endblock %}
