@@ -1,7 +1,6 @@
 import os
 import re
 import codecs
-import pojson
 from setuptools import setup
 from distutils import cmd
 from distutils.errors import DistutilsOptionError
@@ -44,6 +43,7 @@ class compile_pojson(cmd.Command):
             raise DistutilsOptionError('you must specify the output dir')
 
     def run(self):
+        import pojson
         for locale in os.listdir(self.input_dir):
             po_file = os.path.join(self.input_dir, locale, 'LC_MESSAGES',
                                    'messages.po')
