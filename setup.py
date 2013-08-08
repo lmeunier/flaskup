@@ -6,7 +6,7 @@ from distutils import cmd
 from distutils.errors import DistutilsOptionError
 from babel.messages import frontend as babel
 
-version = '0.3'
+version = '0.3.1'
 
 
 def parse_requirements(file_name):
