@@ -56,6 +56,35 @@ class compile_pojson(cmd.Command):
                     out_file.write(json_data)
 
 
+class compile_assets(cmd.Command):
+    desciption = 'Compile assets (pack and minify jss and css files)'
+    user_options = []
+
+    def initialize_options(self):
+        pass
+
+    def finalize_options(self):
+        pass
+
+    def run(self):
+        import logging
+        from webassets.script import CommandLineEnvironment
+        from webassets.loaders import YAMLLoader
+
+        loader = YAMLLoader(
+            os.path.join(os.path.dirname(__file__), 'flaskup', 'assets.yaml')
+        )
+        assets = loader.load_environment()
+
+        log = logging.getLogger('webassets')
+        log.addHandler(logging.StreamHandler())
+        log.setLevel(logging.DEBUG)
+
+        cmdenv = CommandLineEnvironment(assets, log)
+        cmdenv.clean()
+        cmdenv.build()
+
+
 setup(
     name='flaskup',
     version=version,
@@ -82,6 +111,7 @@ setup(
         'update_catalog': babel.update_catalog,
         'compile_catalog': babel.compile_catalog,
         'compile_pojson': compile_pojson,
+        'compile_assets': compile_assets,
     },
     classifiers=[
         'License :: OSI Approved :: BSD License',

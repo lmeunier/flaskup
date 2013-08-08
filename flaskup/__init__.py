@@ -4,6 +4,8 @@ import os
 
 from flask import Flask
 from flaskext.babel import Babel
+from flask.ext.assets import Environment
+from webassets.loaders import YAMLLoader
 from flask_mail import Mail
 
 
@@ -64,6 +66,17 @@ babel = Babel(app)
 
 # Mail
 mail = Mail(app)
+
+# Flask-Assets
+assets_config = YAMLLoader(
+    os.path.join(os.path.dirname(__file__), 'assets.yaml')
+).load_environment()
+assets = Environment(app)
+assets.auto_build = not app.config['ASSETS_DEBUG']
+assets.url_expire = assets_config.url_expire
+assets.cache = assets_config.cache
+assets.manifest = assets_config.manifest
+assets.register(assets_config._named_bundles)
 
 # Load dependencies
 import flaskup.views

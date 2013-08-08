@@ -1,0 +1,25 @@
+directory: static
+url_expire: True
+cache: False
+config:
+    manifest: 'json:cache/manifest.json'
+
+bundles:
+    all_js:
+        filters: jsmin
+        output: cache/all_js.js
+        contents:
+            - jquery-1.7.2.min.js
+            - underscore-min.js
+            - backbone-min.js
+            - bootstrap-modal.js
+            - jed.js
+            - flaskup.js
+
+    all_css:
+        filters: cssmin
+        output: cache/all_css.css
+        contents:
+            - bootstrap/css/bootstrap.css
+            - bootstrap/css/bootstrap-responsive.css
+            - style.css

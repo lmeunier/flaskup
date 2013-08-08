@@ -4,9 +4,9 @@
  <meta charset="utf-8">
  <title>{% block title %}{{ config['FLASKUP_TITLE'] }}{% endblock %}</title>
  <meta name="description" content="flaskup">
- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/css/bootstrap.css') }}">
- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/css/bootstrap-responsive.css') }}">
- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+  {% assets 'all_css' %}
+    <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
+  {% endassets %}
 </head>
 <body>
 
@@ -17,7 +17,6 @@
     </div>
   </div>
 </div>
-
 
 {% block container %}
 <div class="container">

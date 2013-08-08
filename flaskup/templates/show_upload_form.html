@@ -148,12 +148,9 @@
   <% } %>
 </script>
 
-<script type="text/javascript" src="{{ url_for('static', filename='jquery-1.7.2.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='underscore-min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='backbone-min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='bootstrap-modal.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='jed.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='flaskup.js') }}"></script>
+{% assets 'all_js' %}
+  <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+{% endassets %}
 <script type="text/javascript">
   $(function() {
     // check browser capabilities
