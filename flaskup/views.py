@@ -93,7 +93,7 @@ def upload_file():
 
     # notify contacts
     max_contacts = app.config['FLASKUP_MAX_CONTACTS']
-    if 'mycontacts' in request.form and myemail:
+    if 'mycontacts' in request.form:
         mycontacts = request.form['mycontacts']
         all_contacts = [c.strip() for c in mycontacts.splitlines()]
         for contact in all_contacts[:max_contacts]:

@@ -1,8 +1,10 @@
 {{ _('Hi,') }}
 
-{{ _('%(s)s wants to share the file "%(f)s" with you.',
-      s=sender,
-      f=f.filename) }}
+{% if sender -%}
+{{ _('%(s)s wants to share the file "%(f)s" with you.', s=sender, f=f.filename) }}
+{% else -%}
+{{ _('Someone wants to share the file "%(f)s" with you.', f=f.filename) }}
+{%- endif %}
 
 {{ _('The file is downloadable at the following address:') }}
 {{ url_for('show_get_file', key=f.key, _external=True) }}
