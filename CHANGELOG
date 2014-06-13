@@ -1,3 +1,15 @@
+Flaskup! 0.3.2 (2014-06-13)
+---------------------------
+
+* Upgrade requirements to the latest versions:
+  * Flask 0.10.1
+  * Flask-Babel 0.9
+  * Flask-Mail 0.9.0 (warning: the option `DEFAULT_MAIL_SENDER` has been renamed to `MAIL_DEFAULT_SENDER`, please update your configuration)
+  * simplejson 3.5.2
+* Compile .po file when building the package
+* Fix: Send notifications emails to contacts even if 'My Email' is empty (#3)
+* Fix: Checks that `SECRET_KEY` is set
+
 Flaskup! 0.3.1 (2013-08-07)
 ---------------------------
 
