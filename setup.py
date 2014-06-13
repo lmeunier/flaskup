@@ -1,5 +1,6 @@
 import re
 from setuptools import setup
+from babel.messages import frontend as babel
 
 version = '0.3.1'
 
@@ -17,6 +18,7 @@ def parse_requirements(file_name):
             requirements.append(line)
 
     return requirements
+
 
 setup(
     name='flaskup',
@@ -36,6 +38,12 @@ setup(
         'console_scripts': [
             'flaskup = flaskup.console:main',
         ],
+    },
+    cmdclass={
+        'extract_messages': babel.extract_messages,
+        'init_catalog': babel.init_catalog,
+        'update_catalog': babel.update_catalog,
+        'compile_catalog': babel.compile_catalog,
     },
     classifiers=[
         'License :: OSI Approved :: BSD License',
