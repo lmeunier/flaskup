@@ -3,8 +3,8 @@
 import os
 
 from flask import Flask
-from flaskext.babel import Babel
-from flask_mail import Mail
+from flask.ext.babel import Babel
+from flask.ext.mail import Mail
 
 
 # Flaskup!

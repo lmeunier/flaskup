@@ -3,7 +3,7 @@
 import os
 from flask import render_template, url_for, redirect, request, abort, flash
 from flask import send_file, make_response, jsonify
-from flaskext.babel import gettext as _
+from flask.ext.babel import gettext as _
 from flaskup import app
 from flaskup.utils import send_mail
 from flaskup.models import SharedFile, NginxUploadFile

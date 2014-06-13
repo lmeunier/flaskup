@@ -97,13 +97,12 @@ use a cryptographic random generator:
 I18N (Flask-Babel)
 ~~~~~~~~~~~~~~~~~~
 
-http://packages.python.org/Flask-Babel/#configuration
+https://pythonhosted.org/Flask-Babel/#configuration
 
 Mail notification (Flask-Mail)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-http://packages.python.org/flask-mail/#configuring-flask-mail
-
+https://pythonhosted.org/Flask-Mail/#configuring-flask-mail
 
 Example configuration file
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -119,7 +118,7 @@ Example configuration file
   FLASKUP_UPLOAD_FOLDER = '/srv/flaskup/data'
   FLASKUP_MAX_DAYS = 10
   FLASKUP_KEY_LENGTH = 4
-  DEFAULT_MAIL_SENDER = 'flaskup@example.com'
+  MAIL_DEFAULT_SENDER = 'flaskup@example.com'
   FLASKUP_ADMINS = ['admin@example.com', 'admin@example.org']
   FLASKUP_NOTIFY = ['add', 'delete']
   FLASKUP_UPLOAD_PASSWORDS = [
