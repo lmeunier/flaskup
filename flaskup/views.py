@@ -16,7 +16,10 @@ def show_upload_form():
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
-    remote_ip = request.environ.get('REMOTE_ADDR', None)
+    if request.headers.getlist("X-Forwarded-For"):
+        remote_ip = request.headers.getlist("X-Forwarded-For")[0]
+    else:
+        remote_ip = request.environ.get('REMOTE_ADDR', None)
     upload_file = None
 
     password_identifier = None
