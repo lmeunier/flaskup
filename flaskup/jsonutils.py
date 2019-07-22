@@ -27,7 +27,7 @@ def date_decoder(d):
         pairs = d.items()
     result = []
     for k, v in pairs:
-        if isinstance(v, basestring):
+        if isinstance(v, (str, bytes)):
             try:
                 v = datetime.strptime(v, '%Y-%m-%d').date()
             except ValueError:
