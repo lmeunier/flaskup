@@ -3,7 +3,7 @@ import uuid
 import simplejson
 import shutil
 from datetime import date, timedelta
-from werkzeug import secure_filename
+from werkzeug.utils import secure_filename
 from flask import abort, render_template
 from flaskup import app
 from flaskup.utils import send_mail
