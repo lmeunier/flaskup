@@ -1,4 +1,4 @@
-Flask==1.1.1
+Flask==2.3.2
 Flask-Babel==0.12.2
 Flask-Mail==0.9.1
 simplejson==3.16.0
